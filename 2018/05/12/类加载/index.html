@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="类加载概述类加载时机  第一次使用某个类时加载 预加载机制来加载  JVM与程序：用Java命令运行某个Java程序时，这个命令会启动一个Java虚拟机进程，这个进程中可能会有很多的线程，但这些线程都处于该Java虚拟机进程中。 JVM进程可能被终止的情况：  程序正常结束 程序运行到使用System.exit()或Runtime.getRuntime().exit()代码处结 程序运行中有未处理">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="类加载">
+<meta property="og:url" content="http://hasson.top/2018/05/12/类加载/index.html">
+<meta property="og:site_name" content="Mr.Hassan">
+<meta property="og:description" content="类加载概述类加载时机  第一次使用某个类时加载 预加载机制来加载  JVM与程序：用Java命令运行某个Java程序时，这个命令会启动一个Java虚拟机进程，这个进程中可能会有很多的线程，但这些线程都处于该Java虚拟机进程中。 JVM进程可能被终止的情况：  程序正常结束 程序运行到使用System.exit()或Runtime.getRuntime().exit()代码处结 程序运行中有未处理">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-19T13:31:36.552Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="类加载">
+<meta name="twitter:description" content="类加载概述类加载时机  第一次使用某个类时加载 预加载机制来加载  JVM与程序：用Java命令运行某个Java程序时，这个命令会启动一个Java虚拟机进程，这个进程中可能会有很多的线程，但这些线程都处于该Java虚拟机进程中。 JVM进程可能被终止的情况：  程序正常结束 程序运行到使用System.exit()或Runtime.getRuntime().exit()代码处结 程序运行中有未处理">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://hasson.top/2018/05/12/类加载/">
+
+
+
+
+
+  <title>类加载 | Mr.Hassan</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr.Hassan</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://hasson.top/2018/05/12/类加载/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hasson">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.Hassan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">类加载</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-12T16:13:21+08:00">
+                2018-05-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="类加载"><a href="#类加载" class="headerlink" title="类加载"></a>类加载</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>类加载时机</p>
+<ul>
+<li>第一次使用某个类时加载</li>
+<li>预加载机制来加载</li>
+</ul>
+<p><strong>JVM与程序：</strong>用Java命令运行某个Java程序时，这个命令会启动一个Java虚拟机进程，这个进程中可能会有很多的线程，但这些线程都处于该Java虚拟机进程中。</p>
+<p>JVM进程可能被终止的情况：</p>
+<ul>
+<li>程序正常结束</li>
+<li>程序运行到使用<strong>System.exit</strong>()<strong>或</strong>Runtime.getRuntime<strong>().exit()</strong>代码处结</li>
+<li>程序运行中有未处理的异常或错误</li>
+<li>程序所在平台强行结束<strong>JVM</strong>进程</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public class Demo &#123;</span><br><span class="line">    public static int a = 10;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class Test1 &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Demo.a ++;</span><br><span class="line">        System.out.println(Demo.a); //结果？ 11</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class Test2 &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        System.out.println(Demo.a); //结果？ 10</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>启动运行是两个JVM进程</p>
+<p>程序使用要使用某个类时，如果该类还没有被加载到内存中，则系统会通过下面3个步骤（JVM连续完成）完成类加载或类初始化:</p>
+<ol>
+<li>加载</li>
+<li>连接</li>
+<li>初始化</li>
+</ol>
+<h2 id="类的加载"><a href="#类的加载" class="headerlink" title="类的加载"></a>类的加载</h2><p><strong>类加载：</strong>就是把类的class文件读入内存，同时为这个class创建一个java.lang.Class对象（普通类的类）</p>
+<p>类：是某一类对象的抽象(概念)，其实类也是一种对象,如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class.forName(driver);</span><br></pre></td></tr></table></figure>
+
+<p>类其实都是java.lang.Class的实例，类的加载由JVM提供的类加载器完成，该加载器通常称为系统类加载器，我们可以通过<strong>继承ClassLoader基类</strong>来创建自己的类加载器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public class MyClassLoader extends ClassLoader&#123;</span><br><span class="line">  …….//自定义类加载逻辑  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>类加载就是把.class文件读入内存</p>
+<p>加载类的二进制数据的来源:</p>
+<ul>
+<li>本地文件系统加载<strong>class</strong>文件</li>
+<li>从<strong>JAR</strong>包加载<strong>class</strong>文件，如<strong>JDBC</strong>中的驱动就是放在<strong>JAR</strong>文件中的</li>
+<li>通过网络加载<strong>class</strong>文件</li>
+<li>把一个<strong>Java</strong>源文件动态编译，并加载</li>
+</ul>
+<h3 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h3><p>加载器负责将.class文件加载到内存，并为之生成对应的java.lang.Class对象</p>
+<ul>
+<li><p>如果一个类被载入JVM中，同一个类就不会被再次载入了。</p>
+</li>
+<li><p>JVM启动时，会形成由3个类加载器形成的初始类加载器层次结构:</p>
+<ul>
+<li>Bootstap ClassLoader<strong>:</strong>根类加载器<strong>,</strong>负责加载<strong>Java</strong>核心类<strong>,</strong>它很特殊，它不是<strong>java.lang.ClassLoader</strong>的子类，而是由<strong>JVM</strong>自身实现的。</li>
+<li>Extension ClassLoader<strong>:</strong>扩展类加载器<strong>,</strong>负责加载<strong>JRE</strong>的扩展目录<strong>(%JAVA_HOME%/</strong>jre<strong>/lib/</strong>ext或者由java.ext.dirs<strong>系统属性指定的目录</strong>)<strong>中</strong>JAR包的类</li>
+<li>System ClassLoader:<strong>系统类加载器</strong>,<strong>负责在</strong>JVM<strong>启动时加载来自</strong>java<strong>命令的</strong>-<strong>classpath</strong>选项</li>
+</ul>
+</li>
+</ul>
+<h2 id="类的连接"><a href="#类的连接" class="headerlink" title="类的连接"></a>类的连接</h2><p>类加载–&gt;生成对应的Class对象–&gt;连接(主要负责把加载过来的二进制文件合并到JRE)</p>
+<p>连接又分3阶段:</p>
+<ol>
+<li>验证<strong>:</strong>检查加载过来的类是否有正确的结构</li>
+<li>准备<strong>:</strong>为类的静态<strong>Field</strong>分配内存，并设置默认初始值</li>
+<li>解析<strong>:</strong>把类的二进制数据中的符号引用替换成直接引用</li>
+</ol>
+<p><strong>符号引用:</strong>以一组符号来描述所引用的目标, 符号可以是任何形式的字面量, 只要使用时能够无歧义的定位到目标即可. 例如, 在Java中, 一个Java类将会编译成一个class文件. 在编译时, Java类并不知道所引用的类的实际地址, 因此只能使用符号引用来代替. 比如org.simple.People类引用了org.simple.Language类, 在编译时People类并不知道Language类的实际内存地址, 因此只能使用符号org.simple.Language来表示Language类的地址.</p>
+<p><strong>直接引用</strong>:直接指向目标的指针.(如指向“类型”【Class对象】、类变量、类方法的直接引用可能是指向方法区的指针)，相对偏移量. (指向实例的变量, 方法的指针)，一个间接定位到对象的句柄.</p>
+<p>如果有了直接引用，那引用的目标必定已经被加载入内存中了。</p>
+<h2 id="类的初始化"><a href="#类的初始化" class="headerlink" title="类的初始化"></a>类的初始化</h2><p>初始化是由JVM负责，主要就是对静态Field进行初始化，静态Field指定初值两种方式:</p>
+<ul>
+<li>声明时指定</li>
+<li>使用静态初始化块为其赋值</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class Demo &#123;</span><br><span class="line">    static int a = 10;</span><br><span class="line">    static int b;</span><br><span class="line">    static int c;</span><br><span class="line">    static &#123;</span><br><span class="line">        b = 20;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class Demo &#123;</span><br><span class="line">    public static int a = 10;</span><br><span class="line">    static int c;</span><br><span class="line">    static &#123;</span><br><span class="line">        b = 20;</span><br><span class="line">    &#125;</span><br><span class="line">    // 定义b并为其赋值</span><br><span class="line">    static int b = 15;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        System.out.println(b); // 输出？ 15</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> JVM初始化类的步骤:</p>
+<ol>
+<li>如果这个类还没有被加载，则先加载并连接该类</li>
+<li>如果该类的直接父类还没有被初始化，则先初始化其直接父类</li>
+<li>如果该类中有初始化语句，则系统<strong>依次执行</strong>这些初始化语句</li>
+</ol>
+<p>初始化时机</p>
+<p>Java程序首次通过下面6种方式来使用某个类或接口时，系统会初始化该类或接口</p>
+<ul>
+<li>创建类实例:new 、反射、反序列化</li>
+<li>调用类的静态方法</li>
+<li>访问某个类或接口的静态<strong>Field</strong>或为该静态<strong>Field</strong>赋值</li>
+<li>使用反射方式来强制创建某个类或接口对应的<strong>java.lang.Class</strong>对象如 Class.forName(“Person”),如果Person没有被初始化，则此时会初始化</li>
+<li>初始化某个类的子类</li>
+<li>直接使用<strong>java.exe</strong>命令来运行某个主类</li>
+</ul>
+<p>对于final修饰的静态Field，如果该Field的值在编译时就可以确定下来，那么这个Field相当于<strong>宏变量</strong>。这种情况下是不会初始化这个类的,反之如果编译时不能确定，那么就要初始化这个类</p>
+<p><strong>类的加载与类的初始化是不同的，类加载不一定初始化，但类初始化之前这个类一定被加载</strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/07/范式/" rel="next" title="范式">
+                <i class="fa fa-chevron-left"></i> 范式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/18/存储区域/" rel="prev" title="存储区域">
+                存储区域 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Hasson">
+            
+              <p class="site-author-name" itemprop="name">Hasson</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Git136314602" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:a136314602@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/yourname" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://user.qzone.qq.com/136314602" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQ</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mac.weixin.qq.com" target="_blank" title="weixin">
+                      
+                        <i class="fa fa-fw fa-weixin"></i>weixin</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/6045337134" target="_blank" title="weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#类加载"><span class="nav-number">1.</span> <span class="nav-text">类加载</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类的加载"><span class="nav-number">1.2.</span> <span class="nav-text">类的加载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#类加载器"><span class="nav-number">1.2.1.</span> <span class="nav-text">类加载器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类的连接"><span class="nav-number">1.3.</span> <span class="nav-text">类的连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类的初始化"><span class="nav-number">1.4.</span> <span class="nav-text">类的初始化</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hasson</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

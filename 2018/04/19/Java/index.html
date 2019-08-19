@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="[TOC] 环境配置Java​    两个路径   JDK     D:/Java/Jdk1.8.112         Java Development Kit   java开发工具包 JRE      D:/Java/Jre                      Java Runtime Enviroment   Java运行环境  ​    后续web中可能会遇到问题，如果将jre装到j">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java">
+<meta property="og:url" content="http://hasson.top/2018/04/19/Java/index.html">
+<meta property="og:site_name" content="Mr.Hassan">
+<meta property="og:description" content="[TOC] 环境配置Java​    两个路径   JDK     D:/Java/Jdk1.8.112         Java Development Kit   java开发工具包 JRE      D:/Java/Jre                      Java Runtime Enviroment   Java运行环境  ​    后续web中可能会遇到问题，如果将jre装到j">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-19T13:27:38.440Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java">
+<meta name="twitter:description" content="[TOC] 环境配置Java​    两个路径   JDK     D:/Java/Jdk1.8.112         Java Development Kit   java开发工具包 JRE      D:/Java/Jre                      Java Runtime Enviroment   Java运行环境  ​    后续web中可能会遇到问题，如果将jre装到j">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://hasson.top/2018/04/19/Java/">
+
+
+
+
+
+  <title>Java | Mr.Hassan</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr.Hassan</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://hasson.top/2018/04/19/Java/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hasson">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.Hassan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-19T12:10:06+08:00">
+                2018-04-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>[TOC]</p>
+<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><p>​    两个路径 </p>
+<ul>
+<li>JDK     D:/Java/Jdk1.8.112         Java Development Kit   java开发工具包</li>
+<li>JRE      D:/Java/Jre                      Java Runtime Enviroment   Java运行环境</li>
+</ul>
+<p>​    后续web中可能会遇到问题，如果将jre装到jdk中</p>
+<p>WIN + d  回到桌面</p>
+<p>WIN + e  打开文件资源管理器</p>
+<p>WIN + R  打开运行窗口</p>
+<p>win+e-》这台电脑/桌面上我的电脑  -》 右击 -》 左边有个高级系统设置-》环境变量</p>
+<p>-》 系统变量-》新建-》变量名: <figure class="highlight plain"><figcaption><span>-》确定   </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**测试**</span><br><span class="line"></span><br><span class="line">win + r -&gt;输入cmd-》出来窗口中输入  </span><br><span class="line"></span><br><span class="line">**java**</span><br></pre></td></tr></table></figure></p>
+<p>C:\Users\86137&gt;java<br>用法: java [-options] class [args…]<br>           (执行类)<br>   或  java [-options] -jar jarfile [args…]<br>           (执行 jar 文件)<br>其中选项包括:<br>    -d32          使用 32 位数据模型 (如果可用)<br>    -d64          使用 64 位数据模型 (如果可用)<br>    -server       选择 “server” VM<br>                  默认 VM 是 server.</p>
+<pre><code>-cp &lt;目录和 zip/jar 文件的类搜索路径&gt;
+-classpath &lt;目录和 zip/jar 文件的类搜索路径&gt;
+              用 ; 分隔的目录, JAR 档案
+              和 ZIP 档案列表, 用于搜索类文件。
+-D&lt;名称&gt;=&lt;值&gt;
+              设置系统属性
+-verbose:[class|gc|jni]
+              启用详细输出
+-version      输出产品版本并退出</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**javac**</span><br></pre></td></tr></table></figure>
+
+<p>C:\Users\86137&gt;javac<br>用法: javac <options> <source files><br>其中, 可能的选项包括:<br>  -g                         生成所有调试信息<br>  -g:none                    不生成任何调试信息<br>  -g:{lines,vars,source}     只生成某些调试信息<br>  -nowarn                    不生成任何警告<br>  -verbose                   输出有关编译器正在执行的操作的消息<br>  -deprecation               输出使用已过时的 API 的源位置<br>  -classpath &lt;路径&gt;            指定查找用户类文件和注释处理程序的位置<br>  -cp &lt;路径&gt;                   指定查找用户类文件和注释处理程序的位置<br>  -sourcepath &lt;路径&gt;           指定查找输入源文件的位置<br>  -bootclasspath &lt;路径&gt;        覆盖引导类文件的位置<br>  -extdirs &lt;目录&gt;              覆盖所安装扩展的位置<br>  -endorseddirs &lt;目录&gt;         覆盖签名的标准路径的位置<br>  -proc:{none,only}          控制是否执行注释处理和/或编译。<br>  -processor <class1>[,<class2>,<class3>…] 要运行的注释处理程序的名称; 绕过默认的搜索进程<br>  -processorpath &lt;路径&gt;        指定查找注释处理程序的位置</class3></class2></class1></options></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**java -version**</span><br></pre></td></tr></table></figure>
+
+<p>C:\Users\86137&gt;java -version<br>java version “1.8.0_202”<br>Java(TM) SE Runtime Environment (build 1.8.0_202-b08)<br>Java HotSpot(TM) 64-Bit Server VM (build 25.202-b08, mixed mode)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">注意：**每修改一次环境变量，需要打开一个新的命令行窗口测试**</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## Idea  Eclipse</span><br><span class="line"></span><br><span class="line">集成开发环境</span><br><span class="line"></span><br><span class="line">IDEA 32位 64位都可以安装， 64位选择64位启动的快捷方式（Launcher）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## JVM</span><br><span class="line"></span><br><span class="line"> Java virtual machine java</span><br><span class="line"></span><br><span class="line">虚拟机，保证跨平台,平台无关性,一次编译，多个平台都可以运行。</span><br><span class="line"></span><br><span class="line">![](C:/Users/NiGulas/Desktop/essay/img/day01-01.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Java文件  -&gt; 编译生成class文件（字节码文件，二进制文件）-》加载到JVM中运行</span><br><span class="line"></span><br><span class="line">JVM  </span><br><span class="line"></span><br><span class="line">- Windows  </span><br><span class="line">- Mac</span><br><span class="line">- Linux</span><br><span class="line"></span><br><span class="line">每个操作系统中安装JVM后，都可以加载class文件执行，Java具有跨平台特性，一次编译，多处运行</span><br><span class="line"></span><br><span class="line">## GC</span><br><span class="line"></span><br><span class="line">Garbage collection垃圾回收机制, C,C++,free delete需要手动调用，释放存储空间/对象/连接池---内存资源</span><br><span class="line"></span><br><span class="line">Java里面垃圾（资源）自动回收，垃圾资源即时置空=null</span><br></pre></td></tr></table></figure>
+
+<p>Student stu = new Student();    创建了一个对象，需要分配空间<br>stu = null;     回收的前提，这样之后会根据JVM内部的垃圾回收算法，当达到一定条件开始回收这些资源</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## IDEA 开发</span><br><span class="line"></span><br><span class="line">src ：源代码目录，今后写代码都在src中写</span><br><span class="line"></span><br><span class="line">src-》右击-》new-》Java class</span><br><span class="line"></span><br><span class="line">**psvm** -&gt; 生成main方法</span><br><span class="line"></span><br><span class="line">java应用程序的入口，如果要执行这个java文件，一定是从这个main方法开始执行</span><br></pre></td></tr></table></figure>
+
+<p>public static void main(String[] args) {</p>
+<p>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**sout**</span><br></pre></td></tr></table></figure>
+
+<p>System.out.println();</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>System.out.println(“Hello World”);</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 改编码</span><br><span class="line"></span><br><span class="line">GBK          国标码</span><br><span class="line"></span><br><span class="line">UTF-8       万国码   国际通用编码</span><br><span class="line"></span><br><span class="line">编码不一致会导致乱码</span><br><span class="line"></span><br><span class="line">File -&gt; Settings -&gt; Project Encoding / Default Encoding for .....</span><br><span class="line"></span><br><span class="line">## 包</span><br><span class="line"></span><br><span class="line">package</span><br><span class="line"></span><br><span class="line">大学</span><br><span class="line"></span><br><span class="line">院 - 系 - 班</span><br><span class="line"></span><br><span class="line">Java项目 -》 Java文件成千上万个-》想找某一个文件就有困难-》分包管理</span><br><span class="line"></span><br><span class="line">后期：service dao pojo/bean  contrller ........</span><br><span class="line"></span><br><span class="line">每个包中放跟这个包名关系密切的相关文件</span><br><span class="line"></span><br><span class="line">按天分包 -》 包怎么命名-》 域名倒置</span><br><span class="line"></span><br><span class="line">域名？  baidu.com   sina.com  -&gt; com.baidu</span><br><span class="line"></span><br><span class="line">实际工作中，项目的命名   com.baidu.ai.car.项目模块</span><br><span class="line"></span><br><span class="line">src-&gt;右击-》new-》package-》com.train.day01</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 标识符</span><br><span class="line"></span><br><span class="line">作用：用来起名字-》变量  方法名   类名 ......</span><br><span class="line"></span><br><span class="line">规则：由字母、数字、下划线，美元符$组成，且数字不能作为开头</span><br><span class="line"></span><br><span class="line">abc -》 是  1abc-》不是     </span><br><span class="line"></span><br><span class="line">java中命名规则：</span><br><span class="line"></span><br><span class="line">- 类名：由有意义的单词组成，并且每个单词的首字母都要大写，如：HelloWorld    OrderInfo（大驼峰）</span><br><span class="line">- 变量名：由有意义的单词组成，第一个单词的首字母小写，其后遇到的每个单词的首字母大写，如orderList，userOrderInfo</span><br><span class="line">- 方法名：同变量名</span><br><span class="line"></span><br><span class="line">**注意** 优雅的代码  UGLY的代码 ，运算符号，如果 + - =，两边加上空格</span><br><span class="line"></span><br><span class="line">## 变量</span><br><span class="line"></span><br><span class="line">写代码，一定会涉及到数据的计算，存储，保存在变量里。</span><br><span class="line"></span><br><span class="line">java是一种强类型的语言：什么类型的变量，装载什么类型的数据</span><br><span class="line"></span><br><span class="line">语句的结束，使用分号 ;</span><br><span class="line"></span><br><span class="line">### 局部变量</span><br><span class="line"></span><br><span class="line">定义方法内的变量，方法后的```&#123;```开始，到```&#125;```结束，都是属于这个方法的范围</span><br><span class="line"></span><br><span class="line">作用域：他所处的方法内，也就是最近的```&#123; ```到``&#125; ``结束</span><br><span class="line"></span><br><span class="line">注意：**局部变量在使用前必须先初始化，初始化就是给它赋值**</span><br><span class="line"></span><br><span class="line">### 全局变量/成员变量</span><br><span class="line"></span><br><span class="line">定义在类的```&#123; &#125;```之间的</span><br><span class="line"></span><br><span class="line">作用域：整个类中都可以访问</span><br><span class="line"></span><br><span class="line">注意：**在包含static 的方法中，类的加载，先加载 静态成员  在加载非静态成员，带有static修饰的就是静态成员**</span><br><span class="line"></span><br><span class="line">全局变量与局部变量重名的情况下，优先使用局部变量，**就近原则**</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 基本数据类型</span><br><span class="line"></span><br><span class="line">8种，字母全部小写</span><br></pre></td></tr></table></figure>
+
+<p>byte short int long float double boolean char<br> 1     2     4    8    4     8      1      2<br> byte short int long   整数<br> float double          浮点数/小数<br> boolean               true / flase<br> char                  字符<br> 表数范围   浮点数带有幂次方位</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 默认值</span><br></pre></td></tr></table></figure>
+
+<p>public class BasicDataType {</p>
+<pre><code>static int iVal;  // 0  整数都是0
+static double dVal; // 0.0   浮点数都是0.0
+static boolean bVal; // false
+static char cVal; //   空白（啥也没有）
+
+
+public static void main(String[] args) {
+
+    // 局部变量在使用前必须先初始化，初始化就是给它赋值
+    // 优雅的代码  UGLY的代码
+    // ctrl + d 复制上面一行代码到下面一行
+    // ctrl + y  删除一行
+    System.out.println(iVal);
+    System.out.println(dVal);
+    System.out.println(bVal);
+    System.out.println(cVal);
+}</code></pre><p>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## float与long</span><br></pre></td></tr></table></figure>
+
+<p>float f = 14.5f;<br>// 不加L的情况下，默认是int类型的，当超出int类型的表数范围时就会报错<br>// 故我们在声明long类型的数据时，都要给他加上L，推荐使用大写的L，小写的容易混淆<br>long l = 100000000000L;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 类型转换</span><br><span class="line"></span><br><span class="line">**自动转换**</span><br></pre></td></tr></table></figure>
+
+<p>// 100 默认是int类型，java是一种强类型的语言，类型与变量要一致<br>// 将100自动转换为long类型，再赋值给x<br>// 为什么能够自动转换？long类型的表数范围大于int类型<br>long x = 100;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**强制转换**</span><br></pre></td></tr></table></figure>
+
+<p>double money = 12000.99;<br>// 12000.99-&gt;12000   精度丢失<br>// alt + enter    表数范围大的赋值给表数范围小的<br>int money1 = (int) money;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 引用类型</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 运算符</span><br><span class="line"></span><br><span class="line">算术运算符：+ , -, * / ,% ,++ ,--</span><br></pre></td></tr></table></figure>
+
+<p>// 自定义方法，方法名op1<br>    // 方法只有被调用，才会执行<br>    public static void op1(){<br>        int a = 100;<br>        int b = 3;<br>        double c = 3.0;<br>        // 整数 除 整数 还是整数<br>        System.out.println(a/b);<br>        // 除数 与 被除数，只要有一个是小数，结果就是小数<br>        System.out.println(a/c);<br>        // % 取余  100%3=1<br>        System.out.println(a % b);<br>    }</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>public static void op2(){<br>        int a = 10;<br>        int b = 10;<br>        // ++ 在后  10  先执行，后运算（a = a + 1）<br>        // a++ =&gt; a = a + 1<br>        System.out.println(a++);<br>        // ++ 在前  11    先运算，后执行<br>        System.out.println(++b);<br>    }</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">赋值运算符</span><br><span class="line"></span><br><span class="line">=、+=、*=、/=、%=;</span><br></pre></td></tr></table></figure>
+
+<p>a += 5 =&gt; a = a + 5</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">位运算符：</span><br><span class="line"></span><br><span class="line">&amp;、 |、 ~ 、^、 &lt;&lt; 、&gt;&gt;、 &gt;&gt;&gt; 二进制位运算</span><br><span class="line"></span><br><span class="line">比较运算符</span><br><span class="line"></span><br><span class="line">&lt;、&gt;、&gt;=、&lt;=、!=（不等于）、==（判断两个值是否相等）</span><br><span class="line"></span><br><span class="line">逻辑运算符</span><br><span class="line"></span><br><span class="line">&amp;&amp;、 || 、!、 ^（异或）</span><br><span class="line"></span><br><span class="line">短路原则：通过第一个已经可以确定结果，就不用再判断第二个了（&amp;&amp;  ||）</span><br></pre></td></tr></table></figure>
+
+<p>public static void op3(){<br>        // (5&gt;3) true  (6&lt;4) false<br>        // true &amp;&amp; false =&gt; false<br>        // &amp;&amp; 前后两边都为true时，才为true，其他全为false<br>        System.out.println( (5&gt;3) &amp;&amp; (6&lt;4));<br>        // true || false =&gt; true<br>        // || 前后两边只要有一个为true时，就为true<br>        System.out.println( (5&gt;3) || (6&lt;4));<br>        // !  非true即false 非false即true<br>        System.out.println( !(5&gt;3) );<br>        // ^<br>        //  两边不同时为true<br>        System.out.println( (5&gt;3) ^ (6&gt;8));<br>    }</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">三目运算符  </span><br><span class="line"></span><br><span class="line">条件? true的取值 : false 的取值</span><br></pre></td></tr></table></figure>
+
+<p> public static void op4(){<br>        int score = 90;<br>        //  条件 ？结果1 : 结果2<br>        //  条件-》true =》结果1<br>        // 条件-》false =》结果2<br>        System.out.println((score &gt;95) ? “优秀” :”一般”);<br>    }</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">优先级,,,尽量用小括号,,引起,这样**可读性更好**</span><br><span class="line"></span><br><span class="line">## IF语句</span><br></pre></td></tr></table></figure>
+
+<p>if 条件{<br>    if语句块<br>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>if 条件{<br>   //true<br>} else {<br>   // false<br>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>if 条件1{</p>
+<p>} else if 条件2{<br>     // 条件2 为真，后续条件3与else不会在执行<br>} else if 条件3{</p>
+<p>}  else {</p>
+<p>}<br>…..</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## While</span><br><span class="line"></span><br><span class="line">不确定循环次数的，适用于while循环</span><br></pre></td></tr></table></figure>
+
+<p>public static void whileDemo(){<br>        boolean isRunning = true;</p>
+<pre><code>        // 创建Scanner对象，用于接收键盘输入
+        // 开始接收键盘输入，必须输入内容后，代码才能向后执行
+        // nextInt 表示输入的是一个整数
+        // 将输入的一个整数赋值给score
+    Scanner scanner = new Scanner(System.in);
+
+    while(isRunning) {
+        System.out.println(&quot;请输入0-100之间的整数，输入-1退出&quot;);
+        int score = scanner.nextInt();
+        if(score == -1) {
+            isRunning = false;
+        } else if(score &lt; 60) {
+            System.out.println(&quot;不及格&quot;);
+        } else if(score &gt;= 60 &amp;&amp; score &lt;75) {
+            System.out.println(&quot;及格&quot;);
+        } else if(score &gt;= 75 &amp;&amp; score &lt; 90) {
+            System.out.println(&quot;良好&quot;);
+        } else if(score &gt;= 90 &amp;&amp; score &lt;= 100){
+            System.out.println(&quot;优秀&quot;);
+        } else {
+            System.out.println(&quot;输入数据不在区间内&quot;);
+        }
+    }
+
+
+}</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## for</span><br><span class="line"></span><br><span class="line">确定循环次数的，适用于for循环</span><br></pre></td></tr></table></figure>
+
+<p> // 0 - 100的和<br>    public static void main(String[] args) {<br>        int sum = 0; // 和的初始值<br>       // fori<br>        // i = 0=&gt;0&lt;100 =&gt; 执行循环sum = 0 + 0 = 0<br>        // i++ =&gt; i=1 =&gt; 1 &lt; 100 =&gt; 执行循环sum = 0 + 1 = 1<br>        // i++ =&gt; i=2 =&gt; 2&lt; 100 =&gt; 执行循环sum = 1 + 2 = 3<br>        //<br>        for (int i = 0; i &lt;= 100; i++) {<br>            sum = sum + i;<br>        }<br>        System.out.println(sum);<br>    }</p>
+<p>```</p>
+<h2 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h2><p>1、求1-100所有整数的的和（多思考）</p>
+<p>2、输出100以内的素数</p>
+<p>3、输出9x9的乘法表</p>
+<p>4、猜数游戏：随机生成一个数，然后让用户从键盘读入这个数，提示用户猜大了还是猜小了，直到猜中</p>
+<p>5、编写一个Java应用程序。用户从键盘输入一个1—9999之间的数，程序将判断这个数是几位数，并判断这个数是否是回文数。回文数是指将该数含有的数字逆序排列后得到的数和原数相同，例如12121、3223都是回文数</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/12/MarkDown基本语法/" rel="next" title="MarkDown基本语法">
+                <i class="fa fa-chevron-left"></i> MarkDown基本语法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/21/循环结构-条件语句/" rel="prev" title="循环结构&&条件语句">
+                循环结构&&条件语句 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Hasson">
+            
+              <p class="site-author-name" itemprop="name">Hasson</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Git136314602" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:a136314602@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/yourname" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://user.qzone.qq.com/136314602" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQ</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mac.weixin.qq.com" target="_blank" title="weixin">
+                      
+                        <i class="fa fa-fw fa-weixin"></i>weixin</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/6045337134" target="_blank" title="weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境配置"><span class="nav-number">1.</span> <span class="nav-text">环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java"><span class="nav-number">1.1.</span> <span class="nav-text">Java</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作业"><span class="nav-number">2.</span> <span class="nav-text">作业</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hasson</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="逻辑数据库设计—规范化逻辑模型范式（ Normal form，简称NF ）表示关系模式的级别，是衡量关系模式规范化程度的标准，达到范式的关系才是规范化的。 各种范式之间的联系是：5NF ∈ 4NF ∈ 3NF ∈ 2NF ∈ 1NF 规范化:一个低级范式的关系模式，通过关系模式的投影分解，可以转换为若干个高一级范式的关系模式的集合的过程。实际的关系数据库一般使用3NF以上的关系。 规范化的步骤 将">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="范式">
+<meta property="og:url" content="http://hasson.top/2018/05/07/范式/index.html">
+<meta property="og:site_name" content="Mr.Hassan">
+<meta property="og:description" content="逻辑数据库设计—规范化逻辑模型范式（ Normal form，简称NF ）表示关系模式的级别，是衡量关系模式规范化程度的标准，达到范式的关系才是规范化的。 各种范式之间的联系是：5NF ∈ 4NF ∈ 3NF ∈ 2NF ∈ 1NF 规范化:一个低级范式的关系模式，通过关系模式的投影分解，可以转换为若干个高一级范式的关系模式的集合的过程。实际的关系数据库一般使用3NF以上的关系。 规范化的步骤 将">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="c:/Users/NiGulas/Desktop/essay/imgf/01.png">
+<meta property="og:image" content="c:/Users/NiGulas/Desktop/essay/imgf/02.png">
+<meta property="og:updated_time" content="2019-08-19T13:30:25.021Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="范式">
+<meta name="twitter:description" content="逻辑数据库设计—规范化逻辑模型范式（ Normal form，简称NF ）表示关系模式的级别，是衡量关系模式规范化程度的标准，达到范式的关系才是规范化的。 各种范式之间的联系是：5NF ∈ 4NF ∈ 3NF ∈ 2NF ∈ 1NF 规范化:一个低级范式的关系模式，通过关系模式的投影分解，可以转换为若干个高一级范式的关系模式的集合的过程。实际的关系数据库一般使用3NF以上的关系。 规范化的步骤 将">
+<meta name="twitter:image" content="c:/Users/NiGulas/Desktop/essay/imgf/01.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://hasson.top/2018/05/07/范式/">
+
+
+
+
+
+  <title>范式 | Mr.Hassan</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr.Hassan</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://hasson.top/2018/05/07/范式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hasson">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.Hassan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">范式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-07T22:18:45+08:00">
+                2018-05-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="逻辑数据库设计—规范化逻辑模型"><a href="#逻辑数据库设计—规范化逻辑模型" class="headerlink" title="逻辑数据库设计—规范化逻辑模型"></a>逻辑数据库设计—规范化逻辑模型</h2><h3 id="范式（-Normal-form，简称NF-）"><a href="#范式（-Normal-form，简称NF-）" class="headerlink" title="范式（ Normal form，简称NF ）"></a>范式（ Normal form，简称NF ）</h3><p>表示关系模式的级别，是衡量关系模式规范化程度的标准，达到范式的关系才是规范化的。</p>
+<p>各种范式之间的联系是：5NF ∈ 4NF ∈ 3NF ∈ 2NF ∈ 1NF</p>
+<p><strong>规范化:</strong>一个低级范式的关系模式，通过关系模式的投影分解，可以转换为若干个高一级范式的关系模式的集合的过程。实际的关系数据库一般使用<strong>3NF</strong>以上的关系。</p>
+<p><strong>规范化的步骤</strong></p>
+<p>将数据库分为两个或更多个表；</p>
+<p>定义表之间的关系。</p>
+<p><strong>规范化数据库的任务</strong></p>
+<p>尽可能减少冗余</p>
+<p>减少数据的不一致性</p>
+<p>加快数据修改（插入、更新的删除）</p>
+<h4 id="第一范式（-R∈1NF-）"><a href="#第一范式（-R∈1NF-）" class="headerlink" title="第一范式（ R∈1NF ）"></a>第一范式（ R∈1NF ）</h4><p>关系模式R中的所有属性都是不可再分的数据项。</p>
+<p><strong>表必须符合的条件</strong></p>
+<p>表必须是二维的（用行和列表示）</p>
+<p>每个数据库单元只包含一个值</p>
+<p>每列必须具有单独的含义</p>
+<p><img src="C:/Users/NiGulas/Desktop/essay/imgf/01.png" alt></p>
+<p><strong>学生表是1NF，职工表不是</strong></p>
+<p><img src="C:/Users/NiGulas/Desktop/essay/imgf/02.png" alt></p>
+<h4 id="第二范式（R∈2NF-）"><a href="#第二范式（R∈2NF-）" class="headerlink" title="第二范式（R∈2NF ）"></a>第二范式（R∈2NF <strong>）</strong></h4><p>规范化逻辑模型 —转换为第二范式数据模型</p>
+<p>关系R∈1NF，且它的每一非主属性都完全依赖于主键。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">它的规则是要求数据表里的所有非主属性都要和该数据表的主键有完全依赖关系；如果有哪些非主属性只和主键的一部份有关的话，它就不符合第二范式。同时可以得出：如果一个数据表的主键只有单一一个字段的话，它就一定符合第二范式(前提是该数据表符合第一范式)</span><br></pre></td></tr></table></figure>
+
+<p><strong>原则</strong></p>
+<p>消除实体中的冗余信息</p>
+<p>将只依赖于一部分多值主键的属性移到另一个表中</p>
+<p>使存储的信息更一致</p>
+<p><strong>解决方法</strong></p>
+<p>拆分表</p>
+<p><strong>示例</strong></p>
+<p>考虑一个小学的教务 管理系统，学生上课指定一个老师，一本教材，一个教室，一个时间，大家都上课去吧，没有问题。那么数据库怎么设计？</p>
+<p><strong>学生上课表</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">学生    课程        老师 老师职称  教材       教室   上课时间 </span><br><span class="line">小明 一年级语文（上） 大宝 副教授  《小学语文1》 101   14：30</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">一个学生上一门课，一定在特定某个教室。所以有（学生，课程）－&gt;教室</span><br><span class="line">一个学生上一门课，一定是特定某个老师教。所以有（学生，课程）－&gt;老师</span><br><span class="line">一个学生上一门课，他老师的职称可以确定。所以有（学生，课程）－&gt;老师职称</span><br><span class="line">一个学生上一门课，一定是特定某个教材。所以有（学生，课程）－&gt;教材</span><br><span class="line">一个学生上一门课，一定在特定时间。所以有（学生，课程）－&gt;上课时间</span><br><span class="line">因此（学生，课程）是一个码</span><br><span class="line">然而，一个课程，一定指定了某个教材，一年级语文肯定用的是《小学语文1》，那么就有课程－&gt;教材</span><br><span class="line">（学生，课程）是个码，课程却决定了教材，这就叫做不完全依赖，或者说部分依赖。出现这样的情况，就不满足第二范式！</span><br></pre></td></tr></table></figure>
+
+<p>学生上课表新</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">课程 教材    </span><br><span class="line">学生 课程  老师 老师职称  教室 上课时间</span><br></pre></td></tr></table></figure>
+
+<h4 id="第三范式（-R∈3NF-）"><a href="#第三范式（-R∈3NF-）" class="headerlink" title="第三范式（ R∈3NF ）"></a>第三范式（ R∈3NF ）</h4><p>规范化逻辑模型 —创建第三范式数据模型</p>
+<p>若R∈2NF，且它的每一非主属性都不传递依赖于关键字即消除传递依赖。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">表中有可能存在某些数据元素依赖于其他非关键字数据元素的现象,必须消除</span><br></pre></td></tr></table></figure>
+
+<p><strong>原则</strong></p>
+<p>除去所有不依赖某个键值而存在的列</p>
+<p>将不直接与实体联系的任何数据都移到另一个表中 </p>
+<p>避免信息的更新异常和删除异常 </p>
+<p>确保不含冗余信息 </p>
+<p><strong>操作步骤</strong></p>
+<p>将数据模型规范化为第二范式；</p>
+<p>确定不依赖键值而存在的所有属性；</p>
+<p>将这些独立的属性都移到各个单独的表中，并为之确定主键。且将这些主键作为外键连接到父实体中。</p>
+<p><strong>示例</strong><br>上面的“学生上课表新”符合2NF，但是它有传递依赖！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">问题就出在“老师”和“老师职称”这里。一个老师一定能确定一个老师职称。</span><br></pre></td></tr></table></figure>
+
+<p>还有什么问题吗？</p>
+<ul>
+<li>老师升级了，变教授了，要改数据库，表中有N条，改了N次……（修改异常）</li>
+<li>没人选这个老师的课了，老师的职称也没了记录……（删除异常）</li>
+<li>新来一个老师，还没分配教什么课，他的职称记到哪？……（插入异常</li>
+</ul>
+<p>那应该怎么解决呢？和上面一样，投影分解：</p>
+<p>老师 老师职称</p>
+<p>课程 教材      </p>
+<p>学生  课程 老师  教室 上课时间</p>
+<h2 id="数据库设计"><a href="#数据库设计" class="headerlink" title="数据库设计"></a>数据库设计</h2><p>1.一对一</p>
+<p>2.一对多</p>
+<p>3.多对多</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/01/Class/" rel="next" title="Class">
+                <i class="fa fa-chevron-left"></i> Class
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/12/类加载/" rel="prev" title="类加载">
+                类加载 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Hasson">
+            
+              <p class="site-author-name" itemprop="name">Hasson</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Git136314602" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:a136314602@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/yourname" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://user.qzone.qq.com/136314602" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQ</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mac.weixin.qq.com" target="_blank" title="weixin">
+                      
+                        <i class="fa fa-fw fa-weixin"></i>weixin</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/6045337134" target="_blank" title="weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑数据库设计—规范化逻辑模型"><span class="nav-number">1.</span> <span class="nav-text">逻辑数据库设计—规范化逻辑模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#范式（-Normal-form，简称NF-）"><span class="nav-number">1.1.</span> <span class="nav-text">范式（ Normal form，简称NF ）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一范式（-R∈1NF-）"><span class="nav-number">1.1.1.</span> <span class="nav-text">第一范式（ R∈1NF ）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二范式（R∈2NF-）"><span class="nav-number">1.1.2.</span> <span class="nav-text">第二范式（R∈2NF ）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三范式（-R∈3NF-）"><span class="nav-number">1.1.3.</span> <span class="nav-text">第三范式（ R∈3NF ）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库设计"><span class="nav-number">2.</span> <span class="nav-text">数据库设计</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hasson</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

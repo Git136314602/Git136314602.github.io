@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="MySQL,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="MYSQL[TOC] 一、数据库概述1.1数据管理技术的发展阶段 人工阶段 50年代中期以前（磁带、纸带，无磁盘 ） 文件  50年代后期到60年代中期（磁盘 ） 数据库系统 60年代后期（大容量磁盘，硬件价格下降 ）  1.2数据库数据库(Database)是按照数据结构来组织、存储和管理数据的仓库。 数据库中的数据按一定的数据模型组织、描述和储存，具有较小的冗余度、较高的数据独立性和易扩展性，">
+<meta name="keywords" content="MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL_01">
+<meta property="og:url" content="http://hasson.top/2019/05/19/MySQL-01/index.html">
+<meta property="og:site_name" content="Mr.Hassan">
+<meta property="og:description" content="MYSQL[TOC] 一、数据库概述1.1数据管理技术的发展阶段 人工阶段 50年代中期以前（磁带、纸带，无磁盘 ） 文件  50年代后期到60年代中期（磁盘 ） 数据库系统 60年代后期（大容量磁盘，硬件价格下降 ）  1.2数据库数据库(Database)是按照数据结构来组织、存储和管理数据的仓库。 数据库中的数据按一定的数据模型组织、描述和储存，具有较小的冗余度、较高的数据独立性和易扩展性，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="c:/Users/NiGulas/Desktop/essay/img/mysql01_01.png">
+<meta property="og:updated_time" content="2019-08-19T13:34:47.369Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL_01">
+<meta name="twitter:description" content="MYSQL[TOC] 一、数据库概述1.1数据管理技术的发展阶段 人工阶段 50年代中期以前（磁带、纸带，无磁盘 ） 文件  50年代后期到60年代中期（磁盘 ） 数据库系统 60年代后期（大容量磁盘，硬件价格下降 ）  1.2数据库数据库(Database)是按照数据结构来组织、存储和管理数据的仓库。 数据库中的数据按一定的数据模型组织、描述和储存，具有较小的冗余度、较高的数据独立性和易扩展性，">
+<meta name="twitter:image" content="c:/Users/NiGulas/Desktop/essay/img/mysql01_01.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://hasson.top/2019/05/19/MySQL-01/">
+
+
+
+
+
+  <title>MySQL_01 | Mr.Hassan</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr.Hassan</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/05/19/MySQL-01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hasson">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.Hassan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MySQL_01</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-19T21:22:34+08:00">
+                2019-05-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="MYSQL"><a href="#MYSQL" class="headerlink" title="MYSQL"></a>MYSQL</h1><p>[TOC]</p>
+<h2 id="一、数据库概述"><a href="#一、数据库概述" class="headerlink" title="一、数据库概述"></a>一、数据库概述</h2><h3 id="1-1数据管理技术的发展阶段"><a href="#1-1数据管理技术的发展阶段" class="headerlink" title="1.1数据管理技术的发展阶段"></a>1.1数据管理技术的发展阶段</h3><ol>
+<li>人工阶段 50年代中期以前（磁带、纸带，无磁盘 ）</li>
+<li>文件  50年代后期到60年代中期（磁盘 ）</li>
+<li>数据库系统 60年代后期（大容量磁盘，硬件价格下降 ）</li>
+</ol>
+<h3 id="1-2数据库"><a href="#1-2数据库" class="headerlink" title="1.2数据库"></a>1.2数据库</h3><p>数据库(Database)是按照数据结构来组织、存储和管理数据的仓库。</p>
+<p>数据库中的数据按一定的数据模型组织、描述和储存，具有较小的冗余度、较高的数据独立性和易扩展性，并可为各个用户共享。</p>
+<p><strong>数据库的作用？</strong></p>
+<p>存储大量数据，方便查询与操作（select）</p>
+<p>保持数据信息的一致,完整（主键 primary key 外键 foreign key 约束 check）</p>
+<p>共享和安全（不同的用户赋予不同的权限，共享如第三方登录）</p>
+<p>通过组合分析,产生新的有用信息（根据实际的业务信息查找数据显示）</p>
+<p>如：数据库中的记录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">李明，男，21，1972，江苏，计算机系，1990</span><br></pre></td></tr></table></figure>
+
+<p>可翻译为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">李明是个大学生，1972年出生，男,江苏人，1990年考入计算机系</span><br></pre></td></tr></table></figure>
+
+<p>1.3数据库管理系统</p>
+<p>Database Management System简称DBMS</p>
+<p>是一种操纵和管理数据库的软件，用于建立、使用和维护数据库 它对数据库进行统一的管理和控制，以保证数据库的安全性和完整性。</p>
+<p>常见数据库：</p>
+<ul>
+<li>Oracle是目前世界上使用最为广泛的数据库管理系统, 是甲骨文公司的一款<strong>关系数据库管理系统</strong></li>
+<li>SqlServer是由Microsoft开发和推广的<strong>关系数据库管理系统</strong></li>
+<li>DB2 是美国IBM公司开发的一套<strong>关系型数据库管理系统</strong>, 主要应用于大型应用系统</li>
+<li>MySql是一个小型的<strong>关系型数据库管理系统</strong>, 目前属于 Oracle 旗下产品. 与其他的大型数据库例如 Oracle、DB2、SQL Server等相比，MySQL 自有它的不足之处，但是这丝毫也没有减少它受欢迎的程度。对于一般的个人使用者和中小型企业来说，MySQL提供的功能已经绰绰有余，而且由于 MySQL是<strong>开放源码软件</strong>，因此可以大大降低总体拥有成本。</li>
+</ul>
+<p>除了以上的关系数据库管理系统之外，还有Redis，MongoDB等非关系数据库，基于Key-Value存储的数据库，统称为NoSQL（Not only sql）。</p>
+<p><strong>关系数据库管理系统RDBMS</strong>(Relational Database Management System)：包括相互联系的数据集合 (数据库)和存取这些数据的一套程序 (数据库管理系统软件)。关系数据库管理系统就是管理关系数据库，并将数据组织为相关的<strong>行和列</strong>的系统。 </p>
+<p><img src="C:/Users/NiGulas/Desktop/essay/img/mysql01_01.png" alt="关系型数据库和非关系型数据库"></p>
+<h2 id="二、Mysql安装"><a href="#二、Mysql安装" class="headerlink" title="二、Mysql安装"></a>二、Mysql安装</h2><p><a href="https://jingyan.baidu.com/article/76a7e409180390fc3b6e15af.html" target="_blank" rel="noopener">安装教程</a></p>
+<h3 id="MySQL卸载"><a href="#MySQL卸载" class="headerlink" title="MySQL卸载"></a>MySQL卸载</h3><p>​    1.在控制面板\所有控制面板项\程序和功能中找到MySQL相关的应用程序,将应用程序卸载<br>​    2.把MySQL安装目录删除<br>​        D:\MySQL<br>​    3.把MySQL的数据文件删除<br>​        C:\ProgramData\MySQL<br>​    4.清除MySQL注册表<br>​        按win + R 输入 regedit 进入注册表<br>​        在注册表中找到 HKEY_LOCAL_MACHINE 项<br>​        右键点击 查找 勾选项 输入MySQL<br>​        删除以MySQL开头的文件夹</p>
+<h2 id="三、Navicat安装"><a href="#三、Navicat安装" class="headerlink" title="三、Navicat安装"></a>三、Navicat安装</h2><p>Navicat是一套快速、可靠并价格相当便宜的数据库管理工具，专为简化数据库的管理及降低系统管理成本而设。它的设计符合数据库管理员、开发人员及中小企业的需要。Navicat 是以<strong>直觉化的图形用户界面</strong>而建的，让你可以以安全并且简单的方式创建、组织、访问并共用信息。</p>
+<p>安装时按照<strong>安装步骤</strong>安装即可，推荐不要安装在C盘</p>
+<p>如果没有Navicat，我们访问数据库如下方式，如果想通过此方式测试，需要配置mysql环境变量，这里不在讲解，实现仅作为了解参考。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\ibf&gt;mysql -uroot -p</span><br><span class="line">mysql&gt; show databases;</span><br><span class="line">+--------------------+</span><br><span class="line">| Database           |</span><br><span class="line">+--------------------+</span><br><span class="line">| information_schema |</span><br><span class="line">| beifeng            |</span><br><span class="line">| mysql              |</span><br><span class="line">| performance_schema |</span><br><span class="line">| sakila             |</span><br><span class="line">| shclz              |</span><br><span class="line">+--------------------+</span><br><span class="line">10 rows in set (0.55 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; use beifeng</span><br><span class="line">Database changed</span><br><span class="line">mysql&gt; show tables;</span><br><span class="line">+------------------------+</span><br><span class="line">| Tables_in_beifeng      |</span><br><span class="line">+------------------------+</span><br><span class="line">| messafe_info           |</span><br><span class="line">| role_anthority_info    |</span><br><span class="line">| role_info              |</span><br><span class="line">| staff_info             |</span><br><span class="line">| staff_salary           |</span><br><span class="line">+------------------------+</span><br><span class="line">23 rows in set (0.06 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from role_info</span><br><span class="line">    -&gt; ;</span><br><span class="line">+---------+------------+------------------------+------------+</span><br><span class="line">| role_id | role_name  | role_desc              | role_state |</span><br><span class="line">+---------+------------+------------------------+------------+</span><br><span class="line">|       1 | 超级管理员 | 天天管学生             | 1          |</span><br><span class="line">|       2 | 招生人员   | 找人培训               | 0          |</span><br><span class="line">|       3 | 网大管     | 天天修电脑，天天接网线 | 1          |</span><br><span class="line">+---------+------------+------------------------+------------+</span><br><span class="line">3 rows in set (0.31 sec)</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、SQL概述"><a href="#四、SQL概述" class="headerlink" title="四、SQL概述"></a>四、SQL概述</h2><p>Structured Query Language(<a href="http://baike.baidu.com/item/%E7%BB%93%E6%9E%84%E5%8C%96%E6%9F%A5%E8%AF%A2%E8%AF%AD%E8%A8%80" target="_blank" rel="noopener">结构化查询语言</a>)的缩写。SQL是专为数据库而建立的操作命令集，是一种功能齐全的<a href="http://baike.baidu.com/item/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AF%AD%E8%A8%80" target="_blank" rel="noopener">数据库语言</a>。在使用它时，只需要发出“做什么”的命令，“怎么做”是不用使用者考虑的。SQL功能强大、<strong>简单易学</strong>、使用方便，已经成为了数据库操作的基础。</p>
+<p>特点：<strong>一条SQL语句一个执行结果</strong></p>
+<p><strong>重点</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select 选择，from 从...，insert插入 （into 到..），update 修改、更新，delete 删除，table 表，database 数据库，create创建，drop 丢弃， values 值（复数），primary key 主键，foreign key 外键，reference 引用，where 哪里，inner 内部的 join 连接 =》内连接，left join 左连接，right join 右连接，group（组，分组） by.. 根据..进行分组，having 有...，order by.. 根据..进行排序，desc（descending） 降序，asc（ascending）升序，auto_increment自增长，default 默认,null 空，not null非空，unique 唯一的，set 设置（值），distinct 确定的（去除重复数据），between ... and ... 在..和..之间，in 在..里面，like 像..一样(%,_)，limit 限制（分页时使用）(position,pageSize)，show 展示,use 使用,exists 存在,count统计，sum求和，avg平均值，max最大值，min最小值, describe描述</span><br></pre></td></tr></table></figure>
+
+<h2 id="五、Mysql数据类型"><a href="#五、Mysql数据类型" class="headerlink" title="五、Mysql数据类型"></a>五、Mysql数据类型</h2><p>###5.1整形</p>
+<table>
+<thead>
+<tr>
+<th>MySQL数据类型</th>
+<th>含义（有符号）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>tinyint</td>
+<td>1个字节  范围(-128~127)</td>
+</tr>
+<tr>
+<td>smallint</td>
+<td>2个字节  范围(-32768~32767)</td>
+</tr>
+<tr>
+<td>mediumint</td>
+<td>3个字节  范围(-8388608~8388607)</td>
+</tr>
+<tr>
+<td>int</td>
+<td>4个字节  范围(-2147483648~2147483647)</td>
+</tr>
+<tr>
+<td>bigint</td>
+<td>8个字节  范围(+-9.22*10的18次方)</td>
+</tr>
+</tbody></table>
+<p>注意：应用<strong>int</strong>为主</p>
+<h3 id="5-2小数"><a href="#5-2小数" class="headerlink" title="5.2小数"></a>5.2小数</h3><table>
+<thead>
+<tr>
+<th>MySQL数据类型</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>float(m,d)</td>
+<td>单精度浮点型    8位精度(4字节)     m总个数，d小数位</td>
+</tr>
+<tr>
+<td>double(m,d)</td>
+<td>双精度浮点型    16位精度(8字节)    m总个数，d小数位</td>
+</tr>
+<tr>
+<td>decimal(m,d)</td>
+<td>参数m&lt;65 是总个数，d&lt;30且 d&lt;m 是小数位 ( 将来可能会看到numberic，其余decimal类似 )</td>
+</tr>
+</tbody></table>
+<p>设一个字段定义为float(6,3)，如果插入一个数123.45678,实际数据库里存的是123.457，但总个数还以实际为准，即6位。整数部分最大是3位，如果插入数12.123456，存储的是12.1234，如果插入12.12，存储的是12.1200</p>
+<p>decimal(10,2)   123.45678=&gt; 123.45  12.123456=&gt;12.12</p>
+<h3 id="5-3字符串"><a href="#5-3字符串" class="headerlink" title="5.3字符串"></a>5.3字符串</h3><table>
+<thead>
+<tr>
+<th>MySQL数据类型</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>char(n)</td>
+<td>固定长度，最多255个字符</td>
+</tr>
+<tr>
+<td>varchar(n)</td>
+<td>固定长度，最多65535个字符</td>
+</tr>
+<tr>
+<td>tinytext</td>
+<td>可变长度，最多255个字符</td>
+</tr>
+<tr>
+<td>text</td>
+<td>可变长度，最多65535个字符</td>
+</tr>
+<tr>
+<td>mediumtext</td>
+<td>可变长度，最多2的24次方-1个字符</td>
+</tr>
+<tr>
+<td>longtext</td>
+<td>可变长度，最多2的32次方-1个字符</td>
+</tr>
+</tbody></table>
+<p>注意：应用以<strong>varchar</strong>为主</p>
+<h3 id="5-4日期"><a href="#5-4日期" class="headerlink" title="5.4日期"></a>5.4日期</h3><table>
+<thead>
+<tr>
+<th>MySQL数据类型</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>date</td>
+<td>日期 ‘2008-12-2’</td>
+</tr>
+<tr>
+<td>time</td>
+<td>时间 ‘12:25:36’</td>
+</tr>
+<tr>
+<td>datetime</td>
+<td>日期时间 ‘2008-12-2 22:06:44’</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>自动存储记录修改时间六留</td>
+</tr>
+</tbody></table>
+<h2 id="六、数据库创建删除"><a href="#六、数据库创建删除" class="headerlink" title="六、数据库创建删除"></a>六、数据库创建删除</h2><p>查看所有的数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show databases;   # sql语句  ；表示一条sql语句结束了</span><br></pre></td></tr></table></figure>
+
+<p>CREATE DATABASE [IF NOT EXISTS] 数据库名;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">create database myschool;</span><br><span class="line">create database if not exists myschool;</span><br></pre></td></tr></table></figure>
+
+<p>DROP DATABASE  [IF EXISTS] 数据库名;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">drop database abcd;</span><br><span class="line">drop database if exists abcd;</span><br></pre></td></tr></table></figure>
+
+<p>使用(切换)数据库</p>
+<p>USE 数据库名;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use beifeng；</span><br></pre></td></tr></table></figure>
+
+<p>查看某个库中的所有的表(注意:在操作表之前必须先使用数据库)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show tables;</span><br></pre></td></tr></table></figure>
+
+<h2 id="七、创建表"><a href="#七、创建表" class="headerlink" title="七、创建表"></a>七、创建表</h2><p>CREATE TABLE 表名(<br>        字段1 字段类型1,<br>        字段2 字段类型2,<br>        ….<br>        字段n 字段类型n<br>    );</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE Student          </span><br><span class="line">   (  Sno   varchar(9) ，                  </span><br><span class="line">        Sname  varchar(20) ，    </span><br><span class="line">        Ssex    varchar(2)，</span><br><span class="line">        Sage   INT，</span><br><span class="line">        Sdept  varchar(20)</span><br><span class="line">     )；</span><br></pre></td></tr></table></figure>
+
+<p>##八、插入数据</p>
+<p>INSERT INTO &lt;表名&gt; [(&lt;属性列1&gt;[，&lt;属性列2 &gt;…)]</p>
+<p>  VALUES (&lt;常量1&gt; [，&lt;常量2&gt;]    …           )</p>
+<table>
+<thead>
+<tr>
+<th>学    号   Sno</th>
+<th>姓    名   Sname</th>
+<th>性    别    Ssex</th>
+<th>年    龄    Sage</th>
+<th>所 在 系    Sdept</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200215121</td>
+<td>李勇</td>
+<td>男</td>
+<td>20</td>
+<td>CS</td>
+</tr>
+<tr>
+<td>200215122</td>
+<td>刘晨</td>
+<td>女</td>
+<td>19</td>
+<td>CS</td>
+</tr>
+<tr>
+<td>200215123</td>
+<td>王敏</td>
+<td>女</td>
+<td>18</td>
+<td>MA</td>
+</tr>
+<tr>
+<td>200515125</td>
+<td>张立</td>
+<td>男</td>
+<td>19</td>
+<td>IS</td>
+</tr>
+</tbody></table>
+<ol>
+<li><p>向表中指定列插入数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 向表中的指定列插入数据  出现主键重复时，会报错，Duplicate 重复 Duplicate  entry </span><br><span class="line">insert into student(sno,sname,sdept)</span><br><span class="line">values(&apos;08070203&apos;,&apos;诸葛亮&apos;,&apos;CS&apos;);</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="2">
+<li><p>向表中所有列插入数据</p>
+<p>写法1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 按照列出现的顺序向表中插入数据时，(sno,sname,sage,ssex,sdept)可以省略不写，如上面的格式</span><br><span class="line">insert into student(sno,sname,sage,ssex,sdept)</span><br><span class="line">values(&apos;08070202&apos;,&apos;张飞&apos;,30,&apos;女&apos;,&quot;IS&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>写法2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 插入数据，按照列的顺序插入数据</span><br><span class="line">insert into student</span><br><span class="line">values(&apos;08070202&apos;,&apos;张飞&apos;,30,&apos;女&apos;,&quot;IS&quot;);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="九、创建表其他"><a href="#九、创建表其他" class="headerlink" title="九、创建表其他"></a>九、创建表其他</h2><p>###9.1自增长</p>
+<p>自动增长的，每添加一条数据，自动在上一个记录数上加1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># auto_increment 自增长  每次增加1</span><br><span class="line">create table role(</span><br><span class="line">id int PRIMARY key auto_increment,</span><br><span class="line">role_name varchar(20),</span><br><span class="line">note varchar(100)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 自增长 不需要我们去手动维护他，就是插入数据的时候，不需要关注他是什么值</span><br><span class="line"># 自增长从1开始，只会增长，不会出现减少的情况</span><br><span class="line">INSERT into role</span><br><span class="line">values(null, &apos;导演&apos;,&apos;导演都爱潜规则&apos;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">INSERT into role</span><br><span class="line">values(null, &apos;主演&apos;,&apos;主演都爱钱&apos;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意:自动增长的列必须是一个键(一般为主键)</strong></p>
+<p>###9.2空与空串</p>
+<p>NULL  和  NOT  NULL<br>    NULL:表示该列可以有空值数据<br>    NOT  NULL:表示该列不能有空值数据</p>
+<p>空串  ‘’</p>
+<p>空串与空一样吗？  不一样</p>
+<p>###9.3默认值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create table a6(</span><br><span class="line">		a1 int,</span><br><span class="line">		a2 int default 66,</span><br><span class="line">		a3 varchar(32) default &apos;哈哈&apos;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>##十、更新数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># update SET  where </span><br><span class="line"># 更新条件，如更新自己的个人信息，根据什么条件可以确定是自己</span><br><span class="line"># 将ttt表中id列的值等于2的那个人的tnote列改为&apos;joy&apos;</span><br><span class="line">UPDATE ttt </span><br><span class="line">set tnote=&apos;joy&apos; </span><br><span class="line">where id=2</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 诸葛亮 年龄改为35岁，性别改为男，系改为IS</span><br><span class="line">UPDATE student</span><br><span class="line">SET SAGE=35, SSEX=&apos;男&apos;,sdept=&apos;IS&apos;</span><br><span class="line">WHERE SNO=&apos;08070203&apos;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 将所有人的年龄全部增加2岁</span><br><span class="line">UPDATE student</span><br><span class="line">SET sage=sage+2;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 没有加where条件，意味着修改表中的所有行，对于修改语句，写的时候要慎重</span><br><span class="line">update student</span><br><span class="line">set ssex=&apos;M&apos;</span><br></pre></td></tr></table></figure>
+
+<p>##十一、删除</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># drop database/table 数据库名/表名</span><br><span class="line"># 删除表中的数据，delete</span><br><span class="line"># 从ttt表中删除id为2的记录</span><br><span class="line">delete from ttt where id=2</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DELETE from student where sno=&apos;08070202&apos;</span><br><span class="line"># 不加任何条件，表示删除表中的所有数据</span><br><span class="line">delete from student;</span><br></pre></td></tr></table></figure>
+
+<p><strong>作业</strong></p>
+<table>
+<thead>
+<tr>
+<th>列名</th>
+<th>数据类型</th>
+<th>是否可为空</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ID</td>
+<td>INT</td>
+<td>否</td>
+<td></td>
+<td>主键，自增长</td>
+</tr>
+<tr>
+<td>SNO</td>
+<td>Varchar(10)</td>
+<td>否</td>
+<td></td>
+<td>学号，唯一且非空</td>
+</tr>
+<tr>
+<td>SNAME</td>
+<td>varchar(20)</td>
+<td>否</td>
+<td></td>
+<td>姓名</td>
+</tr>
+<tr>
+<td>SSEX</td>
+<td>varchar(1)</td>
+<td>否</td>
+<td>‘男’</td>
+<td>性别</td>
+</tr>
+<tr>
+<td>SBIRTHDAY</td>
+<td>DATE</td>
+<td>是</td>
+<td></td>
+<td>出生日期</td>
+</tr>
+<tr>
+<td>SAGE</td>
+<td>INT</td>
+<td>是</td>
+<td></td>
+<td>年龄</td>
+</tr>
+</tbody></table>
+<p>创建如图所示的<strong>hero</strong>表</p>
+<p>向表中插入如下的数据</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Sno</th>
+<th>Sname</th>
+<th>Ssex</th>
+<th>Sage</th>
+<th>SBIRTHDAY</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>自增长的值</td>
+<td>200215121</td>
+<td>赵云</td>
+<td>男</td>
+<td>20</td>
+<td>2000-09-15</td>
+</tr>
+<tr>
+<td>自增长的值</td>
+<td>200215122</td>
+<td>不知火舞</td>
+<td>女</td>
+<td>19</td>
+<td>1999-01-05</td>
+</tr>
+<tr>
+<td>自增长的值</td>
+<td>200215123</td>
+<td>妲己</td>
+<td>女</td>
+<td>18</td>
+<td>1990-08-07</td>
+</tr>
+</tbody></table>
+<ol>
+<li>所有人的年龄增加2岁</li>
+<li>将赵云的姓名改成赵子龙</li>
+<li>删除不知火舞</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/10/Exception/" rel="next" title="Exception">
+                <i class="fa fa-chevron-left"></i> Exception
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/19/MySQL-02/" rel="prev" title="MySQL_02">
+                MySQL_02 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Hasson">
+            
+              <p class="site-author-name" itemprop="name">Hasson</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Git136314602" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:a136314602@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/yourname" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://user.qzone.qq.com/136314602" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQ</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mac.weixin.qq.com" target="_blank" title="weixin">
+                      
+                        <i class="fa fa-fw fa-weixin"></i>weixin</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/6045337134" target="_blank" title="weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MYSQL"><span class="nav-number">1.</span> <span class="nav-text">MYSQL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、数据库概述"><span class="nav-number">1.1.</span> <span class="nav-text">一、数据库概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1数据管理技术的发展阶段"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1数据管理技术的发展阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2数据库"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2数据库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Mysql安装"><span class="nav-number">1.2.</span> <span class="nav-text">二、Mysql安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL卸载"><span class="nav-number">1.2.1.</span> <span class="nav-text">MySQL卸载</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、Navicat安装"><span class="nav-number">1.3.</span> <span class="nav-text">三、Navicat安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、SQL概述"><span class="nav-number">1.4.</span> <span class="nav-text">四、SQL概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、Mysql数据类型"><span class="nav-number">1.5.</span> <span class="nav-text">五、Mysql数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2小数"><span class="nav-number">1.5.1.</span> <span class="nav-text">5.2小数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3字符串"><span class="nav-number">1.5.2.</span> <span class="nav-text">5.3字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4日期"><span class="nav-number">1.5.3.</span> <span class="nav-text">5.4日期</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、数据库创建删除"><span class="nav-number">1.6.</span> <span class="nav-text">六、数据库创建删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、创建表"><span class="nav-number">1.7.</span> <span class="nav-text">七、创建表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#九、创建表其他"><span class="nav-number">1.8.</span> <span class="nav-text">九、创建表其他</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hasson</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
