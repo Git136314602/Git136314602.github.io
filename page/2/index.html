@@ -88,7 +88,7 @@
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Mr.Hassan">
-<meta property="og:url" content="http://hasson.top/index.html">
+<meta property="og:url" content="http://hasson.top/page/2/index.html">
 <meta property="og:site_name" content="Mr.Hassan">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
@@ -122,7 +122,7 @@
 
 
 
-  <link rel="canonical" href="http://hasson.top/">
+  <link rel="canonical" href="http://hasson.top/page/2/">
 
 
 
@@ -256,7 +256,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/08/19/MySQL-04/">
+    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/08/19/泛型/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hasson">
@@ -275,7 +275,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/08/19/MySQL-04/" itemprop="url">MySQL_04</a></h1>
+                <a class="post-title-link" href="/2019/08/19/泛型/" itemprop="url">泛型</a></h1>
         
 
         <div class="post-meta">
@@ -287,7 +287,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-19T21:23:06+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-19T21:12:38+08:00">
                 2019-08-19
               </time>
             
@@ -327,13 +327,13 @@
       
         
           
-          MYSQL[TOC]
-视图(了解)  虚表实表：create table 创建出来的表
-从用户角度来看，一个视图是从一个特定的角度来查看数据库中的数据 。从数据库系统内部来看，一个视图是由SELECT语句组成的查询定义的虚拟表 。从数据库系统内部来看，视图是由一张或多张表中的数据组成的，从数据库系统
+          方法参数：定义方法时有形参，调用方法时传递实参。
+泛型，即“参数化类型”，即将类型由原来具体的类型参数化，类似于方法中的变量参数，此时类型也定义成参数形式（可以称之为类型形参），然后在使用/调用时传入具体的类型（类型实参）。
+泛型的本质是为了参数化类型（在不创建新的类型的情况下，通过泛型指定的不同类
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/08/19/MySQL-04/#more" rel="contents">
+            <a class="btn" href="/2019/08/19/泛型/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -384,7 +384,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/08/19/MySQL-03/">
+    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/08/19/反射/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hasson">
@@ -403,7 +403,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/08/19/MySQL-03/" itemprop="url">MySQL_03</a></h1>
+                <a class="post-title-link" href="/2019/08/19/反射/" itemprop="url">反射</a></h1>
         
 
         <div class="post-meta">
@@ -415,7 +415,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-19T21:22:56+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-19T21:12:25+08:00">
                 2019-08-19
               </time>
             
@@ -455,14 +455,21 @@
       
         
           
-          MYSQL多表查询
-查询选课学生及其选修课程的情况（等值连接）
+          反射Java程序对象类型:
 
-123456789101112131415161718192021# 查询出等值连接的所有列select *from student,scwhere student.sno=sc.sno# 查询出等值连接的指定列select snam
+编译时类型  
+运行时类型
+
+1Person p=new Student();
+
+p译时是Person类型，而运行时是Student类型
+如何解决这个编译时与运行时的类型不同呢?
+
+假设在编译时和运行时都完全知道类型的具体信息，这种情况下用instanceof判断，再进
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/08/19/MySQL-03/#more" rel="contents">
+            <a class="btn" href="/2019/08/19/反射/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -513,7 +520,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/08/19/MySQL-02/">
+    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/08/19/动态代理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hasson">
@@ -532,7 +539,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/08/19/MySQL-02/" itemprop="url">MySQL_02</a></h1>
+                <a class="post-title-link" href="/2019/08/19/动态代理/" itemprop="url">动态代理</a></h1>
         
 
         <div class="post-meta">
@@ -544,7 +551,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-19T21:22:44+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-19T21:12:16+08:00">
                 2019-08-19
               </time>
             
@@ -584,19 +591,14 @@
       
         
           
-          MYSQL[TOC]
-一、数据库编程基础###1.1实体与属性
-•实体
-现实世界中任何一个可以识别的对象
-数据库中的一条记录对应java中的一个对象，数据库中的一张表对应java中的一个类
-•属性
-实体所具有的特性，一个实体可用若干属性来描述
-•关系数据库中的表现
-实体的实例是储存在表中的行，属性是
+          动态代理概述动态代理的意义在于生成一个占位（又称代理对象），来代理真实对象，从而控制真实对象的访问。
+场景：假如你是一家软件公司的软件工程师，客户带着需求去找公司显然不会直接和你谈，而是去找商务谈，此时客户会认为商务代表公司。
+客户通过商务去访问软件工程师，那么商务对象的意义在什么地方呢？
+客户可以
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/08/19/MySQL-02/#more" rel="contents">
+            <a class="btn" href="/2019/08/19/动态代理/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -647,7 +649,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/08/19/MySQL-01/">
+    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/08/19/存储区域/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hasson">
@@ -666,7 +668,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/08/19/MySQL-01/" itemprop="url">MySQL_01</a></h1>
+                <a class="post-title-link" href="/2019/08/19/存储区域/" itemprop="url">存储区域</a></h1>
         
 
         <div class="post-meta">
@@ -678,7 +680,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-19T21:22:34+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-19T21:12:01+08:00">
                 2019-08-19
               </time>
             
@@ -718,17 +720,12 @@
       
         
           
-          MYSQL[TOC]
-一、数据库概述1.1数据管理技术的发展阶段
-人工阶段 50年代中期以前（磁带、纸带，无磁盘 ）
-文件  50年代后期到60年代中期（磁盘 ）
-数据库系统 60年代后期（大容量磁盘，硬件价格下降 ）
-
-1.2数据库数据库(Database)是按照数据结构来组织、存储和管理数据的仓
+          Java程序由JVM执行，所以其内存区域划分的时候就是指JVM区域划分。
+Java源码文件(.java)编译生成字节码文件（.class），然后由JVM中的类加载器加载各个类的字节码文件，加载完毕之后，交由JVM执行引擎执行。整个程序执行过程中，JVM会用一段空间来存储程序执行期间需要用到的数据和相
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/08/19/MySQL-01/#more" rel="contents">
+            <a class="btn" href="/2019/08/19/存储区域/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -779,7 +776,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/08/19/区别-与/">
+    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/08/19/NIO/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hasson">
@@ -798,7 +795,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/08/19/区别-与/" itemprop="url">区别($与#)</a></h1>
+                <a class="post-title-link" href="/2019/08/19/NIO/" itemprop="url">NIO</a></h1>
         
 
         <div class="post-meta">
@@ -810,7 +807,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-19T21:14:36+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-19T21:11:37+08:00">
                 2019-08-19
               </time>
             
@@ -850,11 +847,12 @@
       
         
           
-          ${ } 和 #{ }的区别动态 SQL 是 mybatis 的强大特性之一，也是它优于其他 ORM 框架的一个重要原因。mybatis 在对 sql 语句进行预编译之前，会对 sql 进行动态解析，解析为一个 BoundSql 对象，也是在此处对动态 SQL 进行处理的。在动态 SQL 解析阶段，
+          NIO概述使用IO流与存放在磁盘上的文件能够很方便的进行交互，但是它也存在一定的问题，问题的根源在于速度，由于磁盘IO速度远远小于CPU处理速度，这导致程序在进行IO操作的时候，不得不进行阻塞线程，等待IO操作完成，才能继续向下执行。
+若某线程除了进行IO操作之外，还有其他重要的事情需要处理（给用户
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/08/19/区别-与/#more" rel="contents">
+            <a class="btn" href="/2019/08/19/NIO/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -905,7 +903,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/08/19/线程池/">
+    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/08/19/Junit/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hasson">
@@ -924,7 +922,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/08/19/线程池/" itemprop="url">线程池</a></h1>
+                <a class="post-title-link" href="/2019/08/19/Junit/" itemprop="url">Junit</a></h1>
         
 
         <div class="post-meta">
@@ -936,7 +934,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-19T21:13:32+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-19T21:11:27+08:00">
                 2019-08-19
               </time>
             
@@ -976,11 +974,13 @@
       
         
           
-          线程池线程池就是首先创建一些线程，它们的集合称为线程池。使用线程池可以很好地提高性能，线程池在系统启动时即创建一些空闲的线程，程序将一个任务传给线程池，线程池就会启动一条线程来执行这个任务，执行结束以后，该线程并不会死亡，而是再次返回线程池中成为空闲状态，等待执行下一个任务（提高线程复用，减少性能开
+          单元测试单元测试是编写测试代码，应该准确、快速地保证程序基本模块的正确性。强调建立测试数据的一段代码，可以先测试，然后再应用。这个方法就好比“测试一点，编码一点，测试一点，编码一点……”，增加了程序员的产量和程序的稳定性，可以减少程序员的压力和花费在排错上的时间。
+在IDEA中安装单元测试插件：
+1
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/08/19/线程池/#more" rel="contents">
+            <a class="btn" href="/2019/08/19/Junit/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1031,7 +1031,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/08/19/类加载/">
+    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/08/19/Exception/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hasson">
@@ -1050,7 +1050,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/08/19/类加载/" itemprop="url">类加载</a></h1>
+                <a class="post-title-link" href="/2019/08/19/Exception/" itemprop="url">Exception</a></h1>
         
 
         <div class="post-meta">
@@ -1062,7 +1062,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-19T21:13:21+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-19T21:11:12+08:00">
                 2019-08-19
               </time>
             
@@ -1102,20 +1102,11 @@
       
         
           
-          类加载概述类加载时机
-
-第一次使用某个类时加载
-预加载机制来加载
-
-JVM与程序：用Java命令运行某个Java程序时，这个命令会启动一个Java虚拟机进程，这个进程中可能会有很多的线程，但这些线程都处于该Java虚拟机进程中。
-JVM进程可能被终止的情况：
-
-程序正常结束
-程序运行到使用Syste
+          12345Exception in thread &quot;main&quot; java.lang.ArithmeticException: / by zero	at com.train.day07.ExceptionDemo1.test3(ExceptionDemo1.java:25)	at 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/08/19/类加载/#more" rel="contents">
+            <a class="btn" href="/2019/08/19/Exception/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1166,7 +1157,7 @@ JVM进程可能被终止的情况：
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/08/19/观察者模式/">
+    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/08/19/Array排序/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hasson">
@@ -1185,7 +1176,7 @@ JVM进程可能被终止的情况：
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/08/19/观察者模式/" itemprop="url">观察者模式</a></h1>
+                <a class="post-title-link" href="/2019/08/19/Array排序/" itemprop="url">Array排序</a></h1>
         
 
         <div class="post-meta">
@@ -1197,7 +1188,7 @@ JVM进程可能被终止的情况：
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-19T21:13:11+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-19T21:10:58+08:00">
                 2019-08-19
               </time>
             
@@ -1237,13 +1228,11 @@ JVM进程可能被终止的情况：
       
         
           
-          观察者模式观察者又称为发布订阅模式，是对象的行为模式。观察者模式定义了一种一对多的依赖关系，让多个观察者对象同时监视者被观察者的状态，当被观察者的状态发生变化时，会通知所有观察者，并让其自动更新自己。
-如：y = x2，y随x的变化而变化
-再如：一个商家和一些电商合作，每当有新产品发布时，就会把这些
+          Array异常123456789101112131415161718static String[] sArr;   public static void main(String[] args) &#123;       int[] iArr = new int[4];       // 数组下标从0
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/08/19/观察者模式/#more" rel="contents">
+            <a class="btn" href="/2019/08/19/Array排序/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1294,7 +1283,7 @@ JVM进程可能被终止的情况：
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/08/19/工厂模式/">
+    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/08/19/循环结构-条件语句/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hasson">
@@ -1313,7 +1302,7 @@ JVM进程可能被终止的情况：
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/08/19/工厂模式/" itemprop="url">工厂模式</a></h1>
+                <a class="post-title-link" href="/2019/08/19/循环结构-条件语句/" itemprop="url">循环结构&&条件语句</a></h1>
         
 
         <div class="post-meta">
@@ -1325,7 +1314,7 @@ JVM进程可能被终止的情况：
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-19T21:12:58+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-19T21:10:43+08:00">
                 2019-08-19
               </time>
             
@@ -1365,11 +1354,13 @@ JVM进程可能被终止的情况：
       
         
           
-          工厂模式大部分情况下，我们new关键字来创建对象。举例来说，现实中车子的种类可能很多，有大巴车，轿车，救护车，越野车，卡车等，每个种类下面还有具体的型号，一个工厂生产如此多的车难以管理，所以还需要进一步拆分为各个分工厂：大巴车，轿车等分工厂。但是客户不需要知道工厂是如何拆分的，只会告诉客服需要什么车
+          switch-case-breakSwitch-case-break
+1、使用break语句，防止case穿透 2、 default可以省略，但不推荐省略 3、 switch语句中控制表达式的类型只能是byte、short、char、int、String（JDK7新增）和枚举
+12345678910
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/08/19/工厂模式/#more" rel="contents">
+            <a class="btn" href="/2019/08/19/循环结构-条件语句/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1420,7 +1411,7 @@ JVM进程可能被终止的情况：
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/08/19/范式/">
+    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/08/19/Class/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hasson">
@@ -1439,7 +1430,7 @@ JVM进程可能被终止的情况：
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/08/19/范式/" itemprop="url">范式</a></h1>
+                <a class="post-title-link" href="/2019/08/19/Class/" itemprop="url">Class</a></h1>
         
 
         <div class="post-meta">
@@ -1451,7 +1442,7 @@ JVM进程可能被终止的情况：
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-19T21:12:45+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-19T21:10:22+08:00">
                 2019-08-19
               </time>
             
@@ -1491,13 +1482,12 @@ JVM进程可能被终止的情况：
       
         
           
-          逻辑数据库设计—规范化逻辑模型范式（ Normal form，简称NF ）表示关系模式的级别，是衡量关系模式规范化程度的标准，达到范式的关系才是规范化的。
-各种范式之间的联系是：5NF ∈ 4NF ∈ 3NF ∈ 2NF ∈ 1NF
-规范化:一个低级范式的关系模式，通过关系模式的投影分解，可以转换为
+          instanceof它的作用是测试它左边的对象是否是它右边的类的实例，或者右边的类的子类实例，返回 boolean 的数据类型。
+1234567public static void test()&#123;       String a = &quot;&quot;;       Object ob
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/08/19/范式/#more" rel="contents">
+            <a class="btn" href="/2019/08/19/Class/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1539,7 +1529,7 @@ JVM进程可能被终止的情况：
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
