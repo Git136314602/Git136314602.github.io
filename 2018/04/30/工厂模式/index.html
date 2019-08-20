@@ -94,12 +94,12 @@
 <meta property="og:site_name" content="Mr.Hassan">
 <meta property="og:description" content="工厂模式大部分情况下，我们new关键字来创建对象。举例来说，现实中车子的种类可能很多，有大巴车，轿车，救护车，越野车，卡车等，每个种类下面还有具体的型号，一个工厂生产如此多的车难以管理，所以还需要进一步拆分为各个分工厂：大巴车，轿车等分工厂。但是客户不需要知道工厂是如何拆分的，只会告诉客服需要什么车，客服会根据客户的需要找到对应的工厂去生产车。对客户而言，车厂只是一个抽象概念，只是知道有这样的一个">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="c:/Users/NiGulas/Desktop/essay/sim_fac.png">
+<meta property="og:image" content="http://hasson.top/2018/04/30/工厂模式/Users/NiGulas/Desktop/essay/sim_fac.png">
 <meta property="og:updated_time" content="2019-08-19T13:30:46.873Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="工厂模式">
 <meta name="twitter:description" content="工厂模式大部分情况下，我们new关键字来创建对象。举例来说，现实中车子的种类可能很多，有大巴车，轿车，救护车，越野车，卡车等，每个种类下面还有具体的型号，一个工厂生产如此多的车难以管理，所以还需要进一步拆分为各个分工厂：大巴车，轿车等分工厂。但是客户不需要知道工厂是如何拆分的，只会告诉客服需要什么车，客服会根据客户的需要找到对应的工厂去生产车。对客户而言，车厂只是一个抽象概念，只是知道有这样的一个">
-<meta name="twitter:image" content="c:/Users/NiGulas/Desktop/essay/sim_fac.png">
+<meta name="twitter:image" content="http://hasson.top/2018/04/30/工厂模式/Users/NiGulas/Desktop/essay/sim_fac.png">
 
 
 
@@ -376,7 +376,7 @@
 
 <h2 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h2><p>抽象工厂模式可以向客户端提供一个接口，客户在不必指定产品的具体情况下创建多个产品族中的产品对象。</p>
 <p>对于普通工厂而言，他解决了一类对象创建问题，但是有时候对象很复杂，有几十个有分为几个类别。如果只有一个工厂，面对如此多的产品，这个工厂需要实现的逻辑就复杂了，所以希望把工厂分成好几个。这样便于工厂产品规则的维护，但是设计者不想让调用者知道具体的工厂规则，而只是希望他们知道一个统一的工厂即可。这样设计有助于对外封装和简化调用者的使用，毕竟调用者也不想知道选择具体工厂的规则。</p>
-<p><img src="C:/Users/NiGulas/Desktop/essay/sim_fac.png" alt></p>
+<p><img src="//hasson.top/2018/04/30/工厂模式/Users/NiGulas/Desktop/essay/sim_fac.png" alt></p>
 <p>以车厂为例，生产商不会把轿车，大巴车，吉普车等车型都放在一个车厂生产，那样会导致车厂异常复杂，导致管理和维护。所以生产商通常会把这些分为轿车厂，大巴车厂，警车厂等分厂。么个种类下面有一些型号的产品。但对于客户而言，只要告诉客服需要什么车即可。后续交给客服分配即可。</p>
 <p>客户只是认为有一个能够生产各类车的工厂，他能生成所需要的产品，这里工厂只是一个虚拟的概念，并不真实存在，他是通过车厂内部各个分厂实现的，这个虚拟工厂称为抽象工厂。各个分厂称为具体工厂。为了统一，需要制定一个接口规范（IProductFactory），所有的具体工厂和抽象工厂都要实现这个接口，IProductFactory接口设计成。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public interface IProductFactory &#123;</span><br><span class="line">    IProduct createProduct(String proNo);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

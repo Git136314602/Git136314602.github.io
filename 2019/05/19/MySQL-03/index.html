@@ -94,17 +94,17 @@
 <meta property="og:site_name" content="Mr.Hassan">
 <meta property="og:description" content="MYSQL多表查询 查询选课学生及其选修课程的情况（等值连接）  123456789101112131415161718192021# 查询出等值连接的所有列select *from student,scwhere student.sno=sc.sno# 查询出等值连接的指定列select sname,ssex,sdept,cno,grade from student,scwhere studen">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="c:/Users/NiGulas/Desktop/essay/img/mysql03_01.png">
-<meta property="og:image" content="c:/Users/NiGulas/Desktop/essay/img/mysql03_03.png">
-<meta property="og:image" content="c:/Users/NiGulas/Desktop/essay/img/mysql03_02.png">
-<meta property="og:image" content="c:/Users/NiGulas/Desktop/essay/img/mysql03_04.png">
-<meta property="og:image" content="c:/Users/NiGulas/Desktop/essay/img/mysql03_05.png">
-<meta property="og:image" content="c:/Users/NiGulas/Desktop/essay/img/mysql03_06.png">
+<meta property="og:image" content="http://hasson.top/2019/05/19/MySQL-03/Users/NiGulas/Desktop/essay/img/mysql03_01.png">
+<meta property="og:image" content="http://hasson.top/2019/05/19/MySQL-03/Users/NiGulas/Desktop/essay/img/mysql03_03.png">
+<meta property="og:image" content="http://hasson.top/2019/05/19/MySQL-03/Users/NiGulas/Desktop/essay/img/mysql03_02.png">
+<meta property="og:image" content="http://hasson.top/2019/05/19/MySQL-03/Users/NiGulas/Desktop/essay/img/mysql03_04.png">
+<meta property="og:image" content="http://hasson.top/2019/05/19/MySQL-03/Users/NiGulas/Desktop/essay/img/mysql03_05.png">
+<meta property="og:image" content="http://hasson.top/2019/05/19/MySQL-03/Users/NiGulas/Desktop/essay/img/mysql03_06.png">
 <meta property="og:updated_time" content="2019-08-19T13:35:01.301Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL_03">
 <meta name="twitter:description" content="MYSQL多表查询 查询选课学生及其选修课程的情况（等值连接）  123456789101112131415161718192021# 查询出等值连接的所有列select *from student,scwhere student.sno=sc.sno# 查询出等值连接的指定列select sname,ssex,sdept,cno,grade from student,scwhere studen">
-<meta name="twitter:image" content="c:/Users/NiGulas/Desktop/essay/img/mysql03_01.png">
+<meta name="twitter:image" content="http://hasson.top/2019/05/19/MySQL-03/Users/NiGulas/Desktop/essay/img/mysql03_01.png">
 
 
 
@@ -367,14 +367,14 @@
       
         <h1 id="MYSQL"><a href="#MYSQL" class="headerlink" title="MYSQL"></a>MYSQL</h1><h2 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h2><ol>
 <li><p>查询选课学生及其选修课程的情况（等值连接）</p>
-<p><img src="C:/Users/NiGulas/Desktop/essay/img/mysql03_01.png" alt></p>
+<p><img src="//hasson.top/2019/05/19/MySQL-03/Users/NiGulas/Desktop/essay/img/mysql03_01.png" alt></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># 查询出等值连接的所有列</span><br><span class="line">select *</span><br><span class="line">from student,sc</span><br><span class="line">where student.sno=sc.sno</span><br><span class="line"></span><br><span class="line"># 查询出等值连接的指定列</span><br><span class="line">select sname,ssex,sdept,cno,grade </span><br><span class="line">from student,sc</span><br><span class="line">where student.sno=sc.sno</span><br><span class="line"></span><br><span class="line"># 遇到重名的列时，一定要指定所属的表</span><br><span class="line"># 否则会报如下错误  </span><br><span class="line"># Column &apos;sno&apos; in field list is ambiguous，记住这个错误</span><br><span class="line">select sc.sno,sname,ssex,sdept,cno,grade </span><br><span class="line">from student,sc</span><br><span class="line">where student.sno=sc.sno</span><br><span class="line"></span><br><span class="line"># 表的别名全权代表表,之后出现表的引用都要使用别名</span><br><span class="line">select sc.sno,s.sname,ssex,sdept,cno,grade </span><br><span class="line">from student AS s,sc</span><br><span class="line">where s.sno=sc.sno</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>查询每一门课的间接先修课（即先修课的先修课） </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 查询每一门课的间接先修课（即先修课的先修课）</span><br><span class="line"></span><br><span class="line">SELECT * </span><br><span class="line">from course c1, course c2</span><br><span class="line">where c1.cpno=c2.cno</span><br><span class="line"></span><br><span class="line">SELECT c1.cno,c2.cpno</span><br><span class="line">from course c1, course c2</span><br><span class="line">where c1.cpno=c2.cno</span><br><span class="line"></span><br><span class="line"># 查出间接先修课一定存在的</span><br><span class="line">SELECT c1.cno,c2.cpno</span><br><span class="line">from course c1, course c2</span><br><span class="line">where c1.cpno=c2.cno and c2.cpno is not null</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>内连接inner join，等价于等值连接</p>
-<p><img src="C:/Users/NiGulas/Desktop/essay/img/mysql03_03.png" alt></p>
+<p><img src="//hasson.top/2019/05/19/MySQL-03/Users/NiGulas/Desktop/essay/img/mysql03_03.png" alt></p>
 <p>查询选课学生及其选修课程的情况</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">select *</span><br><span class="line">from student</span><br><span class="line">inner JOIN sc</span><br><span class="line">on student.sno=sc.sno</span><br><span class="line"></span><br><span class="line"># 别名</span><br><span class="line">select s.sno &apos;学号&apos;,sname &apos;姓名&apos;</span><br><span class="line">from student s</span><br><span class="line">inner JOIN sc  ss</span><br><span class="line">on s.sno=ss.sno</span><br></pre></td></tr></table></figure>
 
@@ -385,14 +385,14 @@
 <ol start="4">
 <li><p>外连接</p>
 <p>保留舍弃的元组，在对应被连接表的分量部分用空值(NULL)代替,这种连接被叫做外连接 </p>
-<p><img src="C:/Users/NiGulas/Desktop/essay/img/mysql03_02.png" alt></p>
+<p><img src="//hasson.top/2019/05/19/MySQL-03/Users/NiGulas/Desktop/essay/img/mysql03_02.png" alt></p>
 <p><strong>左外连接</strong></p>
-<p><img src="C:/Users/NiGulas/Desktop/essay/img/mysql03_04.png" alt></p>
+<p><img src="//hasson.top/2019/05/19/MySQL-03/Users/NiGulas/Desktop/essay/img/mysql03_04.png" alt></p>
 <p>查找每个学生的基本情况及选课情况 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">select *</span><br><span class="line">from student   # table1 主表</span><br><span class="line">LEFT JOIN sc   # table2 从表 </span><br><span class="line">on student.sno=sc.sno</span><br><span class="line"># 显示的结果是主表与从表进行等值连接的结果 + 主表与从表没有连接的记录</span><br></pre></td></tr></table></figure>
 
 <p>右外连接同理</p>
-<p><img src="C:/Users/NiGulas/Desktop/essay/img/mysql03_05.png" alt></p>
+<p><img src="//hasson.top/2019/05/19/MySQL-03/Users/NiGulas/Desktop/essay/img/mysql03_05.png" alt></p>
 </li>
 <li><p>复合条件连接  </p>
 <p>查询选修2号课程且成绩在90分以上的所有学生</p>
@@ -428,7 +428,7 @@
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">select sno,cno</span><br><span class="line">from sc x</span><br><span class="line">where grade&gt;(</span><br><span class="line">     select avg(grade) </span><br><span class="line">     from sc y</span><br><span class="line">     where x.sno=y.sno</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
-<p>  <img src="C:/Users/NiGulas/Desktop/essay/img/mysql03_06.png" alt></p>
+<p>  <img src="//hasson.top/2019/05/19/MySQL-03/Users/NiGulas/Desktop/essay/img/mysql03_06.png" alt></p>
 <ol start="11">
 <li><p>查询其他系中比计算机科学某一学生年龄小的学生姓名和年龄</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM STUDENT WHERE  </span><br><span class="line">SAGE&lt; ANY(select sage from student </span><br><span class="line">where sdept=&apos;CS&apos;) AND SDEPT !=&apos;CS&apos;</span><br><span class="line"># 另一种写法</span><br><span class="line">SELECT * FROM STUDENT WHERE  </span><br><span class="line">SAGE&lt; (select MAX(sage) from student </span><br><span class="line">where sdept=&apos;CS&apos;) AND SDEPT !=&apos;CS&apos;</span><br></pre></td></tr></table></figure>

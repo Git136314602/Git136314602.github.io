@@ -94,15 +94,15 @@
 <meta property="og:site_name" content="Mr.Hassan">
 <meta property="og:description" content="MYSQL[TOC] 一、数据库编程基础###1.1实体与属性 •实体 现实世界中任何一个可以识别的对象 数据库中的一条记录对应java中的一个对象，数据库中的一张表对应java中的一个类 •属性 实体所具有的特性，一个实体可用若干属性来描述 •关系数据库中的表现 实体的实例是储存在表中的行，属性是储存在表中的列。 1.2实体的关系•键（key） 在实体属性中，用于区别实体集合中不同个体的某个属性">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="c:/Users/NiGulas/Desktop/essay/img/mysql02_01.png">
-<meta property="og:image" content="c:/Users/NiGulas/Desktop/essay/img/mysql02_02.png">
-<meta property="og:image" content="c:/Users/NiGulas/Desktop/essay/img/mysql02_03.png">
-<meta property="og:image" content="c:/Users/NiGulas/Desktop/essay/img/mysql02_06.png">
+<meta property="og:image" content="http://hasson.top/2019/05/19/MySQL-02/Users/NiGulas/Desktop/essay/img/mysql02_01.png">
+<meta property="og:image" content="http://hasson.top/2019/05/19/MySQL-02/Users/NiGulas/Desktop/essay/img/mysql02_02.png">
+<meta property="og:image" content="http://hasson.top/2019/05/19/MySQL-02/Users/NiGulas/Desktop/essay/img/mysql02_03.png">
+<meta property="og:image" content="http://hasson.top/2019/05/19/MySQL-02/Users/NiGulas/Desktop/essay/img/mysql02_06.png">
 <meta property="og:updated_time" content="2019-08-19T13:34:54.301Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL_02">
 <meta name="twitter:description" content="MYSQL[TOC] 一、数据库编程基础###1.1实体与属性 •实体 现实世界中任何一个可以识别的对象 数据库中的一条记录对应java中的一个对象，数据库中的一张表对应java中的一个类 •属性 实体所具有的特性，一个实体可用若干属性来描述 •关系数据库中的表现 实体的实例是储存在表中的行，属性是储存在表中的列。 1.2实体的关系•键（key） 在实体属性中，用于区别实体集合中不同个体的某个属性">
-<meta name="twitter:image" content="c:/Users/NiGulas/Desktop/essay/img/mysql02_01.png">
+<meta name="twitter:image" content="http://hasson.top/2019/05/19/MySQL-02/Users/NiGulas/Desktop/essay/img/mysql02_01.png">
 
 
 
@@ -380,11 +380,11 @@
 <p>非本实体实例的键，但它是其他实体实例的键。又称为外关键字或外部码。</p>
 <h3 id="1-3关系的三类完整性约束"><a href="#1-3关系的三类完整性约束" class="headerlink" title="1.3关系的三类完整性约束"></a>1.3关系的三类完整性约束</h3><p>•实体完整性</p>
 <p>​    每一表要求有一个主键(primary key)，不能取空值，也不能取相同的值 </p>
-<p>​    <img src="C:/Users/NiGulas/Desktop/essay/img/mysql02_01.png" alt></p>
+<p>​    <img src="//hasson.top/2019/05/19/MySQL-02/Users/NiGulas/Desktop/essay/img/mysql02_01.png" alt></p>
 <p>•引用完整性</p>
 <p>   外键（foreign key）的取值要么空值，要么去参考的那个列的取值 </p>
-<p>   <img src="C:/Users/NiGulas/Desktop/essay/img/mysql02_02.png" alt></p>
-<p>   <img src="C:/Users/NiGulas/Desktop/essay/img/mysql02_03.png" alt></p>
+<p>   <img src="//hasson.top/2019/05/19/MySQL-02/Users/NiGulas/Desktop/essay/img/mysql02_02.png" alt></p>
+<p>   <img src="//hasson.top/2019/05/19/MySQL-02/Users/NiGulas/Desktop/essay/img/mysql02_03.png" alt></p>
 <p>•域完整性和域约束</p>
 <p>   限制某个列的取值</p>
 <p>​    check 约束</p>
@@ -624,7 +624,7 @@
 <p>[ WHERE &lt;条件表达式&gt; ]</p>
 <p>[ GROUP BY &lt;列名1&gt; [ HAVING &lt;条件表达式&gt; ] ]</p>
 <p>[ ORDER BY &lt;列名2&gt; [ ASC|DESC ] ]；</p>
-<p><img src="C:/Users/NiGulas/Desktop/essay/img/mysql02_06.png" alt></p>
+<p><img src="//hasson.top/2019/05/19/MySQL-02/Users/NiGulas/Desktop/essay/img/mysql02_06.png" alt></p>
 <p>####2.4.3查询练习</p>
 <ol>
 <li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 查询所有学生, *代表所有列，列的顺序即为表中的顺序</span><br><span class="line">select * from student;</span><br></pre></td></tr></table></figure>
