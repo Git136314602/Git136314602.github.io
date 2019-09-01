@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="剑指Offer,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="剑指Offer-01 长期支持JDK8和JDK11 网络知识考点 偏向于理论 OSI开放式互联参考模型 1234&amp;gt; 市面存在四、五、七层协议&amp;gt; &amp;gt; 国际：七层协议&amp;gt;  第一层：物理层 发送7，接收1 链路层 转换为比特流  首先解决两台物理机之间的通信需求：发送比特流 主要定义了物理设备的标准：网线类型、光纤的接口等….. 传输比特流，即0101的二进制码转换为电流强弱，令">
+<meta name="keywords" content="剑指Offer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Offer-Net01">
+<meta property="og:url" content="http://hasson.top/2019/09/02/Offer-Net01/index.html">
+<meta property="og:site_name" content="Mr.Hassan">
+<meta property="og:description" content="剑指Offer-01 长期支持JDK8和JDK11 网络知识考点 偏向于理论 OSI开放式互联参考模型 1234&amp;gt; 市面存在四、五、七层协议&amp;gt; &amp;gt; 国际：七层协议&amp;gt;  第一层：物理层 发送7，接收1 链路层 转换为比特流  首先解决两台物理机之间的通信需求：发送比特流 主要定义了物理设备的标准：网线类型、光纤的接口等….. 传输比特流，即0101的二进制码转换为电流强弱，令">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-09-01T16:18:26.543Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Offer-Net01">
+<meta name="twitter:description" content="剑指Offer-01 长期支持JDK8和JDK11 网络知识考点 偏向于理论 OSI开放式互联参考模型 1234&amp;gt; 市面存在四、五、七层协议&amp;gt; &amp;gt; 国际：七层协议&amp;gt;  第一层：物理层 发送7，接收1 链路层 转换为比特流  首先解决两台物理机之间的通信需求：发送比特流 主要定义了物理设备的标准：网线类型、光纤的接口等….. 传输比特流，即0101的二进制码转换为电流强弱，令">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://hasson.top/2019/09/02/Offer-Net01/">
+
+
+
+
+
+  <title>Offer-Net01 | Mr.Hassan</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr.Hassan</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/09/02/Offer-Net01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hasson">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.Hassan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Offer-Net01</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-02T00:16:03+08:00">
+                2019-09-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Offer/" itemprop="url" rel="index">
+                    <span itemprop="name">Offer</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  628
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="剑指Offer-01"><a href="#剑指Offer-01" class="headerlink" title="剑指Offer-01"></a>剑指Offer-01</h1><blockquote>
+<h6 id="长期支持JDK8和JDK11"><a href="#长期支持JDK8和JDK11" class="headerlink" title="长期支持JDK8和JDK11"></a>长期支持JDK8和JDK11</h6></blockquote>
+<h2 id="网络知识考点"><a href="#网络知识考点" class="headerlink" title="网络知识考点"></a>网络知识考点</h2><blockquote>
+<h6 id="偏向于理论"><a href="#偏向于理论" class="headerlink" title="偏向于理论"></a>偏向于理论</h6></blockquote>
+<h3 id="OSI开放式互联参考模型"><a href="#OSI开放式互联参考模型" class="headerlink" title="OSI开放式互联参考模型"></a>OSI开放式互联参考模型</h3><blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; 市面存在四、五、七层协议</span><br><span class="line">&gt; </span><br><span class="line">&gt; 国际：七层协议</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h5 id="第一层：物理层"><a href="#第一层：物理层" class="headerlink" title="第一层：物理层"></a>第一层：物理层</h5><ul>
+<li><h6 id="发送7，接收1"><a href="#发送7，接收1" class="headerlink" title="发送7，接收1"></a>发送7，接收1</h6></li>
+<li><h6 id="链路层"><a href="#链路层" class="headerlink" title="链路层"></a>链路层</h6></li>
+<li><h6 id="转换为比特流"><a href="#转换为比特流" class="headerlink" title="转换为比特流"></a>转换为比特流</h6></li>
+</ul>
+<p>首先解决两台物理机之间的通信需求：发送比特流</p>
+<p>主要定义了物理设备的标准：网线类型、光纤的接口等…..</p>
+<p>传输比特流，即0101的二进制码转换为电流强弱，令一台机器将电流转换为二进制。（数模转换与模数转换）</p>
+<h5 id="第二层：数据链路层"><a href="#第二层：数据链路层" class="headerlink" title="第二层：数据链路层"></a>第二层：数据链路层</h5><ul>
+<li><h6 id="链路层-1"><a href="#链路层-1" class="headerlink" title="链路层"></a>链路层</h6></li>
+</ul>
+<p>传输比特流中，可能出现传输不完整的可能。</p>
+<p>定义了如何格式化数据以及控制物理数据的访问。错误检测和纠正。</p>
+<p>将比特数据组成了帧，交换机在这一层对帧解码，根据信息传送给正确的接收方。</p>
+<h5 id="第三层：网络层"><a href="#第三层：网络层" class="headerlink" title="第三层：网络层"></a>第三层：网络层</h5><ul>
+<li><h6 id="发送5，接收3"><a href="#发送5，接收3" class="headerlink" title="发送5，接收3"></a>发送5，接收3</h6></li>
+<li><h6 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h6></li>
+<li><h6 id="加入（解除）IP首部"><a href="#加入（解除）IP首部" class="headerlink" title="加入（解除）IP首部"></a>加入（解除）IP首部</h6></li>
+</ul>
+<p>如何找到目标节点以及最佳路径。</p>
+<p>将网络地址转换成对应的物理地址。通过堵塞程度、节点数量等调节决定最佳路径。</p>
+<p>路由器从属于网络层。</p>
+<p>TCP/IP协议。</p>
+<h5 id="第四层：传输层"><a href="#第四层：传输层" class="headerlink" title="第四层：传输层"></a>第四层：传输层</h5><ul>
+<li><h6 id="发送4，接收4"><a href="#发送4，接收4" class="headerlink" title="发送4，接收4"></a>发送4，接收4</h6></li>
+<li><h6 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h6></li>
+</ul>
+<p>######数据切分为为IP数据包。</p>
+<p>对大型数据进行切分，如果丢失某一段数据，传输层解决。</p>
+<p>对每段数据安排序列号，接收端可以按照顺序重组。</p>
+<p>TCP UDP协议</p>
+<h5 id="第五层：会话层"><a href="#第五层：会话层" class="headerlink" title="第五层：会话层"></a>第五层：会话层</h5><ul>
+<li><h6 id="发送3，接收5"><a href="#发送3，接收5" class="headerlink" title="发送3，接收5"></a>发送3，接收5</h6></li>
+<li><h6 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h6></li>
+</ul>
+<p>不能每一次通信都要进行以上的环节，麻烦。</p>
+<p>并且不同机器上的用户之间建立会话。</p>
+<p>所以要建立和管理应用程序之间的通信。</p>
+<h5 id="第六层：表示层"><a href="#第六层：表示层" class="headerlink" title="第六层：表示层"></a>第六层：表示层</h5><ul>
+<li><h6 id="发送2，接收6"><a href="#发送2，接收6" class="headerlink" title="发送2，接收6"></a>发送2，接收6</h6></li>
+<li><h6 id="应用层-1"><a href="#应用层-1" class="headerlink" title="应用层"></a>应用层</h6></li>
+</ul>
+<p>不同系统之间可能不能运行。</p>
+<p>将数据按照网络能理解的方案进行格式化。</p>
+<p>格式化根据网络类型不同而不同。</p>
+<h5 id="第七层：应用层"><a href="#第七层：应用层" class="headerlink" title="第七层：应用层"></a>第七层：应用层</h5><ul>
+<li><h6 id="发送1，接收7"><a href="#发送1，接收7" class="headerlink" title="发送1，接收7"></a>发送1，接收7</h6></li>
+<li><h6 id="应用层-2"><a href="#应用层-2" class="headerlink" title="应用层"></a>应用层</h6></li>
+<li><h6 id="在数据中加入（解除）TCP首部，形成http报文"><a href="#在数据中加入（解除）TCP首部，形成http报文" class="headerlink" title="在数据中加入（解除）TCP首部，形成http报文"></a>在数据中加入（解除）TCP首部，形成http报文</h6></li>
+</ul>
+<p>发送方知道发送的长度、消息头。</p>
+<p>接收方不知道。</p>
+<p>应用层规定数据用固定的消息头发送消息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OSI的实现：TCP/IP（多数情况为协议群的统称，包括很多跟TCP和IP协议有关的协议）</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/剑指Offer/" rel="tag"># 剑指Offer</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/19/MySQL-04/" rel="next" title="MySQL_04">
+                <i class="fa fa-chevron-left"></i> MySQL_04
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/02/Offer-JVM02/" rel="prev" title="Offer-JVM02">
+                Offer-JVM02 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Hasson">
+            
+              <p class="site-author-name" itemprop="name">Hasson</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Git136314602" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:a136314602@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/yourname" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://user.qzone.qq.com/136314602" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQ</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mac.weixin.qq.com" target="_blank" title="weixin">
+                      
+                        <i class="fa fa-fw fa-weixin"></i>weixin</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/6045337134" target="_blank" title="weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#剑指Offer-01"><span class="nav-number">1.</span> <span class="nav-text">剑指Offer-01</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#长期支持JDK8和JDK11"><span class="nav-number">1.0.0.0.0.1.</span> <span class="nav-text">长期支持JDK8和JDK11</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#网络知识考点"><span class="nav-number">1.1.</span> <span class="nav-text">网络知识考点</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#偏向于理论"><span class="nav-number">1.1.0.0.0.1.</span> <span class="nav-text">偏向于理论</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OSI开放式互联参考模型"><span class="nav-number">1.1.1.</span> <span class="nav-text">OSI开放式互联参考模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#第一层：物理层"><span class="nav-number">1.1.1.0.1.</span> <span class="nav-text">第一层：物理层</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#发送7，接收1"><span class="nav-number">1.1.1.0.1.1.</span> <span class="nav-text">发送7，接收1</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#链路层"><span class="nav-number">1.1.1.0.1.2.</span> <span class="nav-text">链路层</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#转换为比特流"><span class="nav-number">1.1.1.0.1.3.</span> <span class="nav-text">转换为比特流</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第二层：数据链路层"><span class="nav-number">1.1.1.0.2.</span> <span class="nav-text">第二层：数据链路层</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#链路层-1"><span class="nav-number">1.1.1.0.2.1.</span> <span class="nav-text">链路层</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第三层：网络层"><span class="nav-number">1.1.1.0.3.</span> <span class="nav-text">第三层：网络层</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#发送5，接收3"><span class="nav-number">1.1.1.0.3.1.</span> <span class="nav-text">发送5，接收3</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#网络层"><span class="nav-number">1.1.1.0.3.2.</span> <span class="nav-text">网络层</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#加入（解除）IP首部"><span class="nav-number">1.1.1.0.3.3.</span> <span class="nav-text">加入（解除）IP首部</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第四层：传输层"><span class="nav-number">1.1.1.0.4.</span> <span class="nav-text">第四层：传输层</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#发送4，接收4"><span class="nav-number">1.1.1.0.4.1.</span> <span class="nav-text">发送4，接收4</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#传输层"><span class="nav-number">1.1.1.0.4.2.</span> <span class="nav-text">传输层</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第五层：会话层"><span class="nav-number">1.1.1.0.5.</span> <span class="nav-text">第五层：会话层</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#发送3，接收5"><span class="nav-number">1.1.1.0.5.1.</span> <span class="nav-text">发送3，接收5</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#应用层"><span class="nav-number">1.1.1.0.5.2.</span> <span class="nav-text">应用层</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第六层：表示层"><span class="nav-number">1.1.1.0.6.</span> <span class="nav-text">第六层：表示层</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#发送2，接收6"><span class="nav-number">1.1.1.0.6.1.</span> <span class="nav-text">发送2，接收6</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#应用层-1"><span class="nav-number">1.1.1.0.6.2.</span> <span class="nav-text">应用层</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第七层：应用层"><span class="nav-number">1.1.1.0.7.</span> <span class="nav-text">第七层：应用层</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#发送1，接收7"><span class="nav-number">1.1.1.0.7.1.</span> <span class="nav-text">发送1，接收7</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#应用层-2"><span class="nav-number">1.1.1.0.7.2.</span> <span class="nav-text">应用层</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#在数据中加入（解除）TCP首部，形成http报文"><span class="nav-number">1.1.1.0.7.3.</span> <span class="nav-text">在数据中加入（解除）TCP首部，形成http报文</span></a></li></ol></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hasson</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

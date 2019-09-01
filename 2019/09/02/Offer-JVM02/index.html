@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="剑指Offer,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="剑指Offer-02Java的理解—JVM 平台无关性GC  语言特性 面向对象 类库 异常处理   Compile Once，Run Anywhere如何实现 (Java是如何实现平台无关的)java分为： 编译时：javac   编译java的源码，即将源码转换为字节码，并存放到.class文件运行时：.class文件，JVM进行解析，转换成特定平台的执行指令。（机器码）  javap -c">
+<meta name="keywords" content="剑指Offer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Offer-JVM02">
+<meta property="og:url" content="http://hasson.top/2019/09/02/Offer-JVM02/index.html">
+<meta property="og:site_name" content="Mr.Hassan">
+<meta property="og:description" content="剑指Offer-02Java的理解—JVM 平台无关性GC  语言特性 面向对象 类库 异常处理   Compile Once，Run Anywhere如何实现 (Java是如何实现平台无关的)java分为： 编译时：javac   编译java的源码，即将源码转换为字节码，并存放到.class文件运行时：.class文件，JVM进行解析，转换成特定平台的执行指令。（机器码）  javap -c">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-09-01T16:19:19.460Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Offer-JVM02">
+<meta name="twitter:description" content="剑指Offer-02Java的理解—JVM 平台无关性GC  语言特性 面向对象 类库 异常处理   Compile Once，Run Anywhere如何实现 (Java是如何实现平台无关的)java分为： 编译时：javac   编译java的源码，即将源码转换为字节码，并存放到.class文件运行时：.class文件，JVM进行解析，转换成特定平台的执行指令。（机器码）  javap -c">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://hasson.top/2019/09/02/Offer-JVM02/">
+
+
+
+
+
+  <title>Offer-JVM02 | Mr.Hassan</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr.Hassan</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/09/02/Offer-JVM02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hasson">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.Hassan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Offer-JVM02</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-02T00:16:26+08:00">
+                2019-09-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Offer/" itemprop="url" rel="index">
+                    <span itemprop="name">Offer</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="剑指Offer-02"><a href="#剑指Offer-02" class="headerlink" title="剑指Offer-02"></a>剑指Offer-02</h1><h2 id="Java的理解—JVM"><a href="#Java的理解—JVM" class="headerlink" title="Java的理解—JVM"></a>Java的理解—JVM</h2><blockquote>
+<h4 id="平台无关性"><a href="#平台无关性" class="headerlink" title="平台无关性"></a>平台无关性</h4><p>GC </p>
+<p>语言特性</p>
+<p>面向对象</p>
+<p>类库</p>
+<p>异常处理</p>
+</blockquote>
+<hr>
+<h4 id="Compile-Once，Run-Anywhere如何实现-Java是如何实现平台无关的"><a href="#Compile-Once，Run-Anywhere如何实现-Java是如何实现平台无关的" class="headerlink" title="Compile Once，Run Anywhere如何实现 (Java是如何实现平台无关的)"></a>Compile Once，Run Anywhere如何实现 (Java是如何实现平台无关的)</h4><p>java分为：</p>
+<p>编译时：javac   编译java的源码，即将源码转换为字节码，并存放到.class文件运行时：.class文件，JVM进行解析，转换成特定平台的执行指令。（机器码）</p>
+<blockquote>
+<p>javap -c 从.class到可执行程序，对代码进行反汇编。</p>
+</blockquote>
+<p>答：Java源码首先被编译成字节码，再由不同平台的JVM进行解析。Java语言再不同的平台上运行时不需要进行重新编译。Java虚拟机在执行字节码的时候，把字节码转换成具体平台上的机器指令。</p>
+<hr>
+<h4 id="为什么JVM不直接将源码解析成机器码去执行"><a href="#为什么JVM不直接将源码解析成机器码去执行" class="headerlink" title="为什么JVM不直接将源码解析成机器码去执行"></a>为什么JVM不直接将源码解析成机器码去执行</h4><p>准备工作：每次执行都需要各种检查。对语法等需要重复检查，影响性能。</p>
+<p>兼容性：也可以将别的语言解析成字节码。</p>
+<hr>
+<h4 id="JVM如何加载-class文件"><a href="#JVM如何加载-class文件" class="headerlink" title="JVM如何加载.class文件"></a>JVM如何加载.class文件</h4><blockquote>
+<p>JVM的存储空间即内存（以下四项也是JVM的架构）</p>
+</blockquote>
+<p>Class Loader：依据特定格式，加载class文件到内存</p>
+<p>Execution Engine：对命令进行解析（解析class文件中的字节码）</p>
+<p>Native Interface：融合不同开发语言的原生库为Java所用</p>
+<p>​                                (通过Class.forname方法）</p>
+<p>Runtime Data Area：JVM内存空间结构模型，程序加载到这里运行</p>
+<hr>
+<h4 id="什么是反射"><a href="#什么是反射" class="headerlink" title="什么是反射"></a>什么是反射</h4><p><strong>Java反射机制：</strong></p>
+<p>在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；</p>
+<p>对于任意一个对象，都能够调用它的任意方法和属性；</p>
+<p>这种动态获取信息以及动态调用对象方法的功能称为java语言的反射机制。</p>
+<h5 id="反射的例子（待验证）"><a href="#反射的例子（待验证）" class="headerlink" title="反射的例子（待验证）"></a>反射的例子（待验证）</h5><blockquote>
+<p>例子待定</p>
+</blockquote>
+<hr>
+<h4 id="ClassLoader-类加载器"><a href="#ClassLoader-类加载器" class="headerlink" title="ClassLoader(类加载器)"></a>ClassLoader(类加载器)</h4><p><strong>类从编译到执行的过程：</strong></p>
+<ul>
+<li>编译器将Robot.java源文件编译为Robot.class字节码文件</li>
+<li>ClassLoader将字节码转换为JVM中的Class<robot>对象</robot></li>
+<li>JVM利用Class<robot>对象实例化为Object对象</robot></li>
+</ul>
+<p><strong>什么是ClassLoader：</strong></p>
+<blockquote>
+<p>工作在Class装载的加载阶段，主要作用是从系统外部获得Class二进制数据流。所有的Class都是由ClassLoader进行加载的。它先将Class文件里的二进制数据流装载进系统，然后交给Java虚拟机进行连接、初始化操作。</p>
+</blockquote>
+<p><strong>ClassLoader的种类：</strong></p>
+<ul>
+<li><p>BootStrapClassLoader：C++编写，加载核心库java.*</p>
+</li>
+<li><p>ExtClassLoader：Java编写，加载扩展库javax.*</p>
+</li>
+<li><p>AppClassLoader：java编写，加载程序所在目录（Class.path）</p>
+</li>
+<li><p>CustomClassLoader：Java编写，定制化加载，自定义加载</p>
+</li>
+</ul>
+<p><strong>类加载器的双亲委派机制：</strong></p>
+<p>👆 查看是否加载过                                            尝试Load JRE\lib\rt.jar 或者</p>
+<p>​     Bootstrap ClassLoader                               Xbootclasspath选项指定的jar包  👇</p>
+<p>👆 查看是否加载过                                            尝试Load JRE\lib\ext*.jar 或</p>
+<p>​     Extension ClassLoader                               Djava.ext.dirs指定目录下的jar包  👇</p>
+<p>👆 查看是否加载过                                            尝试load ClassPath 或  Djava.</p>
+<p>​     App ClassLoader                                         class.path指定目录下的类和jar包 👇</p>
+<p>👆 查看是否加载过                                            通过java.lang.ClassLoader的子类</p>
+<p>​     Custom ClassLoader                                  自定义加载的class                           </p>
+<p>​                                                                👇</p>
+<p>​                              都没有类文件，抛出ClassNotFoundException </p>
+<p><strong>为什么要使用双亲委派机制加载类：</strong></p>
+<p>避免多份同样的字节码的加载。              </p>
+<p>eg：比如A调用过z类，B也要调用z类时，逐层查看loader是否在加载过z类。</p>
+<hr>
+<h4 id="LoadClass和forName的区别"><a href="#LoadClass和forName的区别" class="headerlink" title="LoadClass和forName的区别"></a>LoadClass和forName的区别</h4><p><strong>类的加载方式：</strong></p>
+<ul>
+<li>隐式加载：new（无需调用new instance方法即可创建实例，还支持带参数的构造器生成对象实例）</li>
+<li>显示加载：loadClass,forname等 （获得Class后，需要调用class的new instance方法，创建对象的实例，不支持参数，需通过反射才能调用参数）</li>
+</ul>
+<p><strong>类的装载过程：</strong></p>
+<ul>
+<li><p>加载：通过ClassLoader加载class文件字节码，生成class对象。</p>
+</li>
+<li><p>链接：</p>
+</li>
+<li><ol>
+<li>校验：检查加载的class的正确性和安全性</li>
+<li>准备：为类变量分配存储空间并设置类变量初始值（static）</li>
+<li>解析：JVM为常量池内的符号引用转换为直接（可选）</li>
+</ol>
+</li>
+<li><p>初始化：执行类变量赋值和静态代码块</p>
+</li>
+</ul>
+<blockquote>
+<p>Class.forName得到的class是初始化完成的</p>
+<p>loadClass得到的class是还没有链接的</p>
+</blockquote>
+<p><strong>什么时候用到loadClass?</strong></p>
+<p>eg:在Spring IOC中用了大量的延迟加载加快编译速度，而用loadClass读取Bean文件时，不需要加载类的代码，加快了速度，代码留到以后用到该类时再编译。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/剑指Offer/" rel="tag"># 剑指Offer</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/02/Offer-Net01/" rel="next" title="Offer-Net01">
+                <i class="fa fa-chevron-left"></i> Offer-Net01
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/02/Offer-JVM03/" rel="prev" title="Offer-JVM03">
+                Offer-JVM03 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Hasson">
+            
+              <p class="site-author-name" itemprop="name">Hasson</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Git136314602" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:a136314602@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/yourname" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://user.qzone.qq.com/136314602" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQ</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mac.weixin.qq.com" target="_blank" title="weixin">
+                      
+                        <i class="fa fa-fw fa-weixin"></i>weixin</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/6045337134" target="_blank" title="weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#剑指Offer-02"><span class="nav-number">1.</span> <span class="nav-text">剑指Offer-02</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java的理解—JVM"><span class="nav-number">1.1.</span> <span class="nav-text">Java的理解—JVM</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#平台无关性"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">平台无关性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Compile-Once，Run-Anywhere如何实现-Java是如何实现平台无关的"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">Compile Once，Run Anywhere如何实现 (Java是如何实现平台无关的)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么JVM不直接将源码解析成机器码去执行"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">为什么JVM不直接将源码解析成机器码去执行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JVM如何加载-class文件"><span class="nav-number">1.1.0.4.</span> <span class="nav-text">JVM如何加载.class文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是反射"><span class="nav-number">1.1.0.5.</span> <span class="nav-text">什么是反射</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#反射的例子（待验证）"><span class="nav-number">1.1.0.5.1.</span> <span class="nav-text">反射的例子（待验证）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ClassLoader-类加载器"><span class="nav-number">1.1.0.6.</span> <span class="nav-text">ClassLoader(类加载器)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LoadClass和forName的区别"><span class="nav-number">1.1.0.7.</span> <span class="nav-text">LoadClass和forName的区别</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hasson</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

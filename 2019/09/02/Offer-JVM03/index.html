@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="剑指Offer,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="剑指Offer-03Java的理解—JVM 平台无关性GC  语言特性 面向对象 类库 异常处理  Java的内存模型（RunTime Data Area）内存简介： 逻辑地址→分段管理机制→线性地址→分页管理机制→物理地址  程序运行时不断地再逻辑地址和物理地址之间进行映射，找到相关的数据和指令执行。 受限于可寻址地址空间，可寻址地址空间受到处理器位数限制： 32位处理器：2^32 可寻址范围">
+<meta name="keywords" content="剑指Offer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Offer-JVM03">
+<meta property="og:url" content="http://hasson.top/2019/09/02/Offer-JVM03/index.html">
+<meta property="og:site_name" content="Mr.Hassan">
+<meta property="og:description" content="剑指Offer-03Java的理解—JVM 平台无关性GC  语言特性 面向对象 类库 异常处理  Java的内存模型（RunTime Data Area）内存简介： 逻辑地址→分段管理机制→线性地址→分页管理机制→物理地址  程序运行时不断地再逻辑地址和物理地址之间进行映射，找到相关的数据和指令执行。 受限于可寻址地址空间，可寻址地址空间受到处理器位数限制： 32位处理器：2^32 可寻址范围">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-09-01T16:19:36.598Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Offer-JVM03">
+<meta name="twitter:description" content="剑指Offer-03Java的理解—JVM 平台无关性GC  语言特性 面向对象 类库 异常处理  Java的内存模型（RunTime Data Area）内存简介： 逻辑地址→分段管理机制→线性地址→分页管理机制→物理地址  程序运行时不断地再逻辑地址和物理地址之间进行映射，找到相关的数据和指令执行。 受限于可寻址地址空间，可寻址地址空间受到处理器位数限制： 32位处理器：2^32 可寻址范围">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://hasson.top/2019/09/02/Offer-JVM03/">
+
+
+
+
+
+  <title>Offer-JVM03 | Mr.Hassan</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr.Hassan</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/09/02/Offer-JVM03/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hasson">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.Hassan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Offer-JVM03</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-02T00:16:43+08:00">
+                2019-09-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Offer/" itemprop="url" rel="index">
+                    <span itemprop="name">Offer</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="剑指Offer-03"><a href="#剑指Offer-03" class="headerlink" title="剑指Offer-03"></a>剑指Offer-03</h1><h2 id="Java的理解—JVM"><a href="#Java的理解—JVM" class="headerlink" title="Java的理解—JVM"></a>Java的理解—JVM</h2><blockquote>
+<h4 id="平台无关性"><a href="#平台无关性" class="headerlink" title="平台无关性"></a>平台无关性</h4><p>GC </p>
+<p>语言特性</p>
+<p>面向对象</p>
+<p>类库</p>
+<p>异常处理</p>
+</blockquote>
+<h4 id="Java的内存模型（RunTime-Data-Area）"><a href="#Java的内存模型（RunTime-Data-Area）" class="headerlink" title="Java的内存模型（RunTime Data Area）"></a>Java的内存模型（RunTime Data Area）</h4><p><strong>内存简介：</strong></p>
+<p>逻辑地址→分段管理机制→线性地址→分页管理机制→物理地址</p>
+<blockquote>
+<p>程序运行时不断地再逻辑地址和物理地址之间进行映射，找到相关的数据和指令执行。</p>
+<p>受限于可寻址地址空间，可寻址地址空间受到处理器位数限制：</p>
+<p>32位处理器：2^32 可寻址范围</p>
+<p>64位处理器：2^64可寻址范围</p>
+</blockquote>
+<p><strong>地址空间的划分：</strong></p>
+<p>内核空间(操作系统程序和C运行时的空间)</p>
+<p>用户空间(java实际运行空间)</p>
+<p><strong>从线程角度看模型结构：</strong></p>
+<blockquote>
+<p>线程私有：程序计数器、虚拟机栈、本地方法栈</p>
+<p>线程共享：MetaSpace、Java堆（常量池+堆）</p>
+</blockquote>
+<p><strong>程序计数器：内存空间较小</strong></p>
+<ul>
+<li>当前线程所执行的字节码行号指示器（逻辑指示器）</li>
+<li>改变计数器的值来选取下一条需要执行的字节码指令(循环、跳转、异常恢复)</li>
+<li>和线程是一对一的关系即“线程私有”</li>
+<li>对Java方法计数，如果是Native方法则计数器的值为Undefined</li>
+<li>不会发生内存泄漏</li>
+</ul>
+<p><strong>Java虚拟机栈</strong></p>
+<ul>
+<li><p>Java方法执行的内存模型</p>
+</li>
+<li><p>包含多个栈（每个方法运行时创建一个栈帧，存储了局部变量表、操作栈、动态连接、返回地址,从入栈到出栈的过程）</p>
+<p>​    局部变量表：包含方法执行过程中的所有变量</p>
+<p>​    操作数栈：入栈、出栈、复制、交换、产生消费变量</p>
+</li>
+</ul>
+<p><u>递归为什么会引发java.lang.StackOverflowError异常：</u></p>
+<ul>
+<li>每次调用自身，就会形成一个栈帧。</li>
+<li>保存当前方法的栈帧状态，放到虚拟机栈中，虚拟机栈是固定的，递归过深，超出虚拟栈深度。</li>
+<li>要么限制递归次数，要么for循环</li>
+</ul>
+<blockquote>
+<p>虚拟机栈过多会引发java.lang.OutOfMemoryError异常</p>
+</blockquote>
+<p><strong>本地方法栈：</strong></p>
+<blockquote>
+<p>与虚拟机类似，主要作用与标注了native的方法</p>
+</blockquote>
+<p><u>元空间(MetaSpace)与永久代(PermGen)的区别:</u></p>
+<blockquote>
+<p>存储Class的相关信息，class的methed、Field等</p>
+</blockquote>
+<ul>
+<li>元空间使用本地内存，永久代使用JVM内存（MS内存多）</li>
+<li>元空间没有常量池，在JDK7中被移动到堆中。</li>
+</ul>
+<p><u>MetaSpace相比PermGen的优势：</u></p>
+<ul>
+<li>字符串常量池在永久代中，容易出现性能问题和内存溢出</li>
+<li>类和方法的信息大小难确定，给永久代的大小指定带来困难</li>
+<li>永久代会为GC带来不必要的复杂性</li>
+</ul>
+<p><strong>Java堆（Heap）：</strong></p>
+<p>对象实例的分配区域</p>
+<p>GC管理的主要区域</p>
+<p><strong>从存储角度看模型结构：</strong></p>
+<p><strong>JVM三大性能调忧参数-Xms -Xmx -Xss的含义</strong>：</p>
+<blockquote>
+<p>在java指令调用程序时，可以通过这三个指令区调整堆和线程占堆栈的大小</p>
+</blockquote>
+<ul>
+<li>-Xss：规定了每个线程虚拟机栈（堆栈）的大小</li>
+<li>-Xms：堆得初始值</li>
+<li>-Xmx：堆能达到的最大值</li>
+</ul>
+<blockquote>
+<p>通常将Xms和Xmx设置成一样的，当扩容时容易发生抖动，影响运行</p>
+</blockquote>
+<p><strong>Java内存模型中堆和栈的区别</strong>:</p>
+<blockquote>
+<p><u>内存分配策略：</u></p>
+<p>静态存储：编译时确定每个数据目标在运行时的存储空间需求。固定不变。</p>
+<p>栈式存储：动态存储分配。数据区需求在编译时未知，运行时模块入口前确定。</p>
+<p>堆式存储：编译时或运行时模块入口都无法确定，动态分配。</p>
+<p>堆和栈之间的联系：引用对象、数组时，栈里定义变量保存堆中目标的首地址。</p>
+</blockquote>
+<ul>
+<li>管理方式：栈自动释放，堆需要GC（垃圾回收器）</li>
+<li>空间大小：栈比堆小</li>
+<li>碎片相关：栈产生的碎片远小于堆</li>
+<li>分配方式：栈支持静态和动态分配，堆仅动态分配  </li>
+<li>效率：栈的效率比堆高</li>
+</ul>
+<blockquote>
+<p>堆采用双向链表的方式，较复杂，但堆得灵活度高于栈</p>
+</blockquote>
+<p><strong>JDK6和JDK6以后的intern()方法的区别：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String s = new String(&quot;a&quot;);</span><br><span class="line">s.intern();</span><br></pre></td></tr></table></figure>
+
+<p>JDK6：当调用intern方法时，如果字符串常量池先前已创建出改字符串对象，则返回该字符串的引用。否则，将此字符串对象添加到字符串常量池中，并返回该引用。</p>
+<p>JDK6+：当调用intern方法时，如果字符串常量池先前已创建出该字符串对象，则返回该字符串的引用。否则，如果该字符串对象已经存在于Java堆中，则将堆中对此对象的引用添加到字符串常量池中，并返回引用。如果堆中不存在，则在池中创建该字符串并返回引用。</p>
+<blockquote>
+<p>之前 说常量池在JDK7之前在永久代中，永久代在JVM内存，内存小，当永久代内存达到饱和，则常量池也Over</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/剑指Offer/" rel="tag"># 剑指Offer</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/02/Offer-JVM02/" rel="next" title="Offer-JVM02">
+                <i class="fa fa-chevron-left"></i> Offer-JVM02
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/02/Offer-GC04/" rel="prev" title="Offer-GC04">
+                Offer-GC04 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Hasson">
+            
+              <p class="site-author-name" itemprop="name">Hasson</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Git136314602" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:a136314602@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/yourname" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://user.qzone.qq.com/136314602" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQ</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mac.weixin.qq.com" target="_blank" title="weixin">
+                      
+                        <i class="fa fa-fw fa-weixin"></i>weixin</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/6045337134" target="_blank" title="weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#剑指Offer-03"><span class="nav-number">1.</span> <span class="nav-text">剑指Offer-03</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java的理解—JVM"><span class="nav-number">1.1.</span> <span class="nav-text">Java的理解—JVM</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#平台无关性"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">平台无关性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java的内存模型（RunTime-Data-Area）"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">Java的内存模型（RunTime Data Area）</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hasson</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
