@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="Mr.Hassan">
 <meta property="og:description" content="剑指Offer-06Java多线程与并发Java线程知识考点进程和线程的区别  进程时资源分配的最小单位，线程是CPU调度的最小单位 所有与进程相关的资源，都被记录在PCB中 进程是抢占处理机的调度单位；线程属于某个进程，共享其资源 线程只由堆栈寄存器、程序计数器和（线程控制表）TCB组成   PCB记录描述信息、控制信息、资源信息（程序段和数据集）、CPU现场   线程不能看作独立应用，而进程可">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-01T16:20:14.922Z">
+<meta property="og:updated_time" content="2019-09-02T11:19:16.946Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Offer-Thread06">
 <meta name="twitter:description" content="剑指Offer-06Java多线程与并发Java线程知识考点进程和线程的区别  进程时资源分配的最小单位，线程是CPU调度的最小单位 所有与进程相关的资源，都被记录在PCB中 进程是抢占处理机的调度单位；线程属于某个进程，共享其资源 线程只由堆栈寄存器、程序计数器和（线程控制表）TCB组成   PCB记录描述信息、控制信息、资源信息（程序段和数据集）、CPU现场   线程不能看作独立应用，而进程可">
@@ -348,7 +348,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  549
+                  1.4k
                 </span>
               
 
@@ -364,7 +364,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  4
                 </span>
               
             </div>
@@ -434,6 +434,74 @@
 <li>使用Thread类的join()阻塞当前的线程以等待子线程处理完毕</li>
 <li>通过Callable接口实现：通过FutureTask 或者 线程池获取</li>
 </ul>
+<p><strong>线程的状态</strong></p>
+<ul>
+<li><p>新建（New）：创建后尚未启动的线程的状态</p>
+</li>
+<li><p>运行（Runnable）：包含running状态的线程（在可运行线程中等待被线程选中）、ready状态的线程(位于线程池中，获得时间运行后，变为running状态的线程)</p>
+</li>
+<li><p>无限期等待（Waiting）：不会被分配CPU执行时间，需要显示被唤醒</p>
+</li>
+<li><blockquote>
+<p>没有设置Timeout参数的Object.wait()方法</p>
+<p>没有设置Timeout参数的Thread.join()方法</p>
+<p>LockSupport.park()方法</p>
+</blockquote>
+</li>
+<li><p>限期等待（Timed Waiting）：在一定时间后会由系统自动唤醒</p>
+</li>
+<li><blockquote>
+<p>thread.sleep()方法</p>
+<p>设置了Timeout参数的Object.wait()方法</p>
+<p>设置了Timeout参数的Thread.join()方法</p>
+<p>LockSupport.parkNanos（）方法</p>
+<p>LockSupport.parkUntil（）方法</p>
+</blockquote>
+</li>
+<li><p>阻塞（Blocked）：等待获取排它锁</p>
+</li>
+<li><p>结束（Terminated）：已终止线程的状态，线程已经结束执行</p>
+<p>run(),main()方法结束，或者有异常抛出</p>
+</li>
+</ul>
+<p><strong>sleep和wait的区别</strong></p>
+<ul>
+<li>sleep是Thread类的方法，wait是Object类的方法</li>
+<li>sleep()方法可以在任何地方使用</li>
+<li>wait()方法只能在synchronized方法或synchronized块中使用</li>
+<li><strong>Thread,sleep只会让出CPU，不会导致锁行为的改变</strong></li>
+<li><strong>Object.wait不仅让出CPU，还会释放已经占有的同步资源锁</strong></li>
+</ul>
+<p><strong>notify和notifyAll的区别</strong></p>
+<p>两个概念：</p>
+<p><strong>锁池EntryList：</strong>假设线程A已经拥有了某个对象（不是类）的锁，而其他线程B、C想要调用这个对象的某个synchronized方法（或者块），由于B、C线程在进入对象的sunchronized方法之前必须先获得该对象锁的拥有权，而恰巧该对象的锁目前正在被线程A所占用，此时B、C线程就会被阻塞，进入一个地方去等待锁的释放，这个地方便是该对象的锁池。</p>
+<p><strong>等待池WaitSet：</strong>假设线程A调用了某个对象的wait()方法，线程A就会释放该对象的锁，同时线程A就进入到了该对象的等待池中，进入到等待池中的线程不会去竞争该对象的锁。</p>
+<ul>
+<li>notifyAll会让所有处于等待池的线程全部进入锁池去竞争获取锁的机会</li>
+<li>notify只会随机选取一个处于等待池中的线程进入锁池去竞争获取锁的机会</li>
+</ul>
+<p><strong>yield</strong></p>
+<p>当调用Thread.yield()函数时，会给线程调度器一个当前线程愿意让出CPU使用的暗示，但是线程调度器可能会忽略这个暗示。（调度器也可能让线程继续执行）</p>
+<p><strong>如何中断线程</strong></p>
+<p>已经被抛弃的方法：stop(); suspend();resume();</p>
+<blockquote>
+<p>eg:A突然终止线程B，不知道B的执行情况，可能无法清理。B马上释放锁，可能会造成线程不同步</p>
+</blockquote>
+<p>interrupt()：通知线程应该中断了</p>
+<ul>
+<li>如果线程处于被阻塞状态，那么线程将立即退出被阻塞状态，并抛出一个InterruptedException异常</li>
+<li>如果线程处于正常活动状态，那么会将该线程的中断标志设置为true。被设置中断标志的线程将继续正常运行，不受影响。</li>
+</ul>
+<blockquote>
+<p>需要被调用的线程配合中断</p>
+<ul>
+<li>在正常运行任务时，经常检查本线程的中断标志位，如果被设置了中断标志就自行停止线程。</li>
+</ul>
+</blockquote>
+<p><strong>线程状态以及状态之间的转换</strong></p>
+<blockquote>
+<p>见牛客笔记</p>
+</blockquote>
 
       
     </div>
