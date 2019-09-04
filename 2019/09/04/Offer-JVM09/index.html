@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Java,">
+  <meta name="keywords" content="剑指Offer,">
 
 
 
@@ -86,21 +86,18 @@
 
 
 
-<meta name="description" content="逻辑数据库设计—规范化逻辑模型范式（ Normal form，简称NF ）表示关系模式的级别，是衡量关系模式规范化程度的标准，达到范式的关系才是规范化的。 各种范式之间的联系是：5NF ∈ 4NF ∈ 3NF ∈ 2NF ∈ 1NF 规范化:一个低级范式的关系模式，通过关系模式的投影分解，可以转换为若干个高一级范式的关系模式的集合的过程。实际的关系数据库一般使用3NF以上的关系。 规范化的步骤 将">
-<meta name="keywords" content="Java">
+<meta name="description" content="剑指Offer-09Java多线程与并发-原理Java线程池 如果并发的线程非常多，并且线程执行时间短，就会频繁的创建和销毁线程，效率就会大大降低  利用Executors创建不同的线程池满足不同场景的需求  newFixedThreadPool(int nThreads)   指定工作线程数量的线程池 newCachedThreadPool()   处理大量短时间工作任务的线程池    （1）试">
+<meta name="keywords" content="剑指Offer">
 <meta property="og:type" content="article">
-<meta property="og:title" content="范式">
-<meta property="og:url" content="http://hasson.top/2018/05/07/范式/index.html">
+<meta property="og:title" content="Offer-JVM09">
+<meta property="og:url" content="http://hasson.top/2019/09/04/Offer-JVM09/index.html">
 <meta property="og:site_name" content="Mr.Hassan">
-<meta property="og:description" content="逻辑数据库设计—规范化逻辑模型范式（ Normal form，简称NF ）表示关系模式的级别，是衡量关系模式规范化程度的标准，达到范式的关系才是规范化的。 各种范式之间的联系是：5NF ∈ 4NF ∈ 3NF ∈ 2NF ∈ 1NF 规范化:一个低级范式的关系模式，通过关系模式的投影分解，可以转换为若干个高一级范式的关系模式的集合的过程。实际的关系数据库一般使用3NF以上的关系。 规范化的步骤 将">
+<meta property="og:description" content="剑指Offer-09Java多线程与并发-原理Java线程池 如果并发的线程非常多，并且线程执行时间短，就会频繁的创建和销毁线程，效率就会大大降低  利用Executors创建不同的线程池满足不同场景的需求  newFixedThreadPool(int nThreads)   指定工作线程数量的线程池 newCachedThreadPool()   处理大量短时间工作任务的线程池    （1）试">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://hasson.top/2018/05/07/范式/Users/NiGulas/Desktop/essay/imgf/01.png">
-<meta property="og:image" content="http://hasson.top/2018/05/07/范式/Users/NiGulas/Desktop/essay/imgf/02.png">
-<meta property="og:updated_time" content="2019-08-21T05:47:56.425Z">
+<meta property="og:updated_time" content="2019-09-04T13:17:19.321Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="范式">
-<meta name="twitter:description" content="逻辑数据库设计—规范化逻辑模型范式（ Normal form，简称NF ）表示关系模式的级别，是衡量关系模式规范化程度的标准，达到范式的关系才是规范化的。 各种范式之间的联系是：5NF ∈ 4NF ∈ 3NF ∈ 2NF ∈ 1NF 规范化:一个低级范式的关系模式，通过关系模式的投影分解，可以转换为若干个高一级范式的关系模式的集合的过程。实际的关系数据库一般使用3NF以上的关系。 规范化的步骤 将">
-<meta name="twitter:image" content="http://hasson.top/2018/05/07/范式/Users/NiGulas/Desktop/essay/imgf/01.png">
+<meta name="twitter:title" content="Offer-JVM09">
+<meta name="twitter:description" content="剑指Offer-09Java多线程与并发-原理Java线程池 如果并发的线程非常多，并且线程执行时间短，就会频繁的创建和销毁线程，效率就会大大降低  利用Executors创建不同的线程池满足不同场景的需求  newFixedThreadPool(int nThreads)   指定工作线程数量的线程池 newCachedThreadPool()   处理大量短时间工作任务的线程池    （1）试">
 
 
 
@@ -130,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://hasson.top/2018/05/07/范式/">
+  <link rel="canonical" href="http://hasson.top/2019/09/04/Offer-JVM09/">
 
 
 
 
 
-  <title>范式 | Mr.Hassan</title>
+  <title>Offer-JVM09 | Mr.Hassan</title>
   
 
 
@@ -263,7 +260,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://hasson.top/2018/05/07/范式/">
+    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/09/04/Offer-JVM09/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hasson">
@@ -280,7 +277,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">范式</h1>
+          <h1 class="post-title" itemprop="name headline">Offer-JVM09</h1>
         
 
         <div class="post-meta">
@@ -292,8 +289,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-07T22:18:45+08:00">
-                2018-05-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-04T21:16:51+08:00">
+                2019-09-04
               </time>
             
 
@@ -315,8 +312,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JAVA/" itemprop="url" rel="index">
-                    <span itemprop="name">JAVA</span>
+                  <a href="/categories/Offer/" itemprop="url" rel="index">
+                    <span itemprop="name">Offer</span>
                   </a>
                 </span>
 
@@ -351,7 +348,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.3k
+                  1.2k
                 </span>
               
 
@@ -388,73 +385,89 @@
       
 
       
-        <h2 id="逻辑数据库设计—规范化逻辑模型"><a href="#逻辑数据库设计—规范化逻辑模型" class="headerlink" title="逻辑数据库设计—规范化逻辑模型"></a>逻辑数据库设计—规范化逻辑模型</h2><h3 id="范式（-Normal-form，简称NF-）"><a href="#范式（-Normal-form，简称NF-）" class="headerlink" title="范式（ Normal form，简称NF ）"></a>范式（ Normal form，简称NF ）</h3><p>表示关系模式的级别，是衡量关系模式规范化程度的标准，达到范式的关系才是规范化的。</p>
-<p>各种范式之间的联系是：5NF ∈ 4NF ∈ 3NF ∈ 2NF ∈ 1NF</p>
-<p><strong>规范化:</strong>一个低级范式的关系模式，通过关系模式的投影分解，可以转换为若干个高一级范式的关系模式的集合的过程。实际的关系数据库一般使用<strong>3NF</strong>以上的关系。</p>
-<p><strong>规范化的步骤</strong></p>
-<p>将数据库分为两个或更多个表；</p>
-<p>定义表之间的关系。</p>
-<p><strong>规范化数据库的任务</strong></p>
-<p>尽可能减少冗余</p>
-<p>减少数据的不一致性</p>
-<p>加快数据修改（插入、更新的删除）</p>
-<h4 id="第一范式（-R∈1NF-）"><a href="#第一范式（-R∈1NF-）" class="headerlink" title="第一范式（ R∈1NF ）"></a>第一范式（ R∈1NF ）</h4><p>关系模式R中的所有属性都是不可再分的数据项。</p>
-<p><strong>表必须符合的条件</strong></p>
-<p>表必须是二维的（用行和列表示）</p>
-<p>每个数据库单元只包含一个值</p>
-<p>每列必须具有单独的含义</p>
-<p><img src="//hasson.top/2018/05/07/范式/Users/NiGulas/Desktop/essay/imgf/01.png" alt></p>
-<p><strong>学生表是1NF，职工表不是</strong></p>
-<p><img src="//hasson.top/2018/05/07/范式/Users/NiGulas/Desktop/essay/imgf/02.png" alt></p>
-<h4 id="第二范式（R∈2NF-）"><a href="#第二范式（R∈2NF-）" class="headerlink" title="第二范式（R∈2NF ）"></a>第二范式（R∈2NF <strong>）</strong></h4><p>规范化逻辑模型 —转换为第二范式数据模型</p>
-<p>关系R∈1NF，且它的每一非主属性都完全依赖于主键。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">它的规则是要求数据表里的所有非主属性都要和该数据表的主键有完全依赖关系；如果有哪些非主属性只和主键的一部份有关的话，它就不符合第二范式。同时可以得出：如果一个数据表的主键只有单一一个字段的话，它就一定符合第二范式(前提是该数据表符合第一范式)</span><br></pre></td></tr></table></figure>
-
-<p><strong>原则</strong></p>
-<p>消除实体中的冗余信息</p>
-<p>将只依赖于一部分多值主键的属性移到另一个表中</p>
-<p>使存储的信息更一致</p>
-<p><strong>解决方法</strong></p>
-<p>拆分表</p>
-<p><strong>示例</strong></p>
-<p>考虑一个小学的教务 管理系统，学生上课指定一个老师，一本教材，一个教室，一个时间，大家都上课去吧，没有问题。那么数据库怎么设计？</p>
-<p><strong>学生上课表</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">学生    课程        老师 老师职称  教材       教室   上课时间 </span><br><span class="line">小明 一年级语文（上） 大宝 副教授  《小学语文1》 101   14：30</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">一个学生上一门课，一定在特定某个教室。所以有（学生，课程）－&gt;教室</span><br><span class="line">一个学生上一门课，一定是特定某个老师教。所以有（学生，课程）－&gt;老师</span><br><span class="line">一个学生上一门课，他老师的职称可以确定。所以有（学生，课程）－&gt;老师职称</span><br><span class="line">一个学生上一门课，一定是特定某个教材。所以有（学生，课程）－&gt;教材</span><br><span class="line">一个学生上一门课，一定在特定时间。所以有（学生，课程）－&gt;上课时间</span><br><span class="line">因此（学生，课程）是一个码</span><br><span class="line">然而，一个课程，一定指定了某个教材，一年级语文肯定用的是《小学语文1》，那么就有课程－&gt;教材</span><br><span class="line">（学生，课程）是个码，课程却决定了教材，这就叫做不完全依赖，或者说部分依赖。出现这样的情况，就不满足第二范式！</span><br></pre></td></tr></table></figure>
-
-<p>学生上课表新</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">课程 教材    </span><br><span class="line">学生 课程  老师 老师职称  教室 上课时间</span><br></pre></td></tr></table></figure>
-
-<h4 id="第三范式（-R∈3NF-）"><a href="#第三范式（-R∈3NF-）" class="headerlink" title="第三范式（ R∈3NF ）"></a>第三范式（ R∈3NF ）</h4><p>规范化逻辑模型 —创建第三范式数据模型</p>
-<p>若R∈2NF，且它的每一非主属性都不传递依赖于关键字即消除传递依赖。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">表中有可能存在某些数据元素依赖于其他非关键字数据元素的现象,必须消除</span><br></pre></td></tr></table></figure>
-
-<p><strong>原则</strong></p>
-<p>除去所有不依赖某个键值而存在的列</p>
-<p>将不直接与实体联系的任何数据都移到另一个表中 </p>
-<p>避免信息的更新异常和删除异常 </p>
-<p>确保不含冗余信息 </p>
-<p><strong>操作步骤</strong></p>
-<p>将数据模型规范化为第二范式；</p>
-<p>确定不依赖键值而存在的所有属性；</p>
-<p>将这些独立的属性都移到各个单独的表中，并为之确定主键。且将这些主键作为外键连接到父实体中。</p>
-<p><strong>示例</strong><br>上面的“学生上课表新”符合2NF，但是它有传递依赖！</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">问题就出在“老师”和“老师职称”这里。一个老师一定能确定一个老师职称。</span><br></pre></td></tr></table></figure>
-
-<p>还有什么问题吗？</p>
+        <h1 id="剑指Offer-09"><a href="#剑指Offer-09" class="headerlink" title="剑指Offer-09"></a>剑指Offer-09</h1><h2 id="Java多线程与并发-原理"><a href="#Java多线程与并发-原理" class="headerlink" title="Java多线程与并发-原理"></a>Java多线程与并发-原理</h2><h4 id="Java线程池"><a href="#Java线程池" class="headerlink" title="Java线程池"></a>Java线程池</h4><blockquote>
+<p>如果并发的线程非常多，并且线程执行时间短，就会频繁的创建和销毁线程，效率就会大大降低</p>
+</blockquote>
+<p><strong>利用Executors创建不同的线程池满足不同场景的需求</strong></p>
 <ul>
-<li>老师升级了，变教授了，要改数据库，表中有N条，改了N次……（修改异常）</li>
-<li>没人选这个老师的课了，老师的职称也没了记录……（删除异常）</li>
-<li>新来一个老师，还没分配教什么课，他的职称记到哪？……（插入异常</li>
+<li>newFixedThreadPool(int nThreads)   指定工作线程数量的线程池</li>
+<li>newCachedThreadPool()   处理大量短时间工作任务的线程池</li>
 </ul>
-<p>那应该怎么解决呢？和上面一样，投影分解：</p>
-<p>老师 老师职称</p>
-<p>课程 教材      </p>
-<p>学生  课程 老师  教室 上课时间</p>
-<h2 id="数据库设计"><a href="#数据库设计" class="headerlink" title="数据库设计"></a>数据库设计</h2><p>1.一对一</p>
-<p>2.一对多</p>
-<p>3.多对多</p>
+<blockquote>
+<ul>
+<li>（1）试图缓存线程并重用，当无缓存线程可用时，就会创建新的工作线程；</li>
+<li>（2）如果线程闲置的时间超过阈值，则会被终止并移出缓存；</li>
+<li>（3）系统长时间闲置的时候，不会消耗什么资源；</li>
+</ul>
+</blockquote>
+<ul>
+<li>newSingleThreadExecutor()   创建唯一的工作者线程来执行任务，如果线程异常结束，会有另一个线程来取代他</li>
+<li>newSingleThreadScheduledExecutor()与newScheduledThreadPool(int corePoolSize)   定时或者周期性的工作调度，两者的区别在于单一工作线程还是多线程</li>
+<li>newWorkStealingPool()   内部会创建ForkJoinPool，利用working-stealing算法，并行地处理任务，不保证处理顺序</li>
+</ul>
+<h5 id="Fork-Join框架"><a href="#Fork-Join框架" class="headerlink" title="Fork/Join框架"></a>Fork/Join框架</h5><ul>
+<li>把大任务分割成若干个小任务并行执行，最终汇总每个小任务结果后得到大任务结果的框架。</li>
+</ul>
+<blockquote>
+<p>Work-Stealing算法：某个线程从其他队列里窃取任务来执行。</p>
+<p>但如果有的小任务已完成等待其他任务完成，闲置会浪费。会使用双端队列，便于线程来窃取其他队列中等待的任务。（被窃取队列从头部拿任务，窃取从尾部）</p>
+</blockquote>
+<h5 id="为什么要使用线程池"><a href="#为什么要使用线程池" class="headerlink" title="为什么要使用线程池"></a>为什么要使用线程池</h5><ul>
+<li>降低资源消耗，重复利用已创建线程</li>
+<li>提高线程的可管理性</li>
+</ul>
+<h5 id="Executor框架"><a href="#Executor框架" class="headerlink" title="Executor框架"></a>Executor框架</h5><blockquote>
+<p>是一种将人物提交和任务执行分离开的机制。</p>
+</blockquote>
+<h5 id="J-U-C的三个Executor的结果"><a href="#J-U-C的三个Executor的结果" class="headerlink" title="J.U.C的三个Executor的结果"></a>J.U.C的三个Executor的结果</h5><ul>
+<li>Executor：运行新任务的简单接口，将任务提交和任务执行细节解耦</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Thread t = new Thread；</span><br><span class="line">t.start(); //正常线程开始执行</span><br><span class="line">executor.execute(t);//Executor接口的线程开始方法</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>ExecutorService:具备管理执行器和任务生命周期的方法，提交任务机制更完善；【submit（Callable）方法解决了Runnable没有返回接口的短板，完善了提交任务的机制】</li>
+<li>ScheduledExecutorService：支持Future的定期执行任务</li>
+</ul>
+<h5 id="ThreadPoolExecutor"><a href="#ThreadPoolExecutor" class="headerlink" title="ThreadPoolExecutor"></a><strong>ThreadPoolExecutor</strong></h5><p><strong>ThreadPoolExecutor的构造函数</strong></p>
+<ul>
+<li>corePoolSize：核心线程数量（长期驻留的线程）</li>
+<li>maximumPoolSize：线程不够用时能够创建的最大线程数</li>
+<li>workQueue：任务等待队列（当任务提交时，线程池中的线程数量&gt;=corePoolSize，会把其封装成work对象放入等待队列中）</li>
+<li>keepAliveTime：线程池允许的空闲时间，核心线程外的线程在期间内没有任务，则被销毁</li>
+<li>threadFactory：创建新线程，Executor.defaultThreadFactory()</li>
+<li>Handler:线程池的饱和策略，阻塞队列满了，还没有空闲线程，如果继续提交任务，有四种策略：</li>
+</ul>
+<blockquote>
+<ul>
+<li>AbortPolicy：直接抛出异常，默认策略</li>
+<li>CallerRunsPolicy：用调用者所在的线程来执行任务</li>
+<li>DiscardOldestPolicy：丢弃队列中最靠前的任务，并执行当前任务</li>
+<li>DiscardPolicy：直接丢弃任务</li>
+<li>实现RejectedExecutionHander接口的自定义Handler</li>
+</ul>
+</blockquote>
+<h5 id="新任务提交execute执行后的判断"><a href="#新任务提交execute执行后的判断" class="headerlink" title="新任务提交execute执行后的判断"></a>新任务提交execute执行后的判断</h5><ul>
+<li>如果运行的线程少于corePoolSize,则创建新线程来处理任务，即使线程池中其他线程是空闲的。</li>
+<li>如果线程池中的线程数量大于等于corePoolSize且小于maximumPoolSize，则只有当workQueue满时才创建新的线程去处理任务；</li>
+<li>如果设置的corePoolSize和maximumPoolSize相同，则创建的线程池的大小是固定的，这时如果有新任务提交，若workQueue未满，则将请求放入workQueue中，等待有空闲的线程去从workQueue中取任务并处理；</li>
+<li>如果运行的线程数量大于等于maximumPoolSize，这时如果workQueue已经满了，则通过handler所制定的策略来处理任务</li>
+</ul>
+<h5 id="线程池的状态"><a href="#线程池的状态" class="headerlink" title="线程池的状态"></a>线程池的状态</h5><ul>
+<li>RUNING:能接受新提交的任务，并且也能处理阻塞队列中的任务</li>
+<li>ShutDown：不再接受新提交的任务，但可以处理存量任务（阻塞队列中的任务）【running调用shutdown方法】</li>
+<li>Stop：不能接受新提交的任务，也不处理存量任务【running调用stop】</li>
+<li>Tidying:所有任务都已终止，有效线程数为0【shutdown或stop调用】</li>
+<li>Terminated：terminated（）方法执行完后进入该状态，（什么也不做，只是一个标识）</li>
+</ul>
+<p><strong>工作线程的生命周期</strong></p>
+<p>开始 -&gt; execute -&gt; 增加worker -&gt; 创建worker线程 -&gt; runWorker -&gt; 获取任务 -&gt; task == null 【-&gt; true -&gt; 结束线程 -&gt; 结束】【-&gt; false -&gt; 执行任务 —&gt; 结束线程或获取任务】</p>
+<h5 id="线程池的大小选定"><a href="#线程池的大小选定" class="headerlink" title="线程池的大小选定"></a>线程池的大小选定</h5><ul>
+<li>任务主计算：CPU密集型：线程数 = 按照核数或者核数 + 1  设定</li>
+<li>任务处理较多任务：I/O密集型： 线程书 = CPU核数 * (1 + 平均等待时间/平均工作时间 ）</li>
+</ul>
+<blockquote>
+<p>推荐书籍：《Java并发编程实战》</p>
+</blockquote>
 
       
     </div>
@@ -472,7 +485,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Java/" rel="tag"># Java</a>
+            <a href="/tags/剑指Offer/" rel="tag"># 剑指Offer</a>
           
         </div>
       
@@ -485,8 +498,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/01/Class/" rel="next" title="Class">
-                <i class="fa fa-chevron-left"></i> Class
+              <a href="/2019/09/04/Offer-JVM08/" rel="next" title="Offer-JVM08">
+                <i class="fa fa-chevron-left"></i> Offer-JVM08
               </a>
             
           </div>
@@ -494,10 +507,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/10/Exception/" rel="prev" title="Exception">
-                Exception <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -671,7 +680,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑数据库设计—规范化逻辑模型"><span class="nav-number">1.</span> <span class="nav-text">逻辑数据库设计—规范化逻辑模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#范式（-Normal-form，简称NF-）"><span class="nav-number">1.1.</span> <span class="nav-text">范式（ Normal form，简称NF ）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一范式（-R∈1NF-）"><span class="nav-number">1.1.1.</span> <span class="nav-text">第一范式（ R∈1NF ）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二范式（R∈2NF-）"><span class="nav-number">1.1.2.</span> <span class="nav-text">第二范式（R∈2NF ）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三范式（-R∈3NF-）"><span class="nav-number">1.1.3.</span> <span class="nav-text">第三范式（ R∈3NF ）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库设计"><span class="nav-number">2.</span> <span class="nav-text">数据库设计</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#剑指Offer-09"><span class="nav-number">1.</span> <span class="nav-text">剑指Offer-09</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java多线程与并发-原理"><span class="nav-number">1.1.</span> <span class="nav-text">Java多线程与并发-原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java线程池"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">Java线程池</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Fork-Join框架"><span class="nav-number">1.1.0.1.1.</span> <span class="nav-text">Fork/Join框架</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么要使用线程池"><span class="nav-number">1.1.0.1.2.</span> <span class="nav-text">为什么要使用线程池</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Executor框架"><span class="nav-number">1.1.0.1.3.</span> <span class="nav-text">Executor框架</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#J-U-C的三个Executor的结果"><span class="nav-number">1.1.0.1.4.</span> <span class="nav-text">J.U.C的三个Executor的结果</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ThreadPoolExecutor"><span class="nav-number">1.1.0.1.5.</span> <span class="nav-text">ThreadPoolExecutor</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#新任务提交execute执行后的判断"><span class="nav-number">1.1.0.1.6.</span> <span class="nav-text">新任务提交execute执行后的判断</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#线程池的状态"><span class="nav-number">1.1.0.1.7.</span> <span class="nav-text">线程池的状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#线程池的大小选定"><span class="nav-number">1.1.0.1.8.</span> <span class="nav-text">线程池的大小选定</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
