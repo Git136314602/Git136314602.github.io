@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="剑指Offer,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="剑指Offer-08Java多线程与并发-原理jmm的内存可见性什么是Java内存模型中的happens-before Java内存模型JMM Java内存模型(即Java Memory Model,简称JMM)本身是一种抽象的概念，并不真实存在，它描述的是一组规则或规范，通过这组规范定义了程序中各个变量（包括实例字段，静态字段和构成数组对象的元素）的访问方式。  JMM中的主内存 存储Java实">
+<meta name="keywords" content="剑指Offer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Offer-JVM08">
+<meta property="og:url" content="http://hasson.top/2019/09/04/Offer-JVM08/index.html">
+<meta property="og:site_name" content="Mr.Hassan">
+<meta property="og:description" content="剑指Offer-08Java多线程与并发-原理jmm的内存可见性什么是Java内存模型中的happens-before Java内存模型JMM Java内存模型(即Java Memory Model,简称JMM)本身是一种抽象的概念，并不真实存在，它描述的是一组规则或规范，通过这组规范定义了程序中各个变量（包括实例字段，静态字段和构成数组对象的元素）的访问方式。  JMM中的主内存 存储Java实">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-09-04T11:58:45.691Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Offer-JVM08">
+<meta name="twitter:description" content="剑指Offer-08Java多线程与并发-原理jmm的内存可见性什么是Java内存模型中的happens-before Java内存模型JMM Java内存模型(即Java Memory Model,简称JMM)本身是一种抽象的概念，并不真实存在，它描述的是一组规则或规范，通过这组规范定义了程序中各个变量（包括实例字段，静态字段和构成数组对象的元素）的访问方式。  JMM中的主内存 存储Java实">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://hasson.top/2019/09/04/Offer-JVM08/">
+
+
+
+
+
+  <title>Offer-JVM08 | Mr.Hassan</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr.Hassan</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/09/04/Offer-JVM08/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hasson">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.Hassan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Offer-JVM08</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-04T19:57:28+08:00">
+                2019-09-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Offer/" itemprop="url" rel="index">
+                    <span itemprop="name">Offer</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.9k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  7
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="剑指Offer-08"><a href="#剑指Offer-08" class="headerlink" title="剑指Offer-08"></a>剑指Offer-08</h1><h2 id="Java多线程与并发-原理"><a href="#Java多线程与并发-原理" class="headerlink" title="Java多线程与并发-原理"></a>Java多线程与并发-原理</h2><h4 id="jmm的内存可见性"><a href="#jmm的内存可见性" class="headerlink" title="jmm的内存可见性"></a>jmm的内存可见性</h4><p><strong>什么是Java内存模型中的happens-before</strong></p>
+<h5 id="Java内存模型JMM"><a href="#Java内存模型JMM" class="headerlink" title="Java内存模型JMM"></a><strong>Java内存模型JMM</strong></h5><ul>
+<li>Java内存模型(即Java Memory Model,简称JMM)本身是一种抽象的概念，并不真实存在，它描述的是一组规则或规范，通过这组规范定义了程序中各个变量（包括实例字段，静态字段和构成数组对象的元素）的访问方式。</li>
+</ul>
+<h5 id="JMM中的主内存"><a href="#JMM中的主内存" class="headerlink" title="JMM中的主内存"></a><strong>JMM中的主内存</strong></h5><ul>
+<li>存储Java实例对象</li>
+<li>包括成员变量、类信息、常量、静态变量等</li>
+<li>属于数据共享的区域，多线程并发操作时会引发线程安全问题</li>
+</ul>
+<h5 id="JMM中的工作内存"><a href="#JMM中的工作内存" class="headerlink" title="JMM中的工作内存"></a><strong>JMM中的工作内存</strong></h5><ul>
+<li>存储当前方法的所有本地变量信息，本地变量对其他线程不可见</li>
+<li>字节码行号指示器，Native方法信息</li>
+<li>属于线程私有数据区域，不存在线程安全问题</li>
+</ul>
+<h5 id="JMM与Java内存区域划分是不同的概念层次"><a href="#JMM与Java内存区域划分是不同的概念层次" class="headerlink" title="JMM与Java内存区域划分是不同的概念层次"></a><strong>JMM与Java内存区域划分是不同的概念层次</strong></h5><ul>
+<li>JMM描述的是一组规则，围绕原子性，有序性，可见性展开</li>
+<li>相似点：存在共享区域(堆、方法栈)和私有区域(程序计数器，JVM虚拟机栈、本地方法栈)</li>
+</ul>
+<h5 id="主内存与工作内存的数据存储类型以及操作方式归纳"><a href="#主内存与工作内存的数据存储类型以及操作方式归纳" class="headerlink" title="主内存与工作内存的数据存储类型以及操作方式归纳"></a><strong>主内存与工作内存的数据存储类型以及操作方式归纳</strong></h5><ul>
+<li>方法里的基本数据类型本地变量将直接存储在工作内存的栈帧结构中。</li>
+<li>引用类型的本地变量：引用存储在工作内存中，实例存储在主内存中。</li>
+<li>成员变量、static变量、类信息存储在主内存中。</li>
+<li>主内存共享的方式是线程各拷贝一份数据到工作内存，操作完成后刷新回主内存。</li>
+</ul>
+<h5 id="指令重排序需要满足的条件"><a href="#指令重排序需要满足的条件" class="headerlink" title="指令重排序需要满足的条件"></a><strong>指令重排序需要满足的条件</strong></h5><ul>
+<li>在单线程环境下不能改变程序运行的结果</li>
+<li>存在数据依赖关系的不允许重排序</li>
+</ul>
+<blockquote>
+<p>无法通过happens-before原则推导出来的，才能进行指令的重排序</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>A操作的结果需要对B操作可见，则A与B存在happens-before关系</li>
+<li>i = 1; //线程A执行</li>
+<li>j = i；//线程B执行</li>
+</ul>
+</blockquote>
+<h5 id="happens-before的八大原则"><a href="#happens-before的八大原则" class="headerlink" title="happens-before的八大原则"></a><strong>happens-before的八大原则</strong></h5><ul>
+<li>程序次序原则：一个线程内，按照代码顺序，书写在前面的操作先行发生于书写在后面的操作；</li>
+<li>锁定规则：一个unLock操作先行发生于后面对同一个锁的lock操作；</li>
+<li>volatile变量规则：对一个变量的写操作先行发生于后面对这个变量的读操作；</li>
+<li>传递规则：如果操作A先行发生于操作B，而操作B又先行发生于操作C，则可以得出操作A先行发生于操作C；</li>
+<li>线程启动规则：Thread对象的start()方法先行发生于此线程的每一个动作；</li>
+<li>线程中断规则：对线程interrupt()方法的调用先行发生于被中断线程的代码检测到中断事件的发生；</li>
+<li>线程终结规则：线程中所有的操作都先行发生于线程的终止检测，我们可以通过Thread.join()方法结束，Thread.isAlive()的返回值手段检测到线程已经终止执行；</li>
+<li>对象终结规则：一个对象的初始化完成先行发生于他的finalize()方法的开始；</li>
+</ul>
+<h5 id="happens-before的概念"><a href="#happens-before的概念" class="headerlink" title="happens-before的概念"></a><strong>happens-before的概念</strong></h5><ul>
+<li>如果两个操作不满足上述任意一个happens-before规则，那么这两个操作就没有顺序的保障，JVM可以对这两个操作进行重排序；</li>
+<li>如果操作A  happens-before操作B，那么操作A在内存上所做的操作对操作B都是可见的</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">private int value = 0;</span><br><span class="line">public void write(int input)&#123;   //A</span><br><span class="line">    value = input;</span><br><span class="line">&#125;</span><br><span class="line">public int read()&#123;              //B</span><br><span class="line">    return value;</span><br><span class="line">&#125;</span><br><span class="line">这一段代码不满足1.2.3.4规则，与5.6.7.8没有关系，所以不是线程安全的</span><br><span class="line">可以加入synchronized锁，或者对value加入volatile</span><br></pre></td></tr></table></figure>
+
+<h5 id="volatile：JVM提供的轻量级同步机制"><a href="#volatile：JVM提供的轻量级同步机制" class="headerlink" title="volatile：JVM提供的轻量级同步机制"></a><strong>volatile：JVM提供的轻量级同步机制</strong></h5><p>保证被volatile修饰的共享变量对所有线程总是可见的</p>
+<p>禁止指令重排序优化</p>
+<h5 id="volatile的可见性"><a href="#volatile的可见性" class="headerlink" title="volatile的可见性"></a><strong>volatile的可见性</strong></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class VolatileVisibility&#123;</span><br><span class="line">    public static volatile int value = 0;</span><br><span class="line">    public static void increase()&#123;</span><br><span class="line">        value++; &#125;&#125;</span><br><span class="line">    //value++,多线程时，不是线程安全的，不具备原子性，它是对值的读取，在写回一个新值，如果在这个期间，有一个线程一起看到这个值，就会同时对value进行+1，值只加了1，不是2.</span><br><span class="line"></span><br><span class="line">public class VolatileVisibility&#123;</span><br><span class="line">    public static volatile int value = 0;</span><br><span class="line">    public synchronized static void increase()&#123;</span><br><span class="line">        value++; &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class VolatileSafe&#123;</span><br><span class="line">    volatile boolean shutdown；</span><br><span class="line">    public void close（）&#123;</span><br><span class="line">       shutdown=true；&#125;&#125;</span><br><span class="line">    //由于shutdown=true；有原子性，所以volatile线程时安全的</span><br></pre></td></tr></table></figure>
+
+<h5 id="volation变量为何立即可见？"><a href="#volation变量为何立即可见？" class="headerlink" title="volation变量为何立即可见？"></a><strong>volation变量为何立即可见？</strong></h5><ul>
+<li>当写一个volatile变量时，JMM会把该线程对应的工作内存中的共享变量值刷新到主内存中；</li>
+<li>当读取一个volatile变量时，JMM会把该线程对相应的工作内存置为无效，线程只能从主内存重新读取变量，起到刷新作用。</li>
+</ul>
+<h5 id="volatile如何禁止重排优化"><a href="#volatile如何禁止重排优化" class="headerlink" title="volatile如何禁止重排优化"></a><strong>volatile如何禁止重排优化</strong></h5><p>内存屏障（Memory Barrier）</p>
+<ul>
+<li>1.保证特定操作的执行顺序</li>
+</ul>
+<blockquote>
+<p>通过插入内存屏障指令禁止在内存屏障前后的指令执行重排序优化。</p>
+</blockquote>
+<ul>
+<li>2.保证某些变量的内存可见性</li>
+</ul>
+<blockquote>
+<p>强制刷出各种CPU的缓存数据，因此任何CPU上的线程都能读取到这些数据的最新版本</p>
+</blockquote>
+<h4 id="实现线程安全的单例写法：单利的双重检测实现"><a href="#实现线程安全的单例写法：单利的双重检测实现" class="headerlink" title="实现线程安全的单例写法：单利的双重检测实现"></a><strong>实现线程安全的单例写法：单利的双重检测实现</strong></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public class Singleton&#123;</span><br><span class="line">    private volatile static Singleton instance;</span><br><span class="line">    private Singleton()&#123;&#125;</span><br><span class="line">    public static Singleton getInstance()&#123;</span><br><span class="line">        //第一次检测</span><br><span class="line">        if(instance == null)&#123;</span><br><span class="line">            //同步</span><br><span class="line">            synchronized (Singleton.class)&#123;</span><br><span class="line">                if(instance == null)&#123;</span><br><span class="line">                    //多线程环境下可能会出现问题的地方</span><br><span class="line">                    instance = new Singleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="volatile和synchronized的区别"><a href="#volatile和synchronized的区别" class="headerlink" title="volatile和synchronized的区别"></a><strong>volatile和synchronized的区别</strong></h5><ul>
+<li>volatile本质是在告诉JVM当前变量在寄存器(工作内存）中的值是不确定的，需要从主存中读取；synchronized则是锁定当前变量，只有当前线程可以访问该变量，其他线程被阻塞住直到该线程完成变量操作为止。</li>
+<li>volatile仅能使用在变量级别；synchronized则可以使用在变量、方法、类级别。</li>
+<li>volatile仅能实现变量的修改可见性，不能保证原子性；而synchronized则可以保证变量修改的可见性和原子性</li>
+<li>volatile不会造成线程的阻塞；synchronized可能会造成线程的阻塞；</li>
+<li>volatile标记的变量不会被编译器优化；synchronized标记的变量可以被编译器优化</li>
+</ul>
+<hr>
+<h4 id="CAS（Compare-and-Swap）"><a href="#CAS（Compare-and-Swap）" class="headerlink" title="CAS（Compare and Swap）"></a>CAS（Compare and Swap）</h4><blockquote>
+<p>一种高效实现线程安全性的方法</p>
+</blockquote>
+<ul>
+<li>支持原子更新操作，适用于计数器，序列发生器（给变量自增的工具）等场景</li>
+<li>属于乐观锁机制，号称lock-free</li>
+<li>CAS操作失败时由开发者决定是继续尝试，还是执行别的操作</li>
+</ul>
+<h5 id="CAS思想"><a href="#CAS思想" class="headerlink" title="CAS思想"></a>CAS思想</h5><p>包含三个操作数 – 内存位置（V、即主内存的值）、预期原值（A）和新值（B）</p>
+<blockquote>
+<p>将V与A相比较，如果匹配，则将该位置的值更新为B</p>
+</blockquote>
+<p><strong>CAS多数情况下对开发者来说是透明的</strong></p>
+<ul>
+<li>J.U.C的atomic包提供了常用的原子性数据类型以及引用、数组等相关原子类型和更新操作工具，是很多线程安全程序的首选</li>
+<li>Unsafe类虽提供CAS服务，但因能够操纵任意内存地址读写而有隐患</li>
+<li>Java9以后，可以使用Variable Handle API来代替Unsafe</li>
+</ul>
+<h5 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h5><p>若循环时间长，则开销很大</p>
+<p>只能保证一个共享变量的原子操作</p>
+<p>ABA问题（A-&gt;B-&gt;A）CAS第一次A，第二次A；会认为期间没有改变；解决：AtomicStampedReference，控制变量版本来保持正确性。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/剑指Offer/" rel="tag"># 剑指Offer</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/04/Offer-JVM07/" rel="next" title="Offer-JVM07">
+                <i class="fa fa-chevron-left"></i> Offer-JVM07
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Hasson">
+            
+              <p class="site-author-name" itemprop="name">Hasson</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Git136314602" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:a136314602@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/yourname" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://user.qzone.qq.com/136314602" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQ</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mac.weixin.qq.com" target="_blank" title="weixin">
+                      
+                        <i class="fa fa-fw fa-weixin"></i>weixin</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/6045337134" target="_blank" title="weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#剑指Offer-08"><span class="nav-number">1.</span> <span class="nav-text">剑指Offer-08</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java多线程与并发-原理"><span class="nav-number">1.1.</span> <span class="nav-text">Java多线程与并发-原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#jmm的内存可见性"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">jmm的内存可见性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Java内存模型JMM"><span class="nav-number">1.1.0.1.1.</span> <span class="nav-text">Java内存模型JMM</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#JMM中的主内存"><span class="nav-number">1.1.0.1.2.</span> <span class="nav-text">JMM中的主内存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#JMM中的工作内存"><span class="nav-number">1.1.0.1.3.</span> <span class="nav-text">JMM中的工作内存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#JMM与Java内存区域划分是不同的概念层次"><span class="nav-number">1.1.0.1.4.</span> <span class="nav-text">JMM与Java内存区域划分是不同的概念层次</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#主内存与工作内存的数据存储类型以及操作方式归纳"><span class="nav-number">1.1.0.1.5.</span> <span class="nav-text">主内存与工作内存的数据存储类型以及操作方式归纳</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#指令重排序需要满足的条件"><span class="nav-number">1.1.0.1.6.</span> <span class="nav-text">指令重排序需要满足的条件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#happens-before的八大原则"><span class="nav-number">1.1.0.1.7.</span> <span class="nav-text">happens-before的八大原则</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#happens-before的概念"><span class="nav-number">1.1.0.1.8.</span> <span class="nav-text">happens-before的概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#volatile：JVM提供的轻量级同步机制"><span class="nav-number">1.1.0.1.9.</span> <span class="nav-text">volatile：JVM提供的轻量级同步机制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#volatile的可见性"><span class="nav-number">1.1.0.1.10.</span> <span class="nav-text">volatile的可见性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#volation变量为何立即可见？"><span class="nav-number">1.1.0.1.11.</span> <span class="nav-text">volation变量为何立即可见？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#volatile如何禁止重排优化"><span class="nav-number">1.1.0.1.12.</span> <span class="nav-text">volatile如何禁止重排优化</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现线程安全的单例写法：单利的双重检测实现"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">实现线程安全的单例写法：单利的双重检测实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#volatile和synchronized的区别"><span class="nav-number">1.1.0.2.1.</span> <span class="nav-text">volatile和synchronized的区别</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CAS（Compare-and-Swap）"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">CAS（Compare and Swap）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CAS思想"><span class="nav-number">1.1.0.3.1.</span> <span class="nav-text">CAS思想</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#缺点"><span class="nav-number">1.1.0.3.2.</span> <span class="nav-text">缺点</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hasson</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
