@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="剑指Offer,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="剑指Offer-10常见类库与技巧String、StringBulider、StringBuffer的区别Java异常以及常用工具类的体系Java异常处理机制主要回答了三个问题 what：异常类型回答了什么被抛出 where：异常堆栈跟踪回答了在哪抛出 why：异常信息回答了为什么被抛出  Java的异常体系 Object -&amp;gt; Throwable -&amp;gt; Error 、Exceptio">
+<meta name="keywords" content="剑指Offer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Offer-类10">
+<meta property="og:url" content="http://hasson.top/2019/09/07/Offer-类10/index.html">
+<meta property="og:site_name" content="Mr.Hassan">
+<meta property="og:description" content="剑指Offer-10常见类库与技巧String、StringBulider、StringBuffer的区别Java异常以及常用工具类的体系Java异常处理机制主要回答了三个问题 what：异常类型回答了什么被抛出 where：异常堆栈跟踪回答了在哪抛出 why：异常信息回答了为什么被抛出  Java的异常体系 Object -&amp;gt; Throwable -&amp;gt; Error 、Exceptio">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://hasson.top/2019/09/07/Offer-类10/ten-1.png">
+<meta property="og:image" content="http://hasson.top/2019/09/07/Offer-类10/ten-2.png">
+<meta property="og:updated_time" content="2019-09-07T08:37:17.768Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Offer-类10">
+<meta name="twitter:description" content="剑指Offer-10常见类库与技巧String、StringBulider、StringBuffer的区别Java异常以及常用工具类的体系Java异常处理机制主要回答了三个问题 what：异常类型回答了什么被抛出 where：异常堆栈跟踪回答了在哪抛出 why：异常信息回答了为什么被抛出  Java的异常体系 Object -&amp;gt; Throwable -&amp;gt; Error 、Exceptio">
+<meta name="twitter:image" content="http://hasson.top/2019/09/07/Offer-类10/ten-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://hasson.top/2019/09/07/Offer-类10/">
+
+
+
+
+
+  <title>Offer-类10 | Mr.Hassan</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr.Hassan</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/09/07/Offer-类10/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hasson">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.Hassan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Offer-类10</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-07T16:31:30+08:00">
+                2019-09-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Offer/" itemprop="url" rel="index">
+                    <span itemprop="name">Offer</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.6k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="剑指Offer-10"><a href="#剑指Offer-10" class="headerlink" title="剑指Offer-10"></a>剑指Offer-10</h1><h2 id="常见类库与技巧"><a href="#常见类库与技巧" class="headerlink" title="常见类库与技巧"></a>常见类库与技巧</h2><h4 id="String、StringBulider、StringBuffer的区别"><a href="#String、StringBulider、StringBuffer的区别" class="headerlink" title="String、StringBulider、StringBuffer的区别"></a>String、StringBulider、StringBuffer的区别</h4><h4 id="Java异常以及常用工具类的体系"><a href="#Java异常以及常用工具类的体系" class="headerlink" title="Java异常以及常用工具类的体系"></a>Java异常以及常用工具类的体系</h4><h5 id="Java异常处理机制主要回答了三个问题"><a href="#Java异常处理机制主要回答了三个问题" class="headerlink" title="Java异常处理机制主要回答了三个问题"></a><strong>Java异常处理机制主要回答了三个问题</strong></h5><ul>
+<li>what：异常类型回答了什么被抛出</li>
+<li>where：异常堆栈跟踪回答了在哪抛出</li>
+<li>why：异常信息回答了为什么被抛出</li>
+</ul>
+<h5 id="Java的异常体系"><a href="#Java的异常体系" class="headerlink" title="Java的异常体系"></a>Java的异常体系</h5><ul>
+<li>Object -&gt; Throwable -&gt; Error 、Exception -&gt;(Exception) RuntimeException、非RuntimeException</li>
+</ul>
+<h5 id="从概念角度解析Java的异常处理机制"><a href="#从概念角度解析Java的异常处理机制" class="headerlink" title="从概念角度解析Java的异常处理机制"></a>从概念角度解析Java的异常处理机制</h5><ul>
+<li><p>Error：程序无法处理的系统异常错误，编译器不做检查</p>
+</li>
+<li><blockquote>
+<p>（一般是指与JVM相关的问题：系统崩溃、虚拟机错误、内存不足、方法栈溢出）</p>
+</blockquote>
+</li>
+<li><p>Exception：程序可以处理的异常，捕获后可能恢复</p>
+</li>
+<li><p>总结：前者是程序无法处理的错误，后者程序可以处理</p>
+</li>
+<li><p>RuntimeException：不可预知的，程序应当自行避免（下标越界、空指针等）</p>
+</li>
+<li><p>非RuntimeException：可预知的，从编译器校验的异常（io、sql）</p>
+</li>
+</ul>
+<p><strong>从责任角度看：</strong></p>
+<ul>
+<li>Error属于JVM需要负担的责任；</li>
+<li>RuntimeException是程序应该负担的责任</li>
+<li>CheckedException可检查异常时Java编译器应该负担的责任</li>
+</ul>
+<h5 id="常见的Error以及Exception"><a href="#常见的Error以及Exception" class="headerlink" title="常见的Error以及Exception"></a>常见的Error以及Exception</h5><p><strong>RuntimeException</strong></p>
+<ul>
+<li>NullPointerException -空指针引用异常</li>
+<li>ClassCastException -类型强制转换异常</li>
+<li>IllegalArgumentException -传递非法参数异常</li>
+<li>IndexOutOfBoundsException -下标越界异常</li>
+<li>NumberFormatException -数字格式异常 </li>
+</ul>
+<p><strong>非RuntimeException</strong></p>
+<ul>
+<li>ClassNotFoundException -找不到指定的class异常</li>
+<li>IOException -IO操作异常</li>
+</ul>
+<p><strong>Error</strong></p>
+<ul>
+<li>NoClassDefFoundError -找不到class定义的异常</li>
+<li><ul>
+<li>类依赖的class或者jar不存在</li>
+<li>类文件存在，但是存在不同的域中</li>
+<li>大小写问题，javac编译的时候无视大小写，很有可能编译后class文件与想要的不一样</li>
+</ul>
+</li>
+<li>StarkOverFlowError -深递归导致栈被耗尽的异常</li>
+<li>OutOfMemoryError -内存溢出异常</li>
+</ul>
+<hr>
+<h4 id="Java的异常处理机制"><a href="#Java的异常处理机制" class="headerlink" title="Java的异常处理机制"></a>Java的异常处理机制</h4><ul>
+<li>抛出异常：创建异常对象，交由运行时系统处理</li>
+<li>捕获异常：寻找合适的异常处理器（ExceptionHandler）处理异常，否则终止运行（多个catch，按顺序依次查询是否有符合的方法，错误越精准越好）</li>
+</ul>
+<h5 id="Java异常的处理原则"><a href="#Java异常的处理原则" class="headerlink" title="Java异常的处理原则"></a>Java异常的处理原则</h5><ul>
+<li>具体明确：抛出的异常应能通过异常类名的message准确说明异常的类型和产生异常的原因；</li>
+<li>提早抛出：应尽可能早的发现并抛出异常，便于精准定位；</li>
+<li>延迟捕获：异常的捕获和处理应尽可能延迟，让掌握更多信息的作用域来处理异常。</li>
+</ul>
+<h5 id="高效主流的异常处理框架"><a href="#高效主流的异常处理框架" class="headerlink" title="高效主流的异常处理框架"></a>高效主流的异常处理框架</h5><p><strong>在用户来看，应用系统发生在所有异常都是应用系统内部的异常</strong></p>
+<ul>
+<li>设计一个通用的继承自RuntimeException的异常来统一处理</li>
+<li>其余异常都统一转译为上述异常AppException</li>
+<li>在catch之后，抛出上述异常的子类，并提供足以定位的信息</li>
+<li>由前端接收AppException做统一处理</li>
+</ul>
+<h5 id="Java异常处理消耗性能的地方"><a href="#Java异常处理消耗性能的地方" class="headerlink" title="Java异常处理消耗性能的地方"></a>Java异常处理消耗性能的地方</h5><ul>
+<li>try-catch块影响JVM的优化</li>
+<li>异常对象实例需要保存栈快照等信息，可以从异常中看到对象等信息，说明信息量很大，开销较大，缩进尽量精确到某一处的异常。</li>
+</ul>
+<hr>
+<h4 id="Java集合框架"><a href="#Java集合框架" class="headerlink" title="Java集合框架"></a>Java集合框架</h4><h5 id="工作中消失而面试却长存的算法和数据结构"><a href="#工作中消失而面试却长存的算法和数据结构" class="headerlink" title="工作中消失而面试却长存的算法和数据结构"></a>工作中消失而面试却长存的算法和数据结构</h5><p>优秀的算法和数据结构被封装到了Java的集合框架中</p>
+<h5 id="数据结构考点"><a href="#数据结构考点" class="headerlink" title="数据结构考点"></a>数据结构考点</h5><ul>
+<li>数组和链表的区别</li>
+<li>链表的操作，如反转、链表环路检测、双向链表、循环链表相关操作；</li>
+<li>队列，栈的应用；</li>
+<li>二叉树的遍历方式以及其递归和非递归的实现；</li>
+<li>红黑树的旋转</li>
+</ul>
+<h5 id="算法考点"><a href="#算法考点" class="headerlink" title="算法考点"></a>算法考点</h5><ul>
+<li>内部排序：递归排序、交换排序（冒泡、快排）、选择排序、插入排序</li>
+<li>外部排序：应掌握如何利用有限的内存配合海量的外部存储来处理超大的数据集，至少要有相关思路（分化处理再合并）</li>
+<li>考点扩展：</li>
+<li>那些排序是不稳定的（快排、堆排序），稳定意味着什么</li>
+<li>不同的数据集，各种排序最好和最差的情况</li>
+<li>如何优化算法(以空间还时间等)</li>
+</ul>
+<h4 id="List和Set"><a href="#List和Set" class="headerlink" title="List和Set"></a>List和Set</h4><p><img src="//hasson.top/2019/09/07/Offer-类10/ten-1.png" alt></p>
+<p><strong>代码需重复看</strong></p>
+<h4 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h4><h5 id="HashMap、HashTable、ConccurentHashMap"><a href="#HashMap、HashTable、ConccurentHashMap" class="headerlink" title="HashMap、HashTable、ConccurentHashMap"></a>HashMap、HashTable、ConccurentHashMap</h5><p>HashMap（Java8以前）：数组+链表，长度默认为16；</p>
+<blockquote>
+<p>数组：查询速度快、增删较慢；链表反之；</p>
+<p>HashMap结合了两者优点；</p>
+<p>操作方式非synchronized，效率高；</p>
+</blockquote>
+<p>因为放入HashMap的值通过哈希散列运算总是得出相同的值，一直放入一个桶中，会使某个链表变得很长，从头部逐个遍历，性能会从O（1）变O（n）</p>
+<p>HashMap（Java8以后）：数组+链表+红黑树。性能从O（n）提高到O(logn);</p>
+<blockquote>
+<p>红黑树课下要明白</p>
+</blockquote>
+<h5 id="HashMap：put方法的逻辑"><a href="#HashMap：put方法的逻辑" class="headerlink" title="HashMap：put方法的逻辑"></a>HashMap：put方法的逻辑</h5><ol>
+<li>如果HashMap未被初始化过，则初始化</li>
+<li>对key求Hash值，然后再计算下标</li>
+<li>如果没有碰撞（table中没有相对应的键值对），直接放入桶中</li>
+<li>如果碰撞了，以链表的方式链接到后面</li>
+<li>如果链表长度超过阈值，就把链表转成红黑树</li>
+<li>如果链表长度低于6，就把红黑树转成链表</li>
+<li>如果节点已经存在，就替换旧制</li>
+<li>如果桶满了（容量16*加载因子0.75），就需要resize（扩容2倍后重排）</li>
+</ol>
+<h5 id="hashMap：set方法的逻辑"><a href="#hashMap：set方法的逻辑" class="headerlink" title="hashMap：set方法的逻辑"></a>hashMap：set方法的逻辑</h5><ul>
+<li>使用键对象的HashCode，使用哈希算法找到键值位置，通过key.equals找到值</li>
+</ul>
+<h5 id="HashMap：如何有效减少碰撞"><a href="#HashMap：如何有效减少碰撞" class="headerlink" title="HashMap：如何有效减少碰撞"></a>HashMap：如何有效减少碰撞</h5><p>扰动函数：促使元素位置分布均匀，减少碰撞几率，目的是让不同对象返回不同的HashCode</p>
+<p>使用final对象，并采用合适的equals()和Hashcode()方法，可以缓存不同键的HashCode。使用String、Intger作为键比较好，是final的，重写了equals和hashcode的方法</p>
+<h5 id="HashMap：从获取hash到散列的过程"><a href="#HashMap：从获取hash到散列的过程" class="headerlink" title="HashMap：从获取hash到散列的过程"></a>HashMap：从获取hash到散列的过程</h5><p><img src="//hasson.top/2019/09/07/Offer-类10/ten-2.png" alt></p>
+<h5 id="HashMap-扩容的问题"><a href="#HashMap-扩容的问题" class="headerlink" title="HashMap:扩容的问题"></a>HashMap:扩容的问题</h5><ul>
+<li>多线程环境下，调整大小会存在条件竞争（两个线程都发现Hashmap需调整），容易造成死锁</li>
+<li>rehashing（散列）是一个比较耗时的过程</li>
+</ul>
+<h5 id="HashMap知识点："><a href="#HashMap知识点：" class="headerlink" title="HashMap知识点："></a>HashMap知识点：</h5><ul>
+<li>成员变量：数据结构，树化阈值</li>
+<li>构造函数：延迟创建</li>
+<li>put和get的流程</li>
+<li>哈希算法，扩容，性能</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/剑指Offer/" rel="tag"># 剑指Offer</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/04/Offer-JVM09/" rel="next" title="Offer-JVM09">
+                <i class="fa fa-chevron-left"></i> Offer-JVM09
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/07/Offer-类11/" rel="prev" title="Offer-类11">
+                Offer-类11 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Hasson">
+            
+              <p class="site-author-name" itemprop="name">Hasson</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Git136314602" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:a136314602@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/yourname" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://user.qzone.qq.com/136314602" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQ</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mac.weixin.qq.com" target="_blank" title="weixin">
+                      
+                        <i class="fa fa-fw fa-weixin"></i>weixin</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/6045337134" target="_blank" title="weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#剑指Offer-10"><span class="nav-number">1.</span> <span class="nav-text">剑指Offer-10</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常见类库与技巧"><span class="nav-number">1.1.</span> <span class="nav-text">常见类库与技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#String、StringBulider、StringBuffer的区别"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">String、StringBulider、StringBuffer的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java异常以及常用工具类的体系"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">Java异常以及常用工具类的体系</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Java异常处理机制主要回答了三个问题"><span class="nav-number">1.1.0.2.1.</span> <span class="nav-text">Java异常处理机制主要回答了三个问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Java的异常体系"><span class="nav-number">1.1.0.2.2.</span> <span class="nav-text">Java的异常体系</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#从概念角度解析Java的异常处理机制"><span class="nav-number">1.1.0.2.3.</span> <span class="nav-text">从概念角度解析Java的异常处理机制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常见的Error以及Exception"><span class="nav-number">1.1.0.2.4.</span> <span class="nav-text">常见的Error以及Exception</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java的异常处理机制"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">Java的异常处理机制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Java异常的处理原则"><span class="nav-number">1.1.0.3.1.</span> <span class="nav-text">Java异常的处理原则</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#高效主流的异常处理框架"><span class="nav-number">1.1.0.3.2.</span> <span class="nav-text">高效主流的异常处理框架</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Java异常处理消耗性能的地方"><span class="nav-number">1.1.0.3.3.</span> <span class="nav-text">Java异常处理消耗性能的地方</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java集合框架"><span class="nav-number">1.1.0.4.</span> <span class="nav-text">Java集合框架</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#工作中消失而面试却长存的算法和数据结构"><span class="nav-number">1.1.0.4.1.</span> <span class="nav-text">工作中消失而面试却长存的算法和数据结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据结构考点"><span class="nav-number">1.1.0.4.2.</span> <span class="nav-text">数据结构考点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#算法考点"><span class="nav-number">1.1.0.4.3.</span> <span class="nav-text">算法考点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#List和Set"><span class="nav-number">1.1.0.5.</span> <span class="nav-text">List和Set</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Map"><span class="nav-number">1.1.0.6.</span> <span class="nav-text">Map</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#HashMap、HashTable、ConccurentHashMap"><span class="nav-number">1.1.0.6.1.</span> <span class="nav-text">HashMap、HashTable、ConccurentHashMap</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HashMap：put方法的逻辑"><span class="nav-number">1.1.0.6.2.</span> <span class="nav-text">HashMap：put方法的逻辑</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#hashMap：set方法的逻辑"><span class="nav-number">1.1.0.6.3.</span> <span class="nav-text">hashMap：set方法的逻辑</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HashMap：如何有效减少碰撞"><span class="nav-number">1.1.0.6.4.</span> <span class="nav-text">HashMap：如何有效减少碰撞</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HashMap：从获取hash到散列的过程"><span class="nav-number">1.1.0.6.5.</span> <span class="nav-text">HashMap：从获取hash到散列的过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HashMap-扩容的问题"><span class="nav-number">1.1.0.6.6.</span> <span class="nav-text">HashMap:扩容的问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HashMap知识点："><span class="nav-number">1.1.0.6.7.</span> <span class="nav-text">HashMap知识点：</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hasson</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="剑指Offer,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="剑指Offer-11常见类库与技巧java5之前无论是Hashtable还是synchronized包装下的hashmap在多线程并发下，都要竞争同一把锁。所以产生了ConcurrentHashMap. 如何优化Hashtable？ 通过锁细粒度化，将整锁拆解成多个锁进行优化  早期的ConcurrentHashMap：通过分段锁segment实现，即为默认的16个数组位置，每个都分配一把锁，线程">
+<meta name="keywords" content="剑指Offer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Offer-类11">
+<meta property="og:url" content="http://hasson.top/2019/09/07/Offer-类11/index.html">
+<meta property="og:site_name" content="Mr.Hassan">
+<meta property="og:description" content="剑指Offer-11常见类库与技巧java5之前无论是Hashtable还是synchronized包装下的hashmap在多线程并发下，都要竞争同一把锁。所以产生了ConcurrentHashMap. 如何优化Hashtable？ 通过锁细粒度化，将整锁拆解成多个锁进行优化  早期的ConcurrentHashMap：通过分段锁segment实现，即为默认的16个数组位置，每个都分配一把锁，线程">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://hasson.top/2019/09/07/Offer-类11/eleven-1.png">
+<meta property="og:image" content="http://hasson.top/2019/09/07/Offer-类11/eleven-2.png">
+<meta property="og:image" content="http://hasson.top/2019/09/07/Offer-类11/eleven-3.png">
+<meta property="og:image" content="http://hasson.top/2019/09/07/Offer-类11/eleven-4.png">
+<meta property="og:updated_time" content="2019-09-07T08:38:27.832Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Offer-类11">
+<meta name="twitter:description" content="剑指Offer-11常见类库与技巧java5之前无论是Hashtable还是synchronized包装下的hashmap在多线程并发下，都要竞争同一把锁。所以产生了ConcurrentHashMap. 如何优化Hashtable？ 通过锁细粒度化，将整锁拆解成多个锁进行优化  早期的ConcurrentHashMap：通过分段锁segment实现，即为默认的16个数组位置，每个都分配一把锁，线程">
+<meta name="twitter:image" content="http://hasson.top/2019/09/07/Offer-类11/eleven-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://hasson.top/2019/09/07/Offer-类11/">
+
+
+
+
+
+  <title>Offer-类11 | Mr.Hassan</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr.Hassan</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/09/07/Offer-类11/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hasson">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.Hassan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Offer-类11</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-07T16:31:46+08:00">
+                2019-09-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Offer/" itemprop="url" rel="index">
+                    <span itemprop="name">Offer</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  7
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="剑指Offer-11"><a href="#剑指Offer-11" class="headerlink" title="剑指Offer-11"></a>剑指Offer-11</h1><h2 id="常见类库与技巧"><a href="#常见类库与技巧" class="headerlink" title="常见类库与技巧"></a>常见类库与技巧</h2><p>java5之前无论是Hashtable还是synchronized包装下的hashmap在多线程并发下，都要竞争同一把锁。所以产生了ConcurrentHashMap.</p>
+<h5 id="如何优化Hashtable？"><a href="#如何优化Hashtable？" class="headerlink" title="如何优化Hashtable？"></a>如何优化Hashtable？</h5><ul>
+<li>通过锁细粒度化，将整锁拆解成多个锁进行优化</li>
+</ul>
+<p><strong>早期的ConcurrentHashMap：通过分段锁segment实现，即为默认的16个数组位置，每个都分配一把锁，线程可同时访问不同位置。</strong></p>
+<p><strong>Java8之后，当前的ConcurrentHashMap：CAS+synchronized 使锁更加细化，也采用了数组+链表+红黑树</strong></p>
+<ul>
+<li>synchronized只锁住当前列表或者红黑树的首节点，只要hash不冲突，就不会产生并发</li>
+</ul>
+<h5 id="ConcurrentHashMap：put方法的逻辑"><a href="#ConcurrentHashMap：put方法的逻辑" class="headerlink" title="ConcurrentHashMap：put方法的逻辑"></a>ConcurrentHashMap：put方法的逻辑</h5><ul>
+<li>判断Node[]数组是否初始化，没有则进行初始化操作</li>
+<li>通过hash定位数组的索引坐标，是否有Node节点，如果没有则使用CAS进行添加(链表的头节点)，添加失败则进入下次循环。</li>
+<li>检查到内部正在扩容，就帮助它一块扩容。</li>
+<li>如果f!=null,则使用sunchronized锁住f元素  (链表/红黑二叉树的头元素)</li>
+</ul>
+<blockquote>
+<p>如果是Node（链表结构）则执行链表的添加操作</p>
+<p>如果是TreeNode（树形结构）则执行树添加操作</p>
+</blockquote>
+<ul>
+<li>判断链表长度已经达到临界值8，当然这个8是默认值，也可以去做调整，当节点数超过这个值就需要把链表转换为树结构</li>
+</ul>
+<h5 id="ConcurrentHashMap总结：比起Segment，锁拆得更细"><a href="#ConcurrentHashMap总结：比起Segment，锁拆得更细" class="headerlink" title="ConcurrentHashMap总结：比起Segment，锁拆得更细"></a>ConcurrentHashMap总结：比起Segment，锁拆得更细</h5><ul>
+<li>首先使用无锁操作CAS插入头节点，失败则循环重试</li>
+<li>若头节点存在，则用synchronized尝试获取头节点的同步锁，再进行操作</li>
+</ul>
+<h5 id="ConcurrentHashMap：别的需要注意的点"><a href="#ConcurrentHashMap：别的需要注意的点" class="headerlink" title="ConcurrentHashMap：别的需要注意的点"></a>ConcurrentHashMap：别的需要注意的点</h5><ul>
+<li>size（）方法和mapping Count（）方法的异同，两者计算是否准确？</li>
+<li>多线程环境下如何扩容？</li>
+</ul>
+<h5 id="HashMap、Hashtable、ConcurrentHashMap区别"><a href="#HashMap、Hashtable、ConcurrentHashMap区别" class="headerlink" title="HashMap、Hashtable、ConcurrentHashMap区别"></a>HashMap、Hashtable、ConcurrentHashMap区别</h5><ul>
+<li>HashMap：线程不安全，数组+链表+红黑树</li>
+<li>Hashtable：线程安全，锁住整个对象，效率低，数组+链表</li>
+<li>ConcurrentHashMap：线程安全，CAS+同步锁，锁住对象下的元素，数组+链表+红黑树</li>
+<li>hashMap的key、value均可为null，而其他两个不支持</li>
+</ul>
+<hr>
+<h4 id="J-U-C-知识点梳理"><a href="#J-U-C-知识点梳理" class="headerlink" title="J.U.C 知识点梳理"></a>J.U.C 知识点梳理</h4><h5 id="java-util-concurrent：提供了并发编程的解决方案"><a href="#java-util-concurrent：提供了并发编程的解决方案" class="headerlink" title="java.util.concurrent：提供了并发编程的解决方案"></a>java.util.concurrent：提供了并发编程的解决方案</h5><p>CAS是java.util.concurrent.atomic包的基础</p>
+<p>AQS是java.util.concurrent.locks包以及一些常用类比如Semophore，ReentrantLock等类的基础</p>
+<h5 id="J-U-C-包的分类"><a href="#J-U-C-包的分类" class="headerlink" title="J.U.C 包的分类"></a>J.U.C 包的分类</h5><ul>
+<li>线程执行器executor：任务执行和调度的框架</li>
+<li>锁locks：Condition显示锁</li>
+<li>原子变量类atomic：有原子性的类，方便在多线程环境下进行无锁操作</li>
+<li>并发工具类tools：后面详细介绍</li>
+<li>并发集合collections：后面详细介绍</li>
+</ul>
+<p><img src="//hasson.top/2019/09/07/Offer-类11/eleven-1.png" alt></p>
+<h5 id="并发工具类tools：四个同步器"><a href="#并发工具类tools：四个同步器" class="headerlink" title="并发工具类tools：四个同步器"></a><strong><em>并发工具类tools：四个同步器</em></strong></h5><p><strong>闭锁CountDownLatch：让主线程等待一组事件发生后继续执行</strong></p>
+<blockquote>
+<p>事件指的是CountDownLatch里的countDown()方法</p>
+<p>eg：三个线程分别执行countDown()方法，有一个计数器为3，一个线程执行一个方法后-1，为0时，主线程继续执行</p>
+</blockquote>
+<p><strong>栅栏CyclicBarrier：阻塞当前线程，等待其他线程</strong></p>
+<blockquote>
+<p>也有一个计数器，执行await()方法，执行后-1。</p>
+<p>等待其他线程，且会阻塞自己当前的线程，所有线程必须同时到达栅栏位置后，才能继续执行；</p>
+<p>所有线程到达栅栏处，可以出发执行另一个预先设置的线程</p>
+</blockquote>
+<p><strong>信号量Semaphore：控制某个资源可被同时访问的线程个数</strong></p>
+<blockquote>
+<p>通过require获取资源，没有则等待，利用资源后，通过释放一个release，许可一个线程进入</p>
+</blockquote>
+<p><strong>交换器Exchanger：两个线程到达同步点后，相互交换数据</strong></p>
+<blockquote>
+<p>提供了一个交换点，两个线程到达交换点后，相互交换数据，一个线程先到达同步点，就会被阻塞，直到另一个线程到达（只能是两个线程）</p>
+</blockquote>
+<h5 id="并发集合collections："><a href="#并发集合collections：" class="headerlink" title="并发集合collections："></a><strong><em>并发集合collections：</em></strong></h5><p><strong>BlockingQueue:提供可阻塞的入队和出队操作</strong></p>
+<blockquote>
+<p>主要用于生产者-消费者模式，在多线程场景时，生产者线程在队列尾部添加元素，而消费者线程则在队列头部消费元素，通过这种方式能够达到将任务的生产和消费进行隔离的目的。</p>
+</blockquote>
+<p>七个队列实现，均线程安全，前三个比较重要：</p>
+<ul>
+<li>ArrayBlockingQueue:一个由数组结构组成的有界（容量有限）阻塞队列；（尾入头出）</li>
+<li>LinkedBlockingQueue：一个由链表结构组成的有界/无界阻塞队列；（尾入头出）</li>
+<li>PriorityBlockingQueue：一个支持优先级排序的无界阻塞队列；（按优先级）</li>
+<li>DealyQueue：一个使用优先级队列实现的无界阻塞队列；（可设置延迟，时间到了才获取元素）</li>
+<li>SynchronousQueue：一个不存储元素的阻塞队列；（仅允许有一个元素）</li>
+<li>LinkedTransferQueue：一个由链表结构组成的无界阻塞队列；（2和5的结合体）</li>
+<li>LinkedBlockingDeque：一个由链表结构组成的双向阻塞队列；（消费者双端任务完成之后，可以窃取其他消费者队列的尾部任务）</li>
+</ul>
+<hr>
+<h4 id="Java的IO机制"><a href="#Java的IO机制" class="headerlink" title="Java的IO机制"></a>Java的IO机制</h4><h5 id="BIO、NIO、AIO的区别"><a href="#BIO、NIO、AIO的区别" class="headerlink" title="BIO、NIO、AIO的区别"></a>BIO、NIO、AIO的区别</h5><h5 id="Block-IO：InputStream和OutputStream，Reader和Writer（弄清楚四者区别）"><a href="#Block-IO：InputStream和OutputStream，Reader和Writer（弄清楚四者区别）" class="headerlink" title="Block-IO：InputStream和OutputStream，Reader和Writer（弄清楚四者区别）"></a><strong>Block-IO：InputStream和OutputStream，Reader和Writer（弄清楚四者区别）</strong></h5><p><img src="//hasson.top/2019/09/07/Offer-类11/eleven-2.png" alt></p>
+<ul>
+<li>特点：在IO执行的两个阶段都被阻塞住了</li>
+<li>优点：代码简单、直观</li>
+<li>缺点：扩展性和效率都不好</li>
+</ul>
+<h5 id="NonBlock-IO：构建多路复用的、同步非阻塞的IO操作"><a href="#NonBlock-IO：构建多路复用的、同步非阻塞的IO操作" class="headerlink" title="NonBlock-IO：构建多路复用的、同步非阻塞的IO操作"></a><strong>NonBlock-IO：构建多路复用的、同步非阻塞的IO操作</strong></h5><p><img src="//hasson.top/2019/09/07/Offer-类11/eleven-3.png" alt></p>
+<p>特点：IO执行第一阶段不阻塞，而是程序不断地询问内核是否准备好，第二阶段阻塞</p>
+<p><strong>NIO的核心</strong></p>
+<p>Channels(可以和buffer相互传递数据)</p>
+<ul>
+<li><p>FileChannel</p>
+<blockquote>
+<p>transferTo：把FileChannel中的数据拷贝到另外一个Channel</p>
+<p>transferFrom：把另外一个Channel中的数据拷贝到FileChannel</p>
+<p>避免了两次用户态和内核态间的上下文切换，即“零拷贝”，效率高</p>
+</blockquote>
+</li>
+<li><p>DatagramChannel</p>
+</li>
+<li><p>SocketChannel</p>
+</li>
+<li><p>ServerSocketChannel</p>
+</li>
+<li><p>自己私下了解</p>
+</li>
+</ul>
+<p>Buffers（能通过IObuffer的基本数据类型）</p>
+<ul>
+<li>ByteBuffer</li>
+<li>CharBuffer</li>
+<li>DoubleBuffer</li>
+<li>FloatBuffer</li>
+<li>IntBuffer</li>
+<li>LongBuffer</li>
+<li>ShortBuffer</li>
+<li>MappedByteBuffer：表示内存映射文件</li>
+</ul>
+<p>Selectors（允许单线程处理多个Channel）</p>
+<blockquote>
+<p>如果应用打开多个链接，每个链接流量都很低，可用Selectors</p>
+<p>eg：聊天服务器</p>
+</blockquote>
+<h6 id="IO多路复用：调用系统级别的select、poll、epoll"><a href="#IO多路复用：调用系统级别的select、poll、epoll" class="headerlink" title="IO多路复用：调用系统级别的select、poll、epoll"></a><strong>IO多路复用：调用系统级别的select、poll、epoll</strong></h6><p>优点：单线程可以同时处理多个网络IO，系统监控IO状态，select监控IO请求，有一个socket数据准备好，便可返回。</p>
+<h6 id="select、poll、epoll的区别"><a href="#select、poll、epoll的区别" class="headerlink" title="select、poll、epoll的区别"></a><strong>select、poll、epoll的区别</strong></h6><p><strong>支持一个进程所能打开的最大连接数</strong></p>
+<ul>
+<li>select：单个进程所能打开的最大连接数由FD_SETSIZE宏定义，其大小是32个整数的大小（在32位的机器上，大小是32x32，64位上是32x64），我们可以对其进行修改，然后重新编译内核，但是性能无法保证，需要做进一步尝试。基于数组，所以连接数有限/</li>
+<li>poll:本质上与select没有区别，但是它没有最大连接数限制，原因是它是基于链表存储的</li>
+<li>epoll：虽然连接数有上限，但是很大，1G内存的机器上可以打开10w左右的连接</li>
+</ul>
+<p><strong>FD剧增后带来的IO效率问题</strong></p>
+<ul>
+<li>select:因为每次调用时都会对连接进行线性遍历，所以随着FD的增加会造成便利速度的“线性下降”的性能问题</li>
+<li>poll：同上；</li>
+<li>epoll：由于epoll是根据每个fd上的callback函数来实现的，只有活跃的socket才会主动调用callback，所以在活跃socket较少的情况下，使用epoll不会有“线性下降”的性能问题，但是所有socket都很活跃的情况下，可能会有性能问题。</li>
+</ul>
+<p><strong>消息传递方式</strong></p>
+<ul>
+<li>select：内核需要将消息传递到用户空间，需要内核的拷贝动作</li>
+<li>poll：同上</li>
+<li>epoll：通过内核和用户空间共享一块内存来实现，性能较高</li>
+</ul>
+<h5 id="Asychronous-IO：基于事件和回调机制"><a href="#Asychronous-IO：基于事件和回调机制" class="headerlink" title="Asychronous IO：基于事件和回调机制"></a><strong>Asychronous IO：基于事件和回调机制</strong></h5><p><img src="//hasson.top/2019/09/07/Offer-类11/eleven-4.png" alt></p>
+<h6 id="AIO如何进一步加工处理结果"><a href="#AIO如何进一步加工处理结果" class="headerlink" title="AIO如何进一步加工处理结果"></a>AIO如何进一步加工处理结果</h6><ul>
+<li>基于回调：实现CompletionHandler接口，调用时触发回调函数</li>
+<li>返回Future：通过isDone（）查看是否准备好，通过get（）等待返回数据</li>
+</ul>
+<blockquote>
+<p><strong>BIO\NIO\AIO源码看视频</strong></p>
+</blockquote>
+<h5 id="BIO、NIO、AIO的对比"><a href="#BIO、NIO、AIO的对比" class="headerlink" title="BIO、NIO、AIO的对比"></a>BIO、NIO、AIO的对比</h5><p>属性\模型                    阻塞BIO            非阻塞NIO             异步AIO</p>
+<p>blocking                     阻塞并同步         非阻塞但同步        非阻塞并异步</p>
+<p>线程数(server:client)    1:1                     1:N                        0:N</p>
+<p>复杂度                          简单                   较复杂                  复杂</p>
+<p>吞吐量                           低                       高                           高</p>
+<ul>
+<li>BIO：连接数较小，固定的架构</li>
+<li>NIO：连接数、连接短的操作，如聊天服务器</li>
+<li>AIO：连接数多，连接长的操作</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/剑指Offer/" rel="tag"># 剑指Offer</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/07/Offer-类10/" rel="next" title="Offer-类10">
+                <i class="fa fa-chevron-left"></i> Offer-类10
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Hasson">
+            
+              <p class="site-author-name" itemprop="name">Hasson</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Git136314602" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:a136314602@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/yourname" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://user.qzone.qq.com/136314602" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQ</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mac.weixin.qq.com" target="_blank" title="weixin">
+                      
+                        <i class="fa fa-fw fa-weixin"></i>weixin</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/6045337134" target="_blank" title="weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#剑指Offer-11"><span class="nav-number">1.</span> <span class="nav-text">剑指Offer-11</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常见类库与技巧"><span class="nav-number">1.1.</span> <span class="nav-text">常见类库与技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#如何优化Hashtable？"><span class="nav-number">1.1.0.0.1.</span> <span class="nav-text">如何优化Hashtable？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ConcurrentHashMap：put方法的逻辑"><span class="nav-number">1.1.0.0.2.</span> <span class="nav-text">ConcurrentHashMap：put方法的逻辑</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ConcurrentHashMap总结：比起Segment，锁拆得更细"><span class="nav-number">1.1.0.0.3.</span> <span class="nav-text">ConcurrentHashMap总结：比起Segment，锁拆得更细</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ConcurrentHashMap：别的需要注意的点"><span class="nav-number">1.1.0.0.4.</span> <span class="nav-text">ConcurrentHashMap：别的需要注意的点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HashMap、Hashtable、ConcurrentHashMap区别"><span class="nav-number">1.1.0.0.5.</span> <span class="nav-text">HashMap、Hashtable、ConcurrentHashMap区别</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#J-U-C-知识点梳理"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">J.U.C 知识点梳理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#java-util-concurrent：提供了并发编程的解决方案"><span class="nav-number">1.1.0.1.1.</span> <span class="nav-text">java.util.concurrent：提供了并发编程的解决方案</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#J-U-C-包的分类"><span class="nav-number">1.1.0.1.2.</span> <span class="nav-text">J.U.C 包的分类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#并发工具类tools：四个同步器"><span class="nav-number">1.1.0.1.3.</span> <span class="nav-text">并发工具类tools：四个同步器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#并发集合collections："><span class="nav-number">1.1.0.1.4.</span> <span class="nav-text">并发集合collections：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java的IO机制"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">Java的IO机制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#BIO、NIO、AIO的区别"><span class="nav-number">1.1.0.2.1.</span> <span class="nav-text">BIO、NIO、AIO的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Block-IO：InputStream和OutputStream，Reader和Writer（弄清楚四者区别）"><span class="nav-number">1.1.0.2.2.</span> <span class="nav-text">Block-IO：InputStream和OutputStream，Reader和Writer（弄清楚四者区别）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#NonBlock-IO：构建多路复用的、同步非阻塞的IO操作"><span class="nav-number">1.1.0.2.3.</span> <span class="nav-text">NonBlock-IO：构建多路复用的、同步非阻塞的IO操作</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#IO多路复用：调用系统级别的select、poll、epoll"><span class="nav-number">1.1.0.2.3.1.</span> <span class="nav-text">IO多路复用：调用系统级别的select、poll、epoll</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#select、poll、epoll的区别"><span class="nav-number">1.1.0.2.3.2.</span> <span class="nav-text">select、poll、epoll的区别</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Asychronous-IO：基于事件和回调机制"><span class="nav-number">1.1.0.2.4.</span> <span class="nav-text">Asychronous IO：基于事件和回调机制</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#AIO如何进一步加工处理结果"><span class="nav-number">1.1.0.2.4.1.</span> <span class="nav-text">AIO如何进一步加工处理结果</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#BIO、NIO、AIO的对比"><span class="nav-number">1.1.0.2.5.</span> <span class="nav-text">BIO、NIO、AIO的对比</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hasson</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
