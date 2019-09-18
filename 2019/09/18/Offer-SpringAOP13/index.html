@@ -86,18 +86,20 @@
 
 
 
-<meta name="description" content="剑指Offer-05GC—垃圾回收机制GC相关的面试题Object的finalize()方法的作用是否与C++的析构函数作用相同（待验证）  与C++的析构函数不同，析构函数调用确定，而他不是确定的 将未被引用的对象放置于F-Queue队列 方法执行随时可能会被终止 给予对象最后一次重生机会   当执行System.gc的时候，运行finalize方法，将f对象的值传给finalization，获">
+<meta name="description" content="剑指Offer-13框架知识考点 SpringAOP关注点分离：不同的问题交给不同的部分去解决 为了将事务、日志等通用化代码与业务代码分离开  面向切面编程AOP正式这种技术的体现 通用化功能代码的实现，对应的就是所谓的切面（Aspect） 业务功能代码和切面代码分开后，架构将变得高内聚低耦合 确保功能的完整性：切面最终需要被合并到业务中（Weave）  AOP的三种织入方式 编译时织入：需要特殊">
 <meta name="keywords" content="剑指Offer">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Offer-GC05">
-<meta property="og:url" content="http://hasson.top/2019/09/02/Offer-GC05/index.html">
+<meta property="og:title" content="Offer-SpringAOP13">
+<meta property="og:url" content="http://hasson.top/2019/09/18/Offer-SpringAOP13/index.html">
 <meta property="og:site_name" content="Mr.Hassan">
-<meta property="og:description" content="剑指Offer-05GC—垃圾回收机制GC相关的面试题Object的finalize()方法的作用是否与C++的析构函数作用相同（待验证）  与C++的析构函数不同，析构函数调用确定，而他不是确定的 将未被引用的对象放置于F-Queue队列 方法执行随时可能会被终止 给予对象最后一次重生机会   当执行System.gc的时候，运行finalize方法，将f对象的值传给finalization，获">
+<meta property="og:description" content="剑指Offer-13框架知识考点 SpringAOP关注点分离：不同的问题交给不同的部分去解决 为了将事务、日志等通用化代码与业务代码分离开  面向切面编程AOP正式这种技术的体现 通用化功能代码的实现，对应的就是所谓的切面（Aspect） 业务功能代码和切面代码分开后，架构将变得高内聚低耦合 确保功能的完整性：切面最终需要被合并到业务中（Weave）  AOP的三种织入方式 编译时织入：需要特殊">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-01T16:20:04.500Z">
+<meta property="og:image" content="http://hasson.top/2019/09/18/Offer-SpringAOP13/result.png">
+<meta property="og:updated_time" content="2019-09-18T04:54:05.328Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Offer-GC05">
-<meta name="twitter:description" content="剑指Offer-05GC—垃圾回收机制GC相关的面试题Object的finalize()方法的作用是否与C++的析构函数作用相同（待验证）  与C++的析构函数不同，析构函数调用确定，而他不是确定的 将未被引用的对象放置于F-Queue队列 方法执行随时可能会被终止 给予对象最后一次重生机会   当执行System.gc的时候，运行finalize方法，将f对象的值传给finalization，获">
+<meta name="twitter:title" content="Offer-SpringAOP13">
+<meta name="twitter:description" content="剑指Offer-13框架知识考点 SpringAOP关注点分离：不同的问题交给不同的部分去解决 为了将事务、日志等通用化代码与业务代码分离开  面向切面编程AOP正式这种技术的体现 通用化功能代码的实现，对应的就是所谓的切面（Aspect） 业务功能代码和切面代码分开后，架构将变得高内聚低耦合 确保功能的完整性：切面最终需要被合并到业务中（Weave）  AOP的三种织入方式 编译时织入：需要特殊">
+<meta name="twitter:image" content="http://hasson.top/2019/09/18/Offer-SpringAOP13/result.png">
 
 
 
@@ -127,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://hasson.top/2019/09/02/Offer-GC05/">
+  <link rel="canonical" href="http://hasson.top/2019/09/18/Offer-SpringAOP13/">
 
 
 
 
 
-  <title>Offer-GC05 | Mr.Hassan</title>
+  <title>Offer-SpringAOP13 | Mr.Hassan</title>
   
 
 
@@ -260,7 +262,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/09/02/Offer-GC05/">
+    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/09/18/Offer-SpringAOP13/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hasson">
@@ -277,7 +279,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Offer-GC05</h1>
+          <h1 class="post-title" itemprop="name headline">Offer-SpringAOP13</h1>
         
 
         <div class="post-meta">
@@ -289,8 +291,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-02T00:17:10+08:00">
-                2019-09-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-18T12:48:26+08:00">
+                2019-09-18
               </time>
             
 
@@ -348,7 +350,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  537
+                  562
                 </span>
               
 
@@ -364,7 +366,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  2
                 </span>
               
             </div>
@@ -385,64 +387,56 @@
       
 
       
-        <h1 id="剑指Offer-05"><a href="#剑指Offer-05" class="headerlink" title="剑指Offer-05"></a>剑指Offer-05</h1><h2 id="GC—垃圾回收机制"><a href="#GC—垃圾回收机制" class="headerlink" title="GC—垃圾回收机制"></a>GC—垃圾回收机制</h2><h4 id="GC相关的面试题"><a href="#GC相关的面试题" class="headerlink" title="GC相关的面试题"></a>GC相关的面试题</h4><p><strong>Object的finalize()方法的作用是否与C++的析构函数作用相同（待验证）</strong></p>
+        <h1 id="剑指Offer-13"><a href="#剑指Offer-13" class="headerlink" title="剑指Offer-13"></a>剑指Offer-13</h1><p>框架知识考点</p>
+<h4 id="SpringAOP"><a href="#SpringAOP" class="headerlink" title="SpringAOP"></a>SpringAOP</h4><p><strong>关注点分离：不同的问题交给不同的部分去解决</strong></p>
+<p>为了将事务、日志等通用化代码与业务代码分离开</p>
 <ul>
-<li>与C++的析构函数不同，析构函数调用确定，而他不是确定的</li>
-<li>将未被引用的对象放置于F-Queue队列</li>
-<li>方法执行随时可能会被终止</li>
-<li>给予对象最后一次重生机会</li>
+<li>面向切面编程AOP正式这种技术的体现</li>
+<li>通用化功能代码的实现，对应的就是所谓的切面（Aspect）</li>
+<li>业务功能代码和切面代码分开后，架构将变得高内聚低耦合</li>
+<li>确保功能的完整性：切面最终需要被合并到业务中（Weave）</li>
 </ul>
-<blockquote>
-<p>当执行System.gc的时候，运行finalize方法，将f对象的值传给finalization，获得重生</p>
-</blockquote>
-<p><strong>Java中的强引用，软引用，弱引用，虚引用有什么用</strong></p>
-<p>强引用（Strong Reference）：</p>
-<p>不会被回收，对象一般状态，JVM停止运行时终止</p>
-<ul>
-<li>最普遍的引用：Object obj = new Object（）；</li>
-<li>抛出OutOfMemoryError终止程序也不会回收具有强引用的对象。</li>
-<li>通过将对象设置为null来弱化引用，使其被回收。</li>
+<h5 id="AOP的三种织入方式"><a href="#AOP的三种织入方式" class="headerlink" title="AOP的三种织入方式"></a>AOP的三种织入方式</h5><ul>
+<li>编译时织入：需要特殊的JAVA编译器，如AspectJ</li>
+<li>类加载时织入：需要特殊的Java编译器，如AspectJ和AspectWerkz</li>
+<li>运行时织入：Spring采用的方式，通过动态代理，实现简单</li>
 </ul>
-<p>软引用（Soft Reference）：</p>
-<p>内存不足时被回收，用于对象缓存，内存不足时终止</p>
-<ul>
-<li>对象处在有用但非必须的状态</li>
-<li>只有当内存空间不足时，GC会回收该引用的对象的内存</li>
-<li>可以用来实现高速缓存</li>
+<h5 id="AOP的主要名词概念"><a href="#AOP的主要名词概念" class="headerlink" title="AOP的主要名词概念"></a>AOP的主要名词概念</h5><ul>
+<li>Aspect（切面）：通用功能的代码实现</li>
+<li>Target：呗织入Aspect的对象</li>
+<li>JoinPoint：可以作为切入点的机会，所有方法都可以作为切入点</li>
+<li>Pointcut：Aspect实际被应用在的JoinPoint，支持正则表达式</li>
+<li>Advice：类里的方法以及这个方法如何织入到目标方法的方式</li>
+<li>Weaving：Aop的实现过程</li>
 </ul>
-<blockquote>
-<p>String str = new String(“abc”);//强引用</p>
-<p>SoftReference<string> softRef = new SoftRefence<string>(str);//软引用</string></string></p>
-</blockquote>
-<p>弱引用（Weak Reference）：</p>
-<p>垃圾回收时被回收，用于对象缓存，gc运行后终止</p>
-<ul>
-<li>非必需的对象，比软引用更弱一些</li>
-<li>GC时会回收</li>
-<li>被回收的概率不大，因为GC线程优先级比较低适用于引用偶尔被使用且不影响垃圾收集的对象</li>
+<h5 id="Advice的种类"><a href="#Advice的种类" class="headerlink" title="Advice的种类"></a>Advice的种类</h5><ul>
+<li>前置通知（Before）</li>
+<li>后置通知（AfterReturning）</li>
+<li>异常通知（AfterThrowing）</li>
+<li>最终通知（After）</li>
+<li>环绕通知（Around）</li>
 </ul>
-<blockquote>
-<p>String str = new String（“abc”）；</p>
-<p>WeakReference<string> abcWeakRef = new eakReference<string>str.</string></string></p>
-</blockquote>
-<p>虚引用（PhantomReference）：</p>
-<p>用于标记、哨兵</p>
-<ul>
-<li>不会决定对象的生命周期</li>
-<li>任何时候都可能被垃圾收集器回收</li>
-<li>跟踪对象被垃圾收集器回收的活动，有哨兵作用</li>
-<li>必须和引用队列ReferenceQueue联合使用</li>
+<h5 id="AOP的实现：JDKProxy（JDK动态代理）和Cglib"><a href="#AOP的实现：JDKProxy（JDK动态代理）和Cglib" class="headerlink" title="AOP的实现：JDKProxy（JDK动态代理）和Cglib"></a>AOP的实现：JDKProxy（JDK动态代理）和Cglib</h5><ul>
+<li>具体生成由AopProxyFactory根据AdvisedSupport对象的配置来决定</li>
+<li>默认策略如果目标类是接口，则用JDKProxy来实现，否则后者</li>
+<li>JDKProxy的核心：InvocationHandler接口和Proxy类</li>
+<li>Cglib：以继承的方式动态生成目标类的代理，以字节码实现代理</li>
+<li>JDKProxy：通过Java的内部反射机制实现</li>
+<li>Cglib：借助ASM实现</li>
+<li>反射机制在生成类的过程中比较高效</li>
+<li>ASM在生成类之后的执行过程中比较高效</li>
 </ul>
-<blockquote>
-<p>String str = new String(“abc”);</p>
-<p>ReferenceQueue queue = new ReferenceQueue();</p>
-<p>PhantomReference ref = new PhantomReference(str,queue);</p>
-</blockquote>
-<p>引用队列（ReferenceQueue）（待验证）</p>
-<ul>
-<li>无实际存储结构，存储逻辑依赖于内部节点之间的关系来表达</li>
-<li>存储关联的且被GC的软引用，弱引用以及虚引用</li>
+<h5 id="代理模式：接口-真实实现类-代理类"><a href="#代理模式：接口-真实实现类-代理类" class="headerlink" title="代理模式：接口+真实实现类+代理类"></a>代理模式：接口+真实实现类+代理类</h5><h5 id="Spring里的代理模式的实现"><a href="#Spring里的代理模式的实现" class="headerlink" title="Spring里的代理模式的实现"></a>Spring里的代理模式的实现</h5><ul>
+<li>真实实现类的逻辑包含了getBean方法里</li>
+<li>getBean方法返回的实际上是Proxy的实例，getBean用于查找或实例化容器中的Bean</li>
+<li>Proxy（代理类）实例时Spring采用的JDK Proxy或CGLIB动态生成的</li>
 </ul>
+<h5 id="Spring事务的相关考点"><a href="#Spring事务的相关考点" class="headerlink" title="Spring事务的相关考点"></a>Spring事务的相关考点</h5><ul>
+<li>ACID</li>
+<li>隔离级别</li>
+<li>事务传播</li>
+</ul>
+<p><img src="//hasson.top/2019/09/18/Offer-SpringAOP13/result.png" alt></p>
 
       
     </div>
@@ -473,8 +467,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/09/02/Offer-GC04/" rel="next" title="Offer-GC04">
-                <i class="fa fa-chevron-left"></i> Offer-GC04
+              <a href="/2019/09/18/Offer-SpringIOC12/" rel="next" title="Offer-SpringIOC12">
+                <i class="fa fa-chevron-left"></i> Offer-SpringIOC12
               </a>
             
           </div>
@@ -482,10 +476,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/09/02/Offer-Thread06/" rel="prev" title="Offer-Thread06">
-                Offer-Thread06 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -659,7 +649,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#剑指Offer-05"><span class="nav-number">1.</span> <span class="nav-text">剑指Offer-05</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GC—垃圾回收机制"><span class="nav-number">1.1.</span> <span class="nav-text">GC—垃圾回收机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GC相关的面试题"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">GC相关的面试题</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#剑指Offer-13"><span class="nav-number">1.</span> <span class="nav-text">剑指Offer-13</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SpringAOP"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">SpringAOP</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#AOP的三种织入方式"><span class="nav-number">1.0.0.1.1.</span> <span class="nav-text">AOP的三种织入方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AOP的主要名词概念"><span class="nav-number">1.0.0.1.2.</span> <span class="nav-text">AOP的主要名词概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Advice的种类"><span class="nav-number">1.0.0.1.3.</span> <span class="nav-text">Advice的种类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AOP的实现：JDKProxy（JDK动态代理）和Cglib"><span class="nav-number">1.0.0.1.4.</span> <span class="nav-text">AOP的实现：JDKProxy（JDK动态代理）和Cglib</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#代理模式：接口-真实实现类-代理类"><span class="nav-number">1.0.0.1.5.</span> <span class="nav-text">代理模式：接口+真实实现类+代理类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Spring里的代理模式的实现"><span class="nav-number">1.0.0.1.6.</span> <span class="nav-text">Spring里的代理模式的实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Spring事务的相关考点"><span class="nav-number">1.0.0.1.7.</span> <span class="nav-text">Spring事务的相关考点</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
