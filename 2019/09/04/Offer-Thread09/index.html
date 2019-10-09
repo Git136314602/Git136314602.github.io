@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="剑指Offer,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="剑指Offer-09Java多线程与并发-原理Java线程池 如果并发的线程非常多，并且线程执行时间短，就会频繁的创建和销毁线程，效率就会大大降低  利用Executors创建不同的线程池满足不同场景的需求  newFixedThreadPool(int nThreads)   指定工作线程数量的线程池 newCachedThreadPool()   处理大量短时间工作任务的线程池    （1）试">
+<meta name="keywords" content="剑指Offer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Offer-Thread09">
+<meta property="og:url" content="http://hasson.top/2019/09/04/Offer-Thread09/index.html">
+<meta property="og:site_name" content="Mr.Hassan">
+<meta property="og:description" content="剑指Offer-09Java多线程与并发-原理Java线程池 如果并发的线程非常多，并且线程执行时间短，就会频繁的创建和销毁线程，效率就会大大降低  利用Executors创建不同的线程池满足不同场景的需求  newFixedThreadPool(int nThreads)   指定工作线程数量的线程池 newCachedThreadPool()   处理大量短时间工作任务的线程池    （1）试">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-09-27T13:19:24.777Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Offer-Thread09">
+<meta name="twitter:description" content="剑指Offer-09Java多线程与并发-原理Java线程池 如果并发的线程非常多，并且线程执行时间短，就会频繁的创建和销毁线程，效率就会大大降低  利用Executors创建不同的线程池满足不同场景的需求  newFixedThreadPool(int nThreads)   指定工作线程数量的线程池 newCachedThreadPool()   处理大量短时间工作任务的线程池    （1）试">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://hasson.top/2019/09/04/Offer-Thread09/">
+
+
+
+
+
+  <title>Offer-Thread09 | Mr.Hassan</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr.Hassan</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://hasson.top/2019/09/04/Offer-Thread09/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hasson">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.Hassan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Offer-Thread09</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-04T21:16:51+08:00">
+                2019-09-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Offer/" itemprop="url" rel="index">
+                    <span itemprop="name">Offer</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="剑指Offer-09"><a href="#剑指Offer-09" class="headerlink" title="剑指Offer-09"></a>剑指Offer-09</h1><h2 id="Java多线程与并发-原理"><a href="#Java多线程与并发-原理" class="headerlink" title="Java多线程与并发-原理"></a>Java多线程与并发-原理</h2><h4 id="Java线程池"><a href="#Java线程池" class="headerlink" title="Java线程池"></a>Java线程池</h4><blockquote>
+<p>如果并发的线程非常多，并且线程执行时间短，就会频繁的创建和销毁线程，效率就会大大降低</p>
+</blockquote>
+<p><strong>利用Executors创建不同的线程池满足不同场景的需求</strong></p>
+<ul>
+<li>newFixedThreadPool(int nThreads)   指定工作线程数量的线程池</li>
+<li>newCachedThreadPool()   处理大量短时间工作任务的线程池</li>
+</ul>
+<blockquote>
+<ul>
+<li>（1）试图缓存线程并重用，当无缓存线程可用时，就会创建新的工作线程；</li>
+<li>（2）如果线程闲置的时间超过阈值，则会被终止并移出缓存；</li>
+<li>（3）系统长时间闲置的时候，不会消耗什么资源；</li>
+</ul>
+</blockquote>
+<ul>
+<li>newSingleThreadExecutor()   创建唯一的工作者线程来执行任务，如果线程异常结束，会有另一个线程来取代他</li>
+<li>newSingleThreadScheduledExecutor()与newScheduledThreadPool(int corePoolSize)   定时或者周期性的工作调度，两者的区别在于单一工作线程还是多线程</li>
+<li>newWorkStealingPool()   内部会创建ForkJoinPool，利用working-stealing算法，并行地处理任务，不保证处理顺序</li>
+</ul>
+<h5 id="Fork-Join框架"><a href="#Fork-Join框架" class="headerlink" title="Fork/Join框架"></a>Fork/Join框架</h5><ul>
+<li>把大任务分割成若干个小任务并行执行，最终汇总每个小任务结果后得到大任务结果的框架。</li>
+</ul>
+<blockquote>
+<p>Work-Stealing算法：某个线程从其他队列里窃取任务来执行。</p>
+<p>但如果有的小任务已完成等待其他任务完成，闲置会浪费。会使用双端队列，便于线程来窃取其他队列中等待的任务。（被窃取队列从头部拿任务，窃取从尾部）</p>
+</blockquote>
+<h5 id="为什么要使用线程池"><a href="#为什么要使用线程池" class="headerlink" title="为什么要使用线程池"></a>为什么要使用线程池</h5><ul>
+<li>降低资源消耗，重复利用已创建线程</li>
+<li>提高线程的可管理性</li>
+</ul>
+<h5 id="Executor框架"><a href="#Executor框架" class="headerlink" title="Executor框架"></a>Executor框架</h5><blockquote>
+<p>是一种将人物提交和任务执行分离开的机制。</p>
+</blockquote>
+<h5 id="J-U-C的三个Executor的结果"><a href="#J-U-C的三个Executor的结果" class="headerlink" title="J.U.C的三个Executor的结果"></a>J.U.C的三个Executor的结果</h5><ul>
+<li>Executor：运行新任务的简单接口，将任务提交和任务执行细节解耦</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Thread t = new Thread；</span><br><span class="line">t.start(); //正常线程开始执行</span><br><span class="line">executor.execute(t);//Executor接口的线程开始方法</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>ExecutorService:具备管理执行器和任务生命周期的方法，提交任务机制更完善；【submit（Callable）方法解决了Runnable没有返回接口的短板，完善了提交任务的机制】</li>
+<li>ScheduledExecutorService：支持Future的定期执行任务</li>
+</ul>
+<h5 id="ThreadPoolExecutor"><a href="#ThreadPoolExecutor" class="headerlink" title="ThreadPoolExecutor"></a><strong>ThreadPoolExecutor</strong></h5><p><strong>ThreadPoolExecutor的构造函数</strong></p>
+<ul>
+<li>corePoolSize：核心线程数量（长期驻留的线程）</li>
+<li>maximumPoolSize：线程不够用时能够创建的最大线程数</li>
+<li>workQueue：任务等待队列（当任务提交时，线程池中的线程数量&gt;=corePoolSize，会把其封装成work对象放入等待队列中）</li>
+<li>keepAliveTime：线程池允许的空闲时间，核心线程外的线程在期间内没有任务，则被销毁</li>
+<li>threadFactory：创建新线程，Executor.defaultThreadFactory()</li>
+<li>Handler:线程池的饱和策略，阻塞队列满了，还没有空闲线程，如果继续提交任务，有四种策略：</li>
+</ul>
+<blockquote>
+<ul>
+<li>AbortPolicy：直接抛出异常，默认策略</li>
+<li>CallerRunsPolicy：用调用者所在的线程来执行任务</li>
+<li>DiscardOldestPolicy：丢弃队列中最靠前的任务，并执行当前任务</li>
+<li>DiscardPolicy：直接丢弃任务</li>
+<li>实现RejectedExecutionHander接口的自定义Handler</li>
+</ul>
+</blockquote>
+<h5 id="新任务提交execute执行后的判断"><a href="#新任务提交execute执行后的判断" class="headerlink" title="新任务提交execute执行后的判断"></a>新任务提交execute执行后的判断</h5><ul>
+<li>如果运行的线程少于corePoolSize,则创建新线程来处理任务，即使线程池中其他线程是空闲的。</li>
+<li>如果线程池中的线程数量大于等于corePoolSize且小于maximumPoolSize，则只有当workQueue满时才创建新的线程去处理任务；</li>
+<li>如果设置的corePoolSize和maximumPoolSize相同，则创建的线程池的大小是固定的，这时如果有新任务提交，若workQueue未满，则将请求放入workQueue中，等待有空闲的线程去从workQueue中取任务并处理；</li>
+<li>如果运行的线程数量大于等于maximumPoolSize，这时如果workQueue已经满了，则通过handler所制定的策略来处理任务</li>
+</ul>
+<h5 id="线程池的状态"><a href="#线程池的状态" class="headerlink" title="线程池的状态"></a>线程池的状态</h5><ul>
+<li>RUNING:能接受新提交的任务，并且也能处理阻塞队列中的任务</li>
+<li>ShutDown：不再接受新提交的任务，但可以处理存量任务（阻塞队列中的任务）【running调用shutdown方法】</li>
+<li>Stop：不能接受新提交的任务，也不处理存量任务【running调用stop】</li>
+<li>Tidying:所有任务都已终止，有效线程数为0【shutdown或stop调用】</li>
+<li>Terminated：terminated（）方法执行完后进入该状态，（什么也不做，只是一个标识）</li>
+</ul>
+<p><strong>工作线程的生命周期</strong></p>
+<p>开始 -&gt; execute -&gt; 增加worker -&gt; 创建worker线程 -&gt; runWorker -&gt; 获取任务 -&gt; task == null 【-&gt; true -&gt; 结束线程 -&gt; 结束】【-&gt; false -&gt; 执行任务 —&gt; 结束线程或获取任务】</p>
+<h5 id="线程池的大小选定"><a href="#线程池的大小选定" class="headerlink" title="线程池的大小选定"></a>线程池的大小选定</h5><ul>
+<li>任务主计算：CPU密集型：线程数 = 按照核数或者核数 + 1  设定</li>
+<li>任务处理较多任务：I/O密集型： 线程书 = CPU核数 * (1 + 平均等待时间/平均工作时间 ）</li>
+</ul>
+<blockquote>
+<p>推荐书籍：《Java并发编程实战》</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/剑指Offer/" rel="tag"># 剑指Offer</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/04/Offer-Thread08/" rel="next" title="Offer-Thread08">
+                <i class="fa fa-chevron-left"></i> Offer-Thread08
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/07/Offer-类10/" rel="prev" title="Offer-类10">
+                Offer-类10 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Hasson">
+            
+              <p class="site-author-name" itemprop="name">Hasson</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Git136314602" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:a136314602@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/yourname" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://user.qzone.qq.com/136314602" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQ</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mac.weixin.qq.com" target="_blank" title="weixin">
+                      
+                        <i class="fa fa-fw fa-weixin"></i>weixin</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/6045337134" target="_blank" title="weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#剑指Offer-09"><span class="nav-number">1.</span> <span class="nav-text">剑指Offer-09</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java多线程与并发-原理"><span class="nav-number">1.1.</span> <span class="nav-text">Java多线程与并发-原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java线程池"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">Java线程池</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Fork-Join框架"><span class="nav-number">1.1.0.1.1.</span> <span class="nav-text">Fork/Join框架</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么要使用线程池"><span class="nav-number">1.1.0.1.2.</span> <span class="nav-text">为什么要使用线程池</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Executor框架"><span class="nav-number">1.1.0.1.3.</span> <span class="nav-text">Executor框架</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#J-U-C的三个Executor的结果"><span class="nav-number">1.1.0.1.4.</span> <span class="nav-text">J.U.C的三个Executor的结果</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ThreadPoolExecutor"><span class="nav-number">1.1.0.1.5.</span> <span class="nav-text">ThreadPoolExecutor</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#新任务提交execute执行后的判断"><span class="nav-number">1.1.0.1.6.</span> <span class="nav-text">新任务提交execute执行后的判断</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#线程池的状态"><span class="nav-number">1.1.0.1.7.</span> <span class="nav-text">线程池的状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#线程池的大小选定"><span class="nav-number">1.1.0.1.8.</span> <span class="nav-text">线程池的大小选定</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hasson</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
